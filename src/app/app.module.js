@@ -8,8 +8,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var forms_1 = require("@angular/forms");
+var http_1 = require("@angular/http");
 var user_registrationForm_1 = require("./user.registrationForm");
 var user_registrationPage_1 = require("./user.registrationPage");
+var header_1 = require("./header");
+var userRegistration_service_1 = require("./services/userRegistration.service");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -17,9 +20,10 @@ var AppModule = (function () {
 }());
 AppModule = __decorate([
     core_1.NgModule({
-        imports: [platform_browser_1.BrowserModule, forms_1.FormsModule],
-        declarations: [user_registrationPage_1.userRegPage, user_registrationForm_1.userRegForm],
-        bootstrap: [user_registrationPage_1.userRegPage, user_registrationForm_1.userRegForm]
+        imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, http_1.HttpModule],
+        declarations: [user_registrationPage_1.userRegPage, user_registrationForm_1.userRegForm, header_1.header],
+        providers: [userRegistration_service_1.UserRegistrationService],
+        bootstrap: [user_registrationPage_1.userRegPage, user_registrationForm_1.userRegForm, header_1.header]
     })
 ], AppModule);
 exports.AppModule = AppModule;
