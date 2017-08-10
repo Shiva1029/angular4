@@ -13,7 +13,6 @@ var userRegPage = (function () {
 }());
 userRegPage = __decorate([
     core_1.Component({
-        selector: 'user-reg-page',
         templateUrl: 'templates/userRegistrationPage.html'
     })
 ], userRegPage);
