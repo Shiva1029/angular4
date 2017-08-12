@@ -19,6 +19,7 @@ header = __decorate([
     core_1.Component({
         selector: 'header',
         templateUrl: 'templates/header.html',
+        styleUrls: ['style/header.css']
     }),
     __metadata("design:paramtypes", [core_1.ElementRef])
 ], header);

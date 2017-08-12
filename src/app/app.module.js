@@ -14,6 +14,7 @@ var forms_1 = require("@angular/forms");
 var http_1 = require("@angular/http");
 var router_1 = require("@angular/router");
 var main_component_1 = require("./main.component");
+var login_component_1 = require("./login.component");
 var user_registrationForm_component_1 = require("./user.registrationForm.component");
 var userRegistration_page_component_1 = require("./userRegistration.page.component");
 var header_component_1 = require("./header.component");
@@ -30,7 +31,7 @@ var AppModule = (function () {
 AppModule = __decorate([
     core_1.NgModule({
         imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, http_1.HttpModule, main_routings_module_1.MainRoutingModule],
-        declarations: [main_component_1.MainComponent, userRegistration_page_component_1.userRegPage, user_registrationForm_component_1.userRegForm, header_component_1.header, contact_page_component_1.contactUs],
+        declarations: [main_component_1.MainComponent, userRegistration_page_component_1.userRegPage, user_registrationForm_component_1.userRegForm, header_component_1.header, contact_page_component_1.contactUs, login_component_1.login],
         providers: [userRegistration_service_1.UserRegistrationService],
         bootstrap: [main_component_1.MainComponent]
     }),

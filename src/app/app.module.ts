@@ -5,6 +5,7 @@ import {HttpModule} from '@angular/http';
 import {Router} from '@angular/router';
 
 import {MainComponent} from './main.component';
+import {login} from './login.component';
 import {userRegForm} from './user.registrationForm.component';
 import {userRegPage} from './userRegistration.page.component';
 import {header} from './header.component';
@@ -14,7 +15,7 @@ import {contactUs} from "./contact.page.component";
 
 @NgModule({
     imports: [BrowserModule, FormsModule, HttpModule, MainRoutingModule],
-    declarations: [ MainComponent, userRegPage, userRegForm, header, contactUs],
+    declarations: [ MainComponent, userRegPage, userRegForm, header, contactUs, login],
     providers: [UserRegistrationService],
     bootstrap: [MainComponent]
 })
