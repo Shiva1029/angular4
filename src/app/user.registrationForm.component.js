@@ -45,6 +45,7 @@ var userRegForm = (function () {
         this.userObj.gender = this.gender;
         this.userRegService.submitUser(this.userObj)
             .subscribe(function (returnObj) {
+            _this.errorMessage = '';
             _this.successMessage = returnObj.message;
         }, function (error) { return _this.errorMessage = error; });
     };

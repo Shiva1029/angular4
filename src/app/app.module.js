@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var forms_1 = require("@angular/forms");
-var http_1 = require("@angular/http");
+var http_1 = require("@angular/common/http");
 var router_1 = require("@angular/router");
 var main_component_1 = require("./main.component");
 var login_component_1 = require("./login.component");
@@ -30,7 +30,7 @@ var AppModule = (function () {
 }());
 AppModule = __decorate([
     core_1.NgModule({
-        imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, http_1.HttpModule, main_routings_module_1.MainRoutingModule],
+        imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, http_1.HttpClientModule, main_routings_module_1.MainRoutingModule],
         declarations: [main_component_1.MainComponent, userRegistration_page_component_1.userRegPage, user_registrationForm_component_1.userRegForm, header_component_1.header, contact_page_component_1.contactUs, login_component_1.login],
         providers: [userRegistration_service_1.UserRegistrationService],
         bootstrap: [main_component_1.MainComponent]

@@ -1,9 +1,6 @@
 import {Injectable} from '@angular/core';
-import {Http, Response} from '@angular/http';
-import { Headers, RequestOptions } from '@angular/http';
-import {Observable} from 'rxjs/observable';
-import 'rxjs/Rx';
-import 'rxjs/add/operator/map'
+import {HttpClient, HttpHeaders, HttpErrorResponse} from '@angular/common/http';
+import {Observable} from 'rxjs/Observable';
 
 import {user} from './user';
 import {returnObj} from './returnObj';
@@ -11,22 +8,22 @@ import {returnObj} from './returnObj';
 @Injectable()
 export class UserRegistrationService {
     url = 'http://localhost/collegestash/userRegistration.php';
-    constructor(private http: Http) { }
 
-    submitUser(obj:user): Observable<returnObj> {
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
-        return this.http.post(this.url, obj, options)
-            .map(this.extractData)
-            .catch(this.handleErrorObservable);
+    constructor(private http: HttpClient) {
     }
 
-    private extractData(res: Response) {
-        let body = res.json();
-        return body || {};
+    submitUser(obj: user): Observable<returnObj> {
+        return this.http.post(this.url, obj)
+        /* .subscribe(res => {
+                  console.log(res);
+              },
+              (err: HttpErrorResponse) => {
+                  console.log(err.error);
+                  console.log(err.name);
+                  console.log(err.message);
+                  console.log(err.status);
+              });
+              */
     }
-    private handleErrorObservable (error: Response | any) {
-        console.error(error.message || error);
-        return Observable.throw(error.message || error);
-    }
+
 }

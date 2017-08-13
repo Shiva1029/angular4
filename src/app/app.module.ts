@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
-import {HttpModule} from '@angular/http';
+import {HttpClientModule} from '@angular/common/http';
 import {Router} from '@angular/router';
 
 import {MainComponent} from './main.component';
@@ -14,7 +14,7 @@ import {UserRegistrationService} from './services/userRegistration.service';
 import {contactUs} from "./contact.page.component";
 
 @NgModule({
-    imports: [BrowserModule, FormsModule, HttpModule, MainRoutingModule],
+    imports: [BrowserModule, FormsModule, HttpClientModule, MainRoutingModule],
     declarations: [ MainComponent, userRegPage, userRegForm, header, contactUs, login],
     providers: [UserRegistrationService],
     bootstrap: [MainComponent]

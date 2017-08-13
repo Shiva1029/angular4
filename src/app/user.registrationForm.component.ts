@@ -55,7 +55,7 @@ export class userRegForm implements OnInit {
 
         this.userRegService.submitUser(this.userObj)
             .subscribe(returnObj => {
-
+                    this.errorMessage = '';
                     this.successMessage = returnObj.message;
                 },
                 error => this.errorMessage = <any>error);
