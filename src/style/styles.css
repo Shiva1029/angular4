@@ -12,3 +12,11 @@ h1 {
     margin-left: 10px;
     margin-right: 10px;
 }
+
+.formLeftMargin {
+    margin-left:12px;
+}
+
+.logoText {
+    font-weight: bold;
+}

@@ -34,6 +34,8 @@ export class userRegForm implements OnInit {
     }
 
     onSubmit(): void {
+        this.errorMessage = '';
+
         this.arr = this.dob.split('-');
         this.currYear = new Date().getFullYear();
         this.currMonth = new Date().getMonth();
@@ -55,7 +57,6 @@ export class userRegForm implements OnInit {
 
         this.userRegService.submitUser(this.userObj)
             .subscribe(returnObj => {
-                    this.errorMessage = '';
                     this.successMessage = returnObj.message;
                 },
                 error => this.errorMessage = <any>error);
