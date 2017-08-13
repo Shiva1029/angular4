@@ -7,12 +7,22 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
-var login_component_1 = require("./login.component");
-var contact_page_component_1 = require("./contact.page.component");
-var userRegistration_page_component_1 = require("./userRegistration.page.component");
+var login_component_1 = require("../components/login.component");
+var userHome_component_1 = require("../components/userHome.component");
+var contact_page_component_1 = require("../components/contact.page.component");
+var userRegistration_page_component_1 = require("../components/userRegistration.page.component");
 var appRoutes = [
     {
         path: '',
+        redirectTo: '/login',
+        pathMatch: 'full'
+    },
+    {
+        path: 'userHome',
+        component: userHome_component_1.userHome
+    },
+    {
+        path: 'login',
         component: login_component_1.login
     },
     {
@@ -24,6 +34,30 @@ var appRoutes = [
         component: userRegistration_page_component_1.userRegPage
     }
 ];
+/*Adding Children and page not found
+{
+    path: 'crisis-center',
+    component: CrisisCenterComponent,
+    children: [
+      {
+        path: '',
+        component: CrisisListComponent,
+        children: [
+          {
+            path: ':id',
+            component: CrisisDetailComponent,
+            canDeactivate: [CanDeactivateGuard]
+          },
+          {
+            path: '',
+            component: CrisisCenterHomeComponent
+          }
+        ]
+      }
+    ]
+  },
+  { path: '**', component: PageNotFoundComponent }
+* */
 var MainRoutingModule = (function () {
     function MainRoutingModule() {
     }

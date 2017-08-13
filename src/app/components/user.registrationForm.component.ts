@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 
-import {UserRegistrationService} from './services/userRegistration.service';
-import {user} from './services/user';
-import {returnObj} from './services/returnObj';
+import {UserRegistrationService} from '../services/userRegistration.service';
+import {user} from '../services/user';
+import {returnObj} from '../services/returnObj';
 
 @Component({
     selector: 'user-reg-form',
@@ -26,6 +26,7 @@ export class userRegForm implements OnInit {
     gender: string
     errorMessage: string = '';
     successMessage: string = '';
+    loading: boolean = false;
 
     constructor(private userRegService: UserRegistrationService) {
     }
@@ -35,6 +36,7 @@ export class userRegForm implements OnInit {
 
     onSubmit(): void {
         this.errorMessage = '';
+        this.loading = true;
 
         this.arr = this.dob.split('-');
         this.currYear = new Date().getFullYear();
@@ -48,18 +50,25 @@ export class userRegForm implements OnInit {
             this.age--;
         }
 
-        this.userObj.fname = this.fname;
-        this.userObj.lname = this.lname;
-        this.userObj.email = this.email;
-        this.userObj.pwd = this.pwd;
-        this.userObj.dob = this.dob;
-        this.userObj.gender = this.gender;
+        if (this.age < 18) {
+            this.errorMessage = 'Minimum age is 18.';
+        }
 
-        this.userRegService.submitUser(this.userObj)
-            .subscribe(returnObj => {
-                    this.successMessage = returnObj.message;
-                },
-                error => this.errorMessage = <any>error);
+        if (this.errorMessage === '') {
+            this.userObj.fname = this.fname;
+            this.userObj.lname = this.lname;
+            this.userObj.email = this.email;
+            this.userObj.pwd = this.pwd;
+            this.userObj.dob = this.dob;
+            this.userObj.gender = this.gender;
+
+            this.userRegService.submitUser(this.userObj)
+                .subscribe(returnObj => {
+                        this.loading = false;
+                        this.successMessage = returnObj.message;
+                    },
+                    error => this.errorMessage = <any>error);
+            this.loading = false;
+        }
     }
-
 }

@@ -2,17 +2,17 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpErrorResponse} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 
-import {user} from './user';
+import {loginObj} from './loginObj';
 import {returnObj} from './returnObj';
 
 @Injectable()
-export class UserRegistrationService {
-    url = 'http://localhost/collegestash/userRegistration.php';
+export class UserLoginService {
+    url = 'http://localhost/collegestash/userLogin.php';
 
     constructor(private http: HttpClient) {
     }
 
-    submitUser(obj: user): Observable<returnObj> {
+    submitUser(obj: loginObj): Observable<returnObj> {
         return this.http.post(this.url, obj);
         /* .subscribe(res => {
                   console.log(res);

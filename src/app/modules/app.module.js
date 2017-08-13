@@ -13,14 +13,16 @@ var platform_browser_1 = require("@angular/platform-browser");
 var forms_1 = require("@angular/forms");
 var http_1 = require("@angular/common/http");
 var router_1 = require("@angular/router");
-var main_component_1 = require("./main.component");
-var login_component_1 = require("./login.component");
-var user_registrationForm_component_1 = require("./user.registrationForm.component");
-var userRegistration_page_component_1 = require("./userRegistration.page.component");
-var header_component_1 = require("./header.component");
+var main_component_1 = require("../components/main.component");
+var login_component_1 = require("../components/login.component");
+var userHome_component_1 = require("../components/userHome.component");
+var user_registrationForm_component_1 = require("../components/user.registrationForm.component");
+var userRegistration_page_component_1 = require("../components/userRegistration.page.component");
+var header_component_1 = require("../components/header.component");
 var main_routings_module_1 = require("./main.routings.module");
-var userRegistration_service_1 = require("./services/userRegistration.service");
-var contact_page_component_1 = require("./contact.page.component");
+var userRegistration_service_1 = require("../services/userRegistration.service");
+var userLogin_service_1 = require("../services/userLogin.service");
+var contact_page_component_1 = require("../components/contact.page.component");
 var AppModule = (function () {
     // Diagnostic only: inspect router configuration
     function AppModule(router) {
@@ -31,8 +33,8 @@ var AppModule = (function () {
 AppModule = __decorate([
     core_1.NgModule({
         imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, http_1.HttpClientModule, main_routings_module_1.MainRoutingModule],
-        declarations: [main_component_1.MainComponent, userRegistration_page_component_1.userRegPage, user_registrationForm_component_1.userRegForm, header_component_1.header, contact_page_component_1.contactUs, login_component_1.login],
-        providers: [userRegistration_service_1.UserRegistrationService],
+        declarations: [main_component_1.MainComponent, userHome_component_1.userHome, userRegistration_page_component_1.userRegPage, user_registrationForm_component_1.userRegForm, header_component_1.header, contact_page_component_1.contactUs, login_component_1.login],
+        providers: [userRegistration_service_1.UserRegistrationService, userLogin_service_1.UserLoginService],
         bootstrap: [main_component_1.MainComponent]
     }),
     __metadata("design:paramtypes", [router_1.Router])

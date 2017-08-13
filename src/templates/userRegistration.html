@@ -52,6 +52,7 @@
         </div>
     </fieldset>
 </form>
+<div *ngIf="loading" class="loader addLeftMargin"></div>
 <div class="row marginTop marginSides">
     <div class="alert alert-success" *ngIf="successMessage==='OK'">
         <strong><i class="fa fa-check" aria-hidden="true"></i> Success!</strong> User registered
