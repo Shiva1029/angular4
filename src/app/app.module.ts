@@ -1,7 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -11,6 +11,7 @@ import {LoginComponent} from './login/login.component';
 import {UserRegFormComponent} from './user-reg-form/user-reg-form.component';
 import {UserHomeComponent} from './user-home/user-home.component';
 import {UserRegPageComponent} from './user-reg-page/user-reg-page.component';
+import {NoopInterceptor} from './noop-interceptor';
 import {LoginService} from './login/login.service';
 import {UserRegistrationService} from './user-reg-form/user-registration.service';
 
@@ -29,7 +30,11 @@ import {UserRegistrationService} from './user-reg-form/user-registration.service
         AppRoutingModule,
         FormsModule, HttpClientModule
     ],
-    providers: [LoginService, UserRegistrationService],
+    providers: [{
+        provide: HTTP_INTERCEPTORS,
+        useClass: NoopInterceptor,
+        multi: true,
+    }, LoginService, UserRegistrationService],
     bootstrap: [AppComponent]
 })
 export class AppModule {

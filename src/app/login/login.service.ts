@@ -8,7 +8,7 @@ import {ReturnObj} from './return-obj';
 @Injectable()
 export class LoginService {
 
-    url = 'http://localhost/collegestash/userLogin.php';
+    url = 'http://localhost/collegestash/login.php';
 
     constructor(private http: HttpClient) {
     }
