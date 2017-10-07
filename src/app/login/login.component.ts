@@ -33,10 +33,14 @@ export class LoginComponent implements OnInit {
             this.loginObj.pwd = this.pwd;
             this.userLoginSer.submitUser(this.loginObj)
                 .subscribe(returnObj => {
-                        this.setCookie('token', returnObj.jwt, 30);
-                        this.router.navigate(['/userHome']);
-                        this.loading = false;
-                        this.successMessage = returnObj.message;
+                        if (returnObj.message === 'OK') {
+                            this.setCookie('token', returnObj.jwt, 30);
+                            this.router.navigate(['/userHome']);
+                            this.loading = false;
+                            this.successMessage = returnObj.message;
+                        } else {
+                            this.errorMessage = 'Sorry! Something went wrong!';
+                        }
                     },
                     error => this.errorMessage = <any>error);
             this.loading = false;
@@ -48,5 +52,9 @@ export class LoginComponent implements OnInit {
         d.setTime(d.getTime() + (mins * 60 * 1000));
         const expires = 'expires=' + d.toUTCString();
         document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/';
+    }
+
+    deleteCookie(name) {
+        document.cookie = name + '=;expires=' + new Date(1970, 0, 1).toUTCString() + ';path=/'
     }
 }

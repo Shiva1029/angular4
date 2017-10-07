@@ -1,19 +1,18 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpErrorResponse} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 
 import {User} from './user';
-import {ReturnObj} from './return-obj';
 
 @Injectable()
 export class UserRegistrationService {
-
+// Set root variable and reuse it for url as baseUrl.
     url = 'http://localhost/collegestash/userRegistration.php';
 
     constructor(private http: HttpClient) {
     }
 
-    submitUser(obj: User): Observable<ReturnObj> {
+    submitUser(obj: User): Observable<any> {
         return this.http.post(this.url, obj);
         /* .subscribe(res => {
                   console.log(res);

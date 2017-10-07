@@ -11,9 +11,11 @@ import {LoginComponent} from './login/login.component';
 import {UserRegFormComponent} from './user-reg-form/user-reg-form.component';
 import {UserHomeComponent} from './user-home/user-home.component';
 import {UserRegPageComponent} from './user-reg-page/user-reg-page.component';
-import {NoopInterceptor} from './noop-interceptor';
+import {AuthInterceptor} from './auth-interceptor';
 import {LoginService} from './login/login.service';
+import {LogoutService} from './logout/logout.service';
 import {UserRegistrationService} from './user-reg-form/user-registration.service';
+import {LogoutComponent} from './logout/logout.component';
 
 @NgModule({
     declarations: [
@@ -23,7 +25,8 @@ import {UserRegistrationService} from './user-reg-form/user-registration.service
         LoginComponent,
         UserRegFormComponent,
         UserHomeComponent,
-        UserRegPageComponent
+        UserRegPageComponent,
+        LogoutComponent
     ],
     imports: [
         BrowserModule,
@@ -32,9 +35,9 @@ import {UserRegistrationService} from './user-reg-form/user-registration.service
     ],
     providers: [{
         provide: HTTP_INTERCEPTORS,
-        useClass: NoopInterceptor,
+        useClass: AuthInterceptor,
         multi: true,
-    }, LoginService, UserRegistrationService],
+    }, LoginService, LogoutService, UserRegistrationService],
     bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -1,7 +1,8 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
 
 import {LoginComponent} from './login/login.component';
+import {LogoutComponent} from './logout/logout.component';
 import {UserHomeComponent} from './user-home/user-home.component';
 import {ContactComponent} from './contact/contact.component';
 import {UserRegPageComponent} from './user-reg-page/user-reg-page.component';
@@ -21,6 +22,10 @@ const routes: Routes = [
         component: LoginComponent
     },
     {
+        path: 'logout',
+        component: LogoutComponent
+    },
+    {
         path: 'contact',
         component: ContactComponent
     },
@@ -31,7 +36,8 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

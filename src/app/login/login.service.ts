@@ -3,7 +3,6 @@ import {HttpClient, HttpHeaders, HttpErrorResponse} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 
 import {LoginObj} from './login-obj';
-import {ReturnObj} from './return-obj';
 
 @Injectable()
 export class LoginService {
@@ -13,7 +12,7 @@ export class LoginService {
     constructor(private http: HttpClient) {
     }
 
-    submitUser(obj: LoginObj): Observable<ReturnObj> {
+    submitUser(obj: LoginObj): Observable<any> {
         return this.http.post(this.url, obj);
         /* .subscribe(res => {
                   console.log(res);
