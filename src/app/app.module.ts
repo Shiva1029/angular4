@@ -1,7 +1,9 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
+import { StoreModule } from '@ngrx/store';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -16,6 +18,7 @@ import {LoginService} from './login/login.service';
 import {LogoutService} from './logout/logout.service';
 import {UserRegistrationService} from './user-reg-form/user-registration.service';
 import {LogoutComponent} from './logout/logout.component';
+import { loginReducer } from './reducers/login';
 
 @NgModule({
     declarations: [
@@ -31,7 +34,12 @@ import {LogoutComponent} from './logout/logout.component';
     imports: [
         BrowserModule,
         AppRoutingModule,
-        FormsModule, HttpClientModule
+        FormsModule,
+        HttpClientModule,
+        StoreModule.forRoot({ login: loginReducer }),
+        StoreDevtoolsModule.instrument({
+            maxAge: 25
+        })
     ],
     providers: [{
         provide: HTTP_INTERCEPTORS,

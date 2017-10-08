@@ -1,6 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
+import {Store} from '@ngrx/store';
+import {Observable} from 'rxjs/Observable';
 
+import {LOGIN, LOGOUT} from '../reducers/login';
+import {LoginState} from '../reducers/login-state';
 import {LoginService} from './login.service';
 import {LoginObj} from './login-obj';
 
@@ -18,8 +22,10 @@ export class LoginComponent implements OnInit {
     pwd = '';
     rememberMe = false;
     loading = false;
+    login: Observable<boolean>;
 
-    constructor(private router: Router, private userLoginSer: LoginService) {
+    constructor(private router: Router, private userLoginSer: LoginService, private store: Store<LoginState>) {
+        this.login = store.select('login');
     }
 
     ngOnInit(): void {
@@ -35,6 +41,7 @@ export class LoginComponent implements OnInit {
                 .subscribe(returnObj => {
                         if (returnObj.message === 'OK') {
                             this.setCookie('token', returnObj.jwt, 30);
+                            this.loginCall();
                             this.router.navigate(['/userHome']);
                             this.loading = false;
                             this.successMessage = returnObj.message;
@@ -54,7 +61,7 @@ export class LoginComponent implements OnInit {
         document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/';
     }
 
-    deleteCookie(name) {
-        document.cookie = name + '=;expires=' + new Date(1970, 0, 1).toUTCString() + ';path=/'
+    loginCall() {
+        this.store.dispatch({type: LOGIN});
     }
 }
