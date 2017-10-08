@@ -26,6 +26,14 @@ export class LoginComponent implements OnInit {
 
     constructor(private router: Router, private userLoginSer: LoginService, private store: Store<LoginState>) {
         this.login = store.select('login');
+        this.login.subscribe(response => {
+                if (response) {
+                    this.router.navigate(['/userHome']);
+                }
+            }, err => {
+                // console.log(err);
+            }
+        );
     }
 
     ngOnInit(): void {

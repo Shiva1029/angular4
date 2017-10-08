@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
 
@@ -18,8 +19,16 @@ export class LogoutComponent implements OnInit {
     loading = false;
     login: Observable<boolean>;
 
-    constructor(private userLogoutSer: LogoutService, private store: Store<LoginState>) {
+    constructor(private router: Router, private userLogoutSer: LogoutService, private store: Store<LoginState>) {
         this.login = store.select('login');
+        this.login.subscribe(response => {
+                if (!response) {
+                    this.router.navigate(['/login']);
+                }
+            }, err => {
+                // console.log(err);
+            }
+        );
     }
 
     ngOnInit() {
