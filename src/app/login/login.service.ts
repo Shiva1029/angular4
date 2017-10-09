@@ -3,11 +3,12 @@ import {HttpClient, HttpHeaders, HttpErrorResponse} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 
 import {LoginObj} from './login-obj';
+import {baseUrl} from '../backend';
 
 @Injectable()
 export class LoginService {
 
-    url = 'http://localhost/collegestash/login.php';
+     url = `${baseUrl}login.php`;
 
     constructor(private http: HttpClient) {
     }

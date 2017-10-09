@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
 
-import {LOGIN, LOGOUT} from '../reducers/login';
+import {LOGIN} from '../reducers/login';
 import {LoginState} from '../reducers/login-state';
 import {LoginService} from './login.service';
 import {LoginObj} from './login-obj';

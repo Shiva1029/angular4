@@ -3,11 +3,12 @@ import {HttpClient, HttpHeaders, HttpErrorResponse} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 
 import {User} from './user';
+import {baseUrl} from '../backend';
 
 @Injectable()
 export class UserRegistrationService {
 // Set root variable and reuse it for url as baseUrl.
-    url = 'http://localhost/collegestash/userRegistration.php';
+    url = `${baseUrl}userRegistration.php`;
 
     constructor(private http: HttpClient) {
     }
