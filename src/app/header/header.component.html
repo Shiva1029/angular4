@@ -12,7 +12,7 @@
             <li *ngIf="showLogout" class="nav-item makePointer" routerLink="logout" routerLinkActive="active">
                 <a class="nav-link">Logout</a>
             </li>
-            <li class="nav-item makePointer" routerLink="signup" routerLinkActive="signup">
+            <li *ngIf="!showLogout" class="nav-item makePointer" routerLink="signup" routerLinkActive="signup">
                 <a class="nav-link">Signup</a>
             </li>
             <li class="nav-item makePointer" routerLink="contact" routerLinkActive="contact">
