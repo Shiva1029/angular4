@@ -20,4 +20,27 @@
 .search-icon {
   font-size: 18px;
   top: 6px;
+
+  &.back {
+    height: 36px;
+    width: 38px;
+    background-color: white;
+    border-bottom-left-radius: .25em;
+    border-top-left-radius: .25em;
+    padding: 10px;
+    color: grey;
+    border-right: none;
+  }
+}
+
+.nav-item {
+  &.makePointer {
+    cursor: pointer;
+  }
+}
+
+.searchInput {
+  border-top-left-radius: unset;
+  border-bottom-left-radius: unset;
+  border-left: none;
 }

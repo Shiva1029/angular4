@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
+import {Router} from '@angular/router';
 
 import {LOGIN} from './reducers/login';
 import {LoginState} from './reducers/login-state';
@@ -16,7 +17,7 @@ export class AppComponent {
     loading = false;
     login: Observable<boolean>;
 
-    constructor(private checkLoginSer: AppService, private store: Store<LoginState>) {
+    constructor(private router: Router, private checkLoginSer: AppService, private store: Store<LoginState>) {
         this.login = store.select('login');
         this.checkLogin();
     }
@@ -28,11 +29,11 @@ export class AppComponent {
                     if (returnObj.message === 'OK') {
                         this.loginCall();
                     } else {
-                        this.errorMessage = 'Sorry! Something went wrong!';
+                        this.router.navigate(['/login']);
                     }
                 },
                 error => {
-                    this.errorMessage = <any>error;
+                    this.router.navigate(['/login']);
                 });
     }
 
