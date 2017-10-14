@@ -15,6 +15,7 @@ import {UserHomeService} from './user-home.service';
 })
 export class UserHomeComponent implements OnInit {
     errorMessage = '';
+    jobSearch = '';
     loading = false;
     job: Observable<JobState>;
     jobs: JobState[];

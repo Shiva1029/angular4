@@ -2,9 +2,17 @@
 
 <div class="container">
     <div class="row">
+        <div class="col-4">
+            <div class="input-group margin-bottom-sm search-class-container">
+                <span class="input-group-addon search-class search-icon"><i class="fa fa-search fa-fw"></i></span>
+                <input [(ngModel)]="jobSearch" class="form-control search-class" type="text" placeholder="Search">
+            </div>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-6">
             <div *ngIf="loading" class="loader addLeftMargin"></div>
-            <div class="row job" *ngFor="let job of jobs" routerLink="/job/{{job.id}}">
+            <div class="row job" *ngFor="let job of jobs | searchJobs: jobSearch" routerLink="/job/{{job.id}}">
                 <div class="col-3">
                     {{job.title}} - {{job.company}}
                 </div>

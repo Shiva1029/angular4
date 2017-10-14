@@ -22,7 +22,8 @@ import {loginReducer} from './reducers/login';
 import {jobReducer} from './reducers/job';
 import {AppService} from './app.service';
 import {UserHomeService} from './user-home/user-home.service';
-import { JobDetailComponent } from './job-detail/job-detail.component';
+import {JobDetailComponent} from './job-detail/job-detail.component';
+import {SearchJobsPipe} from './filters/search-jobs.pipe';
 
 @NgModule({
     declarations: [
@@ -34,7 +35,8 @@ import { JobDetailComponent } from './job-detail/job-detail.component';
         UserHomeComponent,
         UserRegPageComponent,
         LogoutComponent,
-        JobDetailComponent
+        JobDetailComponent,
+        SearchJobsPipe
     ],
     imports: [
         BrowserModule,
