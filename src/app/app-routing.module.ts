@@ -4,6 +4,7 @@ import {Routes, RouterModule} from '@angular/router';
 import {LoginComponent} from './login/login.component';
 import {LogoutComponent} from './logout/logout.component';
 import {UserHomeComponent} from './user-home/user-home.component';
+import {JobDetailComponent} from './job-detail/job-detail.component';
 import {ContactComponent} from './contact/contact.component';
 import {UserRegPageComponent} from './user-reg-page/user-reg-page.component';
 
@@ -15,7 +16,11 @@ const routes: Routes = [
     },
     {
         path: 'userHome',
-        component: UserHomeComponent
+        component: UserHomeComponent,
+    },
+    {
+        path: 'job/:id',
+        component: JobDetailComponent
     },
     {
         path: 'login',

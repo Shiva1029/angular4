@@ -19,7 +19,10 @@ import {LogoutService} from './logout/logout.service';
 import {UserRegistrationService} from './user-reg-form/user-registration.service';
 import {LogoutComponent} from './logout/logout.component';
 import {loginReducer} from './reducers/login';
-import { AppService } from './app.service';
+import {jobReducer} from './reducers/job';
+import {AppService} from './app.service';
+import {UserHomeService} from './user-home/user-home.service';
+import { JobDetailComponent } from './job-detail/job-detail.component';
 
 @NgModule({
     declarations: [
@@ -30,14 +33,15 @@ import { AppService } from './app.service';
         UserRegFormComponent,
         UserHomeComponent,
         UserRegPageComponent,
-        LogoutComponent
+        LogoutComponent,
+        JobDetailComponent
     ],
     imports: [
         BrowserModule,
         AppRoutingModule,
         FormsModule,
         HttpClientModule,
-        StoreModule.forRoot({login: loginReducer}),
+        StoreModule.forRoot({login: loginReducer, job: jobReducer}),
         StoreDevtoolsModule.instrument({
             maxAge: 25
         })
@@ -46,7 +50,7 @@ import { AppService } from './app.service';
         provide: HTTP_INTERCEPTORS,
         useClass: AuthInterceptor,
         multi: true,
-    }, LoginService, LogoutService, UserRegistrationService, AppService],
+    }, LoginService, LogoutService, UserRegistrationService, AppService, UserHomeService],
     bootstrap: [AppComponent]
 })
 export class AppModule {

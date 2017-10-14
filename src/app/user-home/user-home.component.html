@@ -1,1 +1,17 @@
-<h2>User Home</h2>
+<h2>User Home - Jobs</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <div *ngIf="loading" class="loader addLeftMargin"></div>
+            <div class="row job" *ngFor="let job of jobs" routerLink="/job/{{job.id}}">
+                <div class="col-3">
+                    {{job.title}} - {{job.company}}
+                </div>
+                <div class="col-3">
+                    {{job.city}}, {{job.state}} - {{job.zip}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
