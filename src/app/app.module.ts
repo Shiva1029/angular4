@@ -15,7 +15,6 @@ import {UserHomeComponent} from './user-home/user-home.component';
 import {UserRegPageComponent} from './user-reg-page/user-reg-page.component';
 import {AuthInterceptor} from './auth-interceptor';
 import {LoginService} from './login/login.service';
-import {LogoutService} from './logout/logout.service';
 import {UserRegistrationService} from './user-reg-form/user-registration.service';
 import {LogoutComponent} from './logout/logout.component';
 import {loginReducer} from './reducers/login';
@@ -24,6 +23,7 @@ import {AppService} from './app.service';
 import {UserHomeService} from './user-home/user-home.service';
 import {JobDetailComponent} from './job-detail/job-detail.component';
 import {SearchJobsPipe} from './filters/search-jobs.pipe';
+import {CheckAuthGuard} from './check-auth.guard';
 
 @NgModule({
     declarations: [
@@ -52,7 +52,7 @@ import {SearchJobsPipe} from './filters/search-jobs.pipe';
         provide: HTTP_INTERCEPTORS,
         useClass: AuthInterceptor,
         multi: true,
-    }, LoginService, LogoutService, UserRegistrationService, AppService, UserHomeService],
+    }, LoginService, UserRegistrationService, AppService, UserHomeService, CheckAuthGuard],
     bootstrap: [AppComponent]
 })
 export class AppModule {

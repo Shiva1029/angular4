@@ -6,6 +6,7 @@ import {Router} from '@angular/router';
 import {LOGIN} from './reducers/login';
 import {LoginState} from './reducers/login-state';
 import {AppService} from './app.service';
+import {LoginService} from './login/login.service';
 
 @Component({
     selector: 'app-root',
@@ -17,7 +18,7 @@ export class AppComponent {
     loading = false;
     login: Observable<boolean>;
 
-    constructor(private router: Router, private checkLoginSer: AppService, private store: Store<LoginState>) {
+    constructor(private router: Router, private checkLoginSer: AppService, private loginService: LoginService, private store: Store<LoginState>) {
         this.login = store.select('login');
         this.checkLogin();
     }
@@ -28,6 +29,7 @@ export class AppComponent {
             .subscribe(returnObj => {
                     if (returnObj.message === 'OK') {
                         this.loginCall();
+                        this.loginService.onLogin();
                     } else {
                         this.router.navigate(['/login']);
                     }

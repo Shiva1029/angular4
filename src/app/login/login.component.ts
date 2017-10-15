@@ -50,6 +50,7 @@ export class LoginComponent implements OnInit {
                         if (returnObj.message === 'OK') {
                             this.setCookie('token', returnObj.jwt, 30);
                             this.loginCall();
+                            this.userLoginSer.onLogin();
                             this.router.navigate(['/userHome']);
                             this.loading = false;
                             this.successMessage = returnObj.message;

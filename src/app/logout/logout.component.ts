@@ -5,7 +5,7 @@ import {Observable} from 'rxjs/Observable';
 
 import {LOGIN, LOGOUT} from '../reducers/login';
 import {LoginState} from '../reducers/login-state';
-import {LogoutService} from './logout.service';
+import {LoginService} from '../login/login.service';
 
 @Component({
     selector: 'app-logout',
@@ -19,7 +19,7 @@ export class LogoutComponent implements OnInit {
     loading = false;
     login: Observable<boolean>;
 
-    constructor(private router: Router, private userLogoutSer: LogoutService, private store: Store<LoginState>) {
+    constructor(private router: Router, private userLogoutSer: LoginService, private store: Store<LoginState>) {
         this.login = store.select('login');
         this.login.subscribe(response => {
                 if (!response) {
@@ -39,11 +39,12 @@ export class LogoutComponent implements OnInit {
         this.loading = true;
         this.errorMessage = '';
         if (this.errorMessage === '') {
-            this.userLogoutSer.submitUser()
+            this.userLogoutSer.logoutUser()
                 .subscribe(returnObj => {
                         if (returnObj.message === 'OK') {
                             this.deleteCookie('token');
                             this.logout();
+                            this.userLogoutSer.onLogout();
                             this.loading = false;
                             this.successMessage = true;
                         } else {

@@ -6,7 +6,6 @@ import {Observable} from 'rxjs/Observable';
 import * as PostActions from '../reducers/job-actions';
 import {JobState} from '../reducers/job-state';
 import {JobStateInterface} from './job-state';
-import {LoginState} from '../reducers/login-state';
 import {UserHomeService} from './user-home.service';
 
 @Component({
@@ -20,25 +19,9 @@ export class UserHomeComponent implements OnInit {
     loading = false;
     job: Observable<JobState>;
     jobs: JobState[];
-    login: Observable<boolean>;
-    private counter = 0;
 
-    constructor(private router: Router, private userHomeSer: UserHomeService, private store: Store<JobStateInterface>,
-                private loginStore: Store<LoginState>) {
+    constructor(private router: Router, private userHomeSer: UserHomeService, private store: Store<JobStateInterface>) {
         this.job = store.select('job');
-        this.login = loginStore.select('login');
-        this.login.subscribe(response => {
-                if (!response) {
-                    if (this.counter === 0) {
-                        this.counter++;
-                    } else {
-                        this.router.navigate(['/login']);
-                    }
-                }
-            }, err => {
-                // console.log(err);
-            }
-        );
     }
 
     ngOnInit(): void {

@@ -3,10 +3,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
 
-import * as PostActions from '../reducers/job-actions';
 import {JobState} from '../reducers/job-state';
 import {JobStateInterface} from '../user-home/job-state';
-import {LoginState} from '../reducers/login-state';
 import {UserHomeService} from '../user-home/user-home.service';
 import {JobObj} from '../user-home/job-obj';
 
@@ -26,27 +24,13 @@ export class JobDetailComponent implements OnInit, OnDestroy {
     private selectedId: number;
     private sub: any;
     private jobObjSelected = new JobObj();
-    private counter = 0;
 
     constructor(private route: ActivatedRoute, private router: Router,
-                private userHomeSer: UserHomeService, private store: Store<JobStateInterface>, private loginStore: Store<LoginState>) {
+                private userHomeSer: UserHomeService, private store: Store<JobStateInterface>) {
         this.job = store.select('job');
         this.job.subscribe(response => {
                 if (response) {
                     this.jobSelected = response;
-                }
-            }, err => {
-                // console.log(err);
-            }
-        );
-        this.login = loginStore.select('login');
-        this.login.subscribe(response => {
-                if (!response) {
-                    if (this.counter === 0) {
-                        this.counter++;
-                    } else {
-                        this.router.navigate(['/login']);
-                    }
                 }
             }, err => {
                 // console.log(err);
