@@ -35,8 +35,10 @@ export class JobDetailComponent implements OnInit, OnDestroy {
         this.sub = this.route.params.subscribe(params => {
             // (+) before `params.get()` turns the string into a number
             this.selectedId = +params['id'];
-            this.getJob();
-            this.getJobDescription();
+            if (Math.floor(this.selectedId) === this.selectedId && this.selectedId >= 1) {
+                this.getJob();
+                this.getJobDescription();
+            }
         });
 
     }
