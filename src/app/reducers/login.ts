@@ -12,6 +12,6 @@ export function loginReducer(state: boolean = false, action: Action) {
             return false;
 
         default:
-            return false;
+            return state;
     }
 }

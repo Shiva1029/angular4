@@ -3,7 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
 
-import {ADDJOB} from '../reducers/job';
+import * as PostActions from '../reducers/job-actions';
 import {JobState} from '../reducers/job-state';
 import {JobStateInterface} from '../user-home/job-state';
 import {UserHomeService} from '../user-home/user-home.service';

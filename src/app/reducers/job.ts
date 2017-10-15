@@ -1,13 +1,31 @@
-import {Action} from '@ngrx/store';
+import * as PostActions from './job-actions';
+import {JobState} from './job-state';
 
-export const ADDJOB = 'ADDJOB';
+export type Action = PostActions.All;
 
-export function jobReducer(state: boolean = false, action: Action) {
+const emptyJobState = {
+    id: null,
+    title: null,
+    company: null,
+    city: null,
+    state: null,
+    zip: null,
+};
+
+const newState = (state, newData) => {
+    return Object.assign({}, state, newData);
+};
+
+export function jobReducer(state: JobState = emptyJobState, action: Action) {
     switch (action.type) {
-        case ADDJOB:
-            return true;
-
-        default:
-            return false;
+        case PostActions.ADDJOB: {
+            return newState(state, action.payload);
+        }
+        case PostActions.GETJOB: {
+            return Object.assign({}, state);
+        }
+        default: {
+            return Object.assign({}, state);
+        }
     }
 }

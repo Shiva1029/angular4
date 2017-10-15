@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
 
-import {ADDJOB} from '../reducers/job';
+import * as PostActions from '../reducers/job-actions';
 import {JobState} from '../reducers/job-state';
 import {JobStateInterface} from './job-state';
 import {UserHomeService} from './user-home.service';
@@ -36,7 +36,6 @@ export class UserHomeComponent implements OnInit {
                 .subscribe(returnObj => {
                         if (returnObj.message === 'OK') {
                             this.jobs = returnObj.data;
-                            // ADDJOB
                             this.loading = false;
                         } else {
                             this.errorMessage = 'Sorry! Something went wrong!';
@@ -48,6 +47,10 @@ export class UserHomeComponent implements OnInit {
                         this.loading = false;
                     });
         }
+    }
+
+    setJob(obj: JobState): void {
+        this.store.dispatch(new PostActions.AddJobPost(obj));
     }
 
 }
