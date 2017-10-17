@@ -31,13 +31,11 @@ export class AppComponent {
                     if (returnObj.message === 'OK') {
                         this.loginCall();
                         this.loginService.onLogin();
-                    } else {
-                        this.router.navigate(['/login']);
                     }
                 },
                 error => {
-                    this.router.navigate(['/login']);
-                }, () => {
+                },
+                () => {
                     this.loading = false;
                 });
     }

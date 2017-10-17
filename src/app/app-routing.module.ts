@@ -6,6 +6,7 @@ import {LogoutComponent} from './logout/logout.component';
 import {UserHomeComponent} from './user-home/user-home.component';
 import {JobDetailComponent} from './job-detail/job-detail.component';
 import {ContactComponent} from './contact/contact.component';
+import {ActivateComponent} from './activate/activate.component';
 import {UserRegPageComponent} from './user-reg-page/user-reg-page.component';
 import {CheckAuthGuard} from './check-auth.guard';
 import {CheckNotAuthGuard} from './check-not-auth.guard';
@@ -44,7 +45,12 @@ const routes: Routes = [
         path: 'signup',
         canActivate: [CheckNotAuthGuard],
         component: UserRegPageComponent
-    }
+    },
+    {
+        path: 'activate/:id',
+        canActivate: [CheckNotAuthGuard],
+        component: ActivateComponent
+    },
 ];
 
 @NgModule({

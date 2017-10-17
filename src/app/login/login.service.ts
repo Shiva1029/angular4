@@ -14,16 +14,6 @@ export class LoginService {
 
     submitUser(obj: LoginObj): Observable<any> {
         return this.http.post(`${baseUrl}login.php`, obj);
-        /* .subscribe(res => {
-                  console.log(res);
-              },
-              (err: HttpErrorResponse) => {
-                  console.log(err.error);
-                  console.log(err.name);
-                  console.log(err.message);
-                  console.log(err.status);
-              });
-              */
     }
 
     logoutUser(): Observable<any> {

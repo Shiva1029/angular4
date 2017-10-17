@@ -25,6 +25,8 @@ import {JobDetailComponent} from './job-detail/job-detail.component';
 import {SearchJobsPipe} from './filters/search-jobs.pipe';
 import {CheckAuthGuard} from './check-auth.guard';
 import {CheckNotAuthGuard} from './check-not-auth.guard';
+import { ActivateComponent } from './activate/activate.component';
+import { ActivateService } from './activate/activate.service';
 
 @NgModule({
     declarations: [
@@ -37,7 +39,8 @@ import {CheckNotAuthGuard} from './check-not-auth.guard';
         UserRegPageComponent,
         LogoutComponent,
         JobDetailComponent,
-        SearchJobsPipe
+        SearchJobsPipe,
+        ActivateComponent
     ],
     imports: [
         BrowserModule,
@@ -53,7 +56,7 @@ import {CheckNotAuthGuard} from './check-not-auth.guard';
         provide: HTTP_INTERCEPTORS,
         useClass: AuthInterceptor,
         multi: true,
-    }, LoginService, UserRegistrationService, AppService, UserHomeService, CheckAuthGuard, CheckNotAuthGuard],
+    }, LoginService, UserRegistrationService, AppService, UserHomeService, CheckAuthGuard, CheckNotAuthGuard, ActivateService],
     bootstrap: [AppComponent]
 })
 export class AppModule {

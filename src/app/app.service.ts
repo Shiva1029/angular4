@@ -10,13 +10,11 @@ import {baseUrl} from './backend';
 @Injectable()
 export class AppService {
 
-    url = `${baseUrl}isLoggedin.php`;
-
     constructor(private http: HttpClient) {
     }
 
     submitUser(): Observable<AppObject> {
-        return this.http.post<AppObject>(this.url, {})
+        return this.http.post<AppObject>(`${baseUrl}isLoggedin.php`, {})
             .do(data => {
             })
             .catch(this.handleError);
