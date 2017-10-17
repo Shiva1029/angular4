@@ -1,17 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 import {UserRegistrationService} from './user-registration.service';
 import {User} from './user';
-import {ReturnObj} from './return-obj';
 
 @Component({
-  selector: 'app-user-reg-form',
-  templateUrl: './user-reg-form.component.html',
-  styleUrls: ['./user-reg-form.component.scss']
+    selector: 'app-user-reg-form',
+    templateUrl: './user-reg-form.component.html',
+    styleUrls: ['./user-reg-form.component.scss']
 })
 export class UserRegFormComponent implements OnInit {
 
-    userObj: User
+    userObj = new User();
     fname = '';
     lname = '';
     email = '';
@@ -25,7 +24,7 @@ export class UserRegFormComponent implements OnInit {
     gender: string
     errorMessage = '';
     successMessage = '';
-    loading= false;
+    loading = false;
 
     constructor(private userRegService: UserRegistrationService) {
     }
