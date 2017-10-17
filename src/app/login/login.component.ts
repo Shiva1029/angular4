@@ -52,14 +52,17 @@ export class LoginComponent implements OnInit {
                             this.loginCall();
                             this.userLoginSer.onLogin();
                             this.router.navigate(['/userHome']);
-                            this.loading = false;
                             this.successMessage = returnObj.message;
                         } else {
                             this.errorMessage = 'Sorry! Something went wrong!';
                         }
                     },
-                    error => this.errorMessage = <any>error);
-            this.loading = false;
+                    error => {
+                        this.errorMessage = 'Sorry! Something went wrong!';
+                    },
+                    () => {
+                        this.loading = false;
+                    });
         }
     }
 

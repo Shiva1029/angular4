@@ -49,7 +49,7 @@ export class UserRegFormComponent implements OnInit {
         }
 
         if (this.age < 18) {
-            this.errorMessage = 'Minimum age is 18.';
+            this.errorMessage = 'The Minimum age is 18.';
         }
 
         if (this.errorMessage === '') {
@@ -62,11 +62,18 @@ export class UserRegFormComponent implements OnInit {
 
             this.userRegService.submitUser(this.userObj)
                 .subscribe(returnObj => {
-                        this.loading = false;
-                        this.successMessage = returnObj.message;
+                        if (returnObj.message === 'OK') {
+                            this.successMessage = 'An Email with an activation link has been sent!';
+                        } else {
+                            this.errorMessage = returnObj.message;
+                        }
                     },
-                    error => this.errorMessage = <any>error);
-            this.loading = false;
+                    error => {
+                        this.errorMessage = 'Sorry! Something went wrong.';
+                    },
+                    () => {
+                        this.loading = false;
+                    });
         }
     }
 

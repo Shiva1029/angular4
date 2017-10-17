@@ -18,7 +18,8 @@ export class AppComponent {
     loading = false;
     login: Observable<boolean>;
 
-    constructor(private router: Router, private checkLoginSer: AppService, private loginService: LoginService, private store: Store<LoginState>) {
+    constructor(private router: Router, private checkLoginSer: AppService,
+                private loginService: LoginService, private store: Store<LoginState>) {
         this.login = store.select('login');
         this.checkLogin();
     }
@@ -36,6 +37,8 @@ export class AppComponent {
                 },
                 error => {
                     this.router.navigate(['/login']);
+                }, () => {
+                    this.loading = false;
                 });
     }
 

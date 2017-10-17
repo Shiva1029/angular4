@@ -38,7 +38,6 @@ export class LogoutComponent implements OnInit {
                             this.logout();
                             this.userLogoutSer.onLogout();
                             this.router.navigate(['/login']);
-                            this.loading = false;
                             this.successMessage = true;
                         } else if (returnObj.message === 'login') {
                             this.router.navigate(['/login']);
@@ -46,8 +45,12 @@ export class LogoutComponent implements OnInit {
                             this.errorMessage = 'Sorry! Something went wrong!';
                         }
                     },
-                    error => this.errorMessage = <any>error);
-            this.loading = false;
+                    error => {
+                        this.errorMessage = 'Sorry! Something went wrong';
+                    },
+                    () => {
+                        this.loading = false;
+                    });
         }
     }
 
