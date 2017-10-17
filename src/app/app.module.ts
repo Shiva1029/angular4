@@ -24,6 +24,7 @@ import {UserHomeService} from './user-home/user-home.service';
 import {JobDetailComponent} from './job-detail/job-detail.component';
 import {SearchJobsPipe} from './filters/search-jobs.pipe';
 import {CheckAuthGuard} from './check-auth.guard';
+import {CheckNotAuthGuard} from './check-not-auth.guard';
 
 @NgModule({
     declarations: [
@@ -52,7 +53,7 @@ import {CheckAuthGuard} from './check-auth.guard';
         provide: HTTP_INTERCEPTORS,
         useClass: AuthInterceptor,
         multi: true,
-    }, LoginService, UserRegistrationService, AppService, UserHomeService, CheckAuthGuard],
+    }, LoginService, UserRegistrationService, AppService, UserHomeService, CheckAuthGuard, CheckNotAuthGuard],
     bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -68,6 +68,8 @@ export class JobDetailComponent implements OnInit, OnDestroy {
                         if (returnObj.message === 'OK') {
                             this.jobSelected = returnObj.data;
                             this.loading = false;
+                        }  else if (returnObj.message === 'login') {
+                            this.router.navigate(['/login']);
                         } else {
                             this.errorMessage = 'Sorry! Something went wrong!';
                             this.loading = false;
@@ -90,6 +92,8 @@ export class JobDetailComponent implements OnInit, OnDestroy {
                         if (returnObj.message === 'OK') {
                             this.jobDescription = returnObj.data;
                             this.loading = false;
+                        }  else if (returnObj.message === 'login') {
+                            this.router.navigate(['/login']);
                         } else {
                             this.errorMessage = 'Sorry! Something went wrong!';
                             this.loading = false;

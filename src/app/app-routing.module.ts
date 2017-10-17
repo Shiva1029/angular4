@@ -8,6 +8,7 @@ import {JobDetailComponent} from './job-detail/job-detail.component';
 import {ContactComponent} from './contact/contact.component';
 import {UserRegPageComponent} from './user-reg-page/user-reg-page.component';
 import {CheckAuthGuard} from './check-auth.guard';
+import {CheckNotAuthGuard} from './check-not-auth.guard';
 
 const routes: Routes = [
     {
@@ -27,10 +28,12 @@ const routes: Routes = [
     },
     {
         path: 'login',
+        canActivate: [CheckNotAuthGuard],
         component: LoginComponent
     },
     {
         path: 'logout',
+        canActivate: [CheckAuthGuard],
         component: LogoutComponent
     },
     {
@@ -39,6 +42,7 @@ const routes: Routes = [
     },
     {
         path: 'signup',
+        canActivate: [CheckNotAuthGuard],
         component: UserRegPageComponent
     }
 ];

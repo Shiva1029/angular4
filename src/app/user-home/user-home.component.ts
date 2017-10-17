@@ -37,6 +37,8 @@ export class UserHomeComponent implements OnInit {
                         if (returnObj.message === 'OK') {
                             this.jobs = returnObj.data;
                             this.loading = false;
+                        } else if (returnObj.message === 'login') {
+                            this.router.navigate(['/login']);
                         } else {
                             this.errorMessage = 'Sorry! Something went wrong!';
                             this.loading = false;
