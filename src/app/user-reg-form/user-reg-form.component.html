@@ -1,30 +1,30 @@
-<form (ngSubmit)="onSubmit()" #userRegistrationForm="ngForm" class="formLeftMargin">
+<form class="formLeftMargin">
   <fieldset>
     <legend>User Registration</legend>
     <div class="formLeftMargin">
       <div class="form-group">
         <label for="fname">First Name:</label>
-        <input [(ngModel)]="fname" type="text" class="form-control" id="fname" name="fname" required>
+        <input [(ngModel)]="fname" type="text" class="form-control" id="fname" name="fname">
       </div>
 
       <div class="form-group">
         <label for="lname">Last Name:</label>
-        <input [(ngModel)]="lname" type="text" class="form-control" id="lname" name="lname" required>
+        <input [(ngModel)]="lname" type="text" class="form-control" id="lname" name="lname">
       </div>
 
       <div class="form-group">
         <label for="email">Email:</label>
-        <input [(ngModel)]="email" type="email" class="form-control" id="email" name="email" required>
+        <input [(ngModel)]="email" type="email" class="form-control" id="email" name="email">
       </div>
 
       <div class="form-group">
         <label for="confirmEmail">Confirm Email:</label>
-        <input [(ngModel)]="cemail" type="email" class="form-control" id="confirmEmail" name="cemail" required>
+        <input [(ngModel)]="cemail" type="email" class="form-control" id="confirmEmail" name="cemail">
       </div>
 
       <div class="form-group">
         <label for="dob">DOB:</label>
-        <input [(ngModel)]="dob" type="date" class="form-control" id="dob" name="dob" required>
+        <input [(ngModel)]="dob" type="date" class="form-control" id="dob" name="dob">
       </div>
 
       <div class="form-group">
@@ -43,8 +43,8 @@
           <input type="radio" value="f" [(ngModel)]="gender" name="gender">F
         </label>
       </div>
-      <button type="submit" class="btn btn-info"
-              [disabled]="!userRegistrationForm.form.valid && email===cemail && pwd===cpwd"><i
+      <button type="submit" (click)="onSubmit()"type="submit" class="btn btn-info"
+              [disabled]="isNotValid()"><i
               class="fa fa-paper-plane"
               aria-hidden="true"></i>
         Submit

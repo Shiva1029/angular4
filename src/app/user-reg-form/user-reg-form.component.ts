@@ -14,17 +14,19 @@ export class UserRegFormComponent implements OnInit {
     fname = '';
     lname = '';
     email = '';
+    cemail = '';
     pwd = '';
+    cpwd = '';
     dob = '';
-    arr: string[]
-    currYear: number
-    currMonth: number
-    currDate: number
-    age: number
-    gender: string
+    gender = '';
     errorMessage = '';
     successMessage = '';
     loading = false;
+    arr: string[];
+    currYear: number;
+    currMonth: number;
+    currDate: number;
+    age: number;
 
     constructor(private userRegService: UserRegistrationService) {
     }
@@ -32,25 +34,71 @@ export class UserRegFormComponent implements OnInit {
     ngOnInit(): void {
     }
 
+    isNotValid(): boolean {
+        if (this.fname === '' ||
+            this.lname === '' ||
+            this.email === '' || this.pwd === '' || this.email.toLowerCase() !== this.cemail.toLowerCase() ||
+            this.pwd !== this.cpwd || !this.correctAge() || !this.correctEdu() || !this.passwordStrong() || this.gender === '') {
+            return true;
+        }
+        return false;
+    }
+
+    correctEdu(): boolean {
+        if (this.email) {
+            const patt = /^[a-z0-9\._\-]{1,34}@.[a-z0-9\._\-]{1,10}.?[a-z0-9\._\-]{0,9}.edu$/i;
+            return patt.test(this.email);
+        }
+        return false;
+    }
+
+    passwordStrong(): boolean {
+        if (this.pwd) {
+            this.pwd = this.pwd.trim();
+            if (this.pwd.length < 6 || this.pwd.length > 24) {
+                return false;
+            }
+            if (this.pwd.toLowerCase() === this.pwd) {
+                return false;
+            }
+            if (this.pwd.replace(/[a-z0-9]/gi, '') === '') {
+                return false;
+            }
+            if (this.pwd.replace(/[a-z]/gi, '') === '') {
+                return false;
+            }
+            if (this.pwd.replace(/[0-9]/gi, '') === '') {
+                return false;
+            }
+            return true;
+        }
+        return false;
+    }
+
+    correctAge(): boolean {
+        if (this.dob) {
+            this.arr = this.dob.split('-');
+            this.currYear = new Date().getFullYear();
+            this.currMonth = new Date().getMonth();
+            this.currDate = new Date().getDate();
+
+            this.age = this.currYear - parseInt(this.arr[0], 10);
+            if (this.currMonth < parseInt(this.arr[1], 10)) {
+                this.age--;
+            } else if (this.currMonth === parseInt(this.arr[1], 10) && this.currDate < parseInt(this.arr[2], 10)) {
+                this.age--;
+            }
+
+            if (this.age >= 18) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     onSubmit(): void {
         this.errorMessage = '';
         this.loading = true;
-
-        this.arr = this.dob.split('-');
-        this.currYear = new Date().getFullYear();
-        this.currMonth = new Date().getMonth();
-        this.currDate = new Date().getDate();
-
-        this.age = this.currYear - parseInt(this.arr[0], 10);
-        if (this.currMonth < parseInt(this.arr[1], 10)) {
-            this.age--;
-        } else if (this.currMonth === parseInt(this.arr[1], 10) && this.currDate < parseInt(this.arr[2], 10)) {
-            this.age--;
-        }
-
-        if (this.age < 18) {
-            this.errorMessage = 'The Minimum age is 18.';
-        }
 
         if (this.errorMessage === '') {
             this.userObj.fname = this.fname;
