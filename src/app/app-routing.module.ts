@@ -6,6 +6,7 @@ import {LogoutComponent} from './logout/logout.component';
 import {UserHomeComponent} from './user-home/user-home.component';
 import {JobDetailComponent} from './job-detail/job-detail.component';
 import {ContactComponent} from './contact/contact.component';
+import {SettingsComponent} from './settings/settings.component';
 import {ActivateComponent} from './activate/activate.component';
 import {UserRegPageComponent} from './user-reg-page/user-reg-page.component';
 import {CheckAuthGuard} from './check-auth.guard';
@@ -26,6 +27,11 @@ const routes: Routes = [
         path: 'job/:id',
         canActivate: [CheckAuthGuard],
         component: JobDetailComponent
+    },
+    {
+        path: 'settings',
+        canActivate: [CheckAuthGuard],
+        component: SettingsComponent,
     },
     {
         path: 'login',

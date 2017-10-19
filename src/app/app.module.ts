@@ -27,6 +27,8 @@ import {CheckAuthGuard} from './check-auth.guard';
 import {CheckNotAuthGuard} from './check-not-auth.guard';
 import { ActivateComponent } from './activate/activate.component';
 import { ActivateService } from './activate/activate.service';
+import { SettingsComponent } from './settings/settings.component';
+import { SettingsService } from './settings/settings.service';
 
 @NgModule({
     declarations: [
@@ -40,7 +42,8 @@ import { ActivateService } from './activate/activate.service';
         LogoutComponent,
         JobDetailComponent,
         SearchJobsPipe,
-        ActivateComponent
+        ActivateComponent,
+        SettingsComponent
     ],
     imports: [
         BrowserModule,
@@ -56,7 +59,7 @@ import { ActivateService } from './activate/activate.service';
         provide: HTTP_INTERCEPTORS,
         useClass: AuthInterceptor,
         multi: true,
-    }, LoginService, UserRegistrationService, AppService, UserHomeService, CheckAuthGuard, CheckNotAuthGuard, ActivateService],
+    }, LoginService, UserRegistrationService, AppService, UserHomeService, CheckAuthGuard, CheckNotAuthGuard, ActivateService, SettingsService],
     bootstrap: [AppComponent]
 })
 export class AppModule {

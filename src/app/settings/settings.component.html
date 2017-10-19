@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <form (ngSubmit)="onSubmit()" #userRegistrationForm="ngForm" class="formLeftMargin">
+                <fieldset>
+                    <legend>Settings</legend>
+                    <div class="formLeftMargin">
+                        <div class="form-group">
+                            <label for="pwd">Password:</label>
+                            <input [(ngModel)]="pwd" type="password" class="form-control" name="pwd" id="pwd">
+                        </div>
+                        <button type="submit" class="btn btn-info"
+                                [disabled]="!userRegistrationForm.form.valid"><i
+                                class="fa fa-paper-plane"
+                                aria-hidden="true"></i>
+                            Change Password
+                        </button>
+                    </div>
+                </fieldset>
+            </form>
+            <div *ngIf="loading" class="loader addLeftMargin"></div>
+            <div class="row marginTop marginSides">
+                <div class="alert alert-success" *ngIf="successMessage!==''">
+                    <strong><i class="fa fa-check" aria-hidden="true"></i> Success!</strong> {{successMessage}}
+                </div>
+                <div class="alert alert-danger" *ngIf="errorMessage!==''">
+                    <strong><i class="fa fa-remove" aria-hidden="true"></i> Error!</strong>
+                    {{errorMessage}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
