@@ -3,16 +3,16 @@
 <div class="container">
     <div class="row">
         <div class="col-4">
-            <div class="input-group margin-bottom-sm search-class-container">
+            <div class="input-group margin-bottom-sm search-class-container borderGrey">
                 <span class="input-group-addon search-class search-icon"><i class="fa fa-search fa-fw"></i></span>
-                <input [(ngModel)]="jobSearch" class="form-control search-class" type="text" placeholder="Search">
+                <input [(ngModel)]="jobSearch" class="form-control search-class removeFocus" type="text" placeholder="Search">
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-12">
             <div *ngIf="loading" class="loader addLeftMargin"></div>
-            <div class="row job" *ngFor="let job of jobs | searchJobs: jobSearch" routerLink="/job/{{job.id}}" (click)="setJob(job)">
+            <div class="row job" *ngFor="let job of jobs | searchJobs: jobSearch;" routerLink="/job/{{job.id}}" (click)="setJob(job)">
                 <div class="col-6">
                     {{job.title}} - {{job.company}}
                 </div>

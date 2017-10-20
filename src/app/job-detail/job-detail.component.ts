@@ -30,7 +30,7 @@ export class JobDetailComponent implements OnInit, OnDestroy {
         this.job = store.select('job');
         this.job.subscribe(response => {
                 if (response) {
-                    this.jobSelected = response;
+                    this.jobSelected = <JobState>response;
                 }
             }, err => {
                 // console.log(err);
