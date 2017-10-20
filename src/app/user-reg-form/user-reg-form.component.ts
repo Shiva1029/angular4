@@ -14,9 +14,7 @@ export class UserRegFormComponent implements OnInit {
     fname = '';
     lname = '';
     email = '';
-    cemail = '';
     pwd = '';
-    cpwd = '';
     dob = '';
     gender = '';
     errorMessage = '';
@@ -34,11 +32,15 @@ export class UserRegFormComponent implements OnInit {
     ngOnInit(): void {
     }
 
+    emailToLower(e): void {
+        this.email = this.email.toLowerCase();
+    }
+
     isNotValid(): boolean {
         if (this.fname === '' ||
             this.lname === '' ||
-            this.email === '' || this.pwd === '' || this.email.toLowerCase() !== this.cemail.toLowerCase() ||
-            this.pwd !== this.cpwd || !this.correctAge() || !this.correctEdu() || !this.passwordStrong() || this.gender === '') {
+            this.email === '' || this.pwd === '' || !this.correctName() || !this.correctAge() ||
+            !this.correctEdu() || !this.passwordStrong() || this.gender === '') {
             return true;
         }
         return false;
@@ -48,6 +50,21 @@ export class UserRegFormComponent implements OnInit {
         if (this.email) {
             const patt = /^[a-z0-9\._\-]{1,34}@.[a-z0-9\._\-]{1,10}.?[a-z0-9\._\-]{0,9}.edu$/i;
             return patt.test(this.email);
+        }
+        return false;
+    }
+
+    correctName(): boolean {
+        if (this.fname && this.lname) {
+            this.fname = this.fname.trim();
+            this.lname = this.lname.trim();
+            if (this.fname.replace(/[a-z ]/gi, '') !== '') {
+                return false;
+            }
+            if (this.lname.replace(/[a-z ]/gi, '') !== '') {
+                return false;
+            }
+            return true;
         }
         return false;
     }
