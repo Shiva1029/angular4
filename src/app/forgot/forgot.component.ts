@@ -14,6 +14,7 @@ export class ForgotComponent implements OnInit, OnDestroy {
 
     loading = false;
     errorMessage = '';
+    successMessage = '';
     token = '';
     pwd = '';
     private sub: any;
