@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 
 import {UserRegistrationService} from './user-registration.service';
 import {User} from './user';
+import 'rxjs/add/operator/finally';
 
 @Component({
     selector: 'app-user-reg-form',
@@ -126,6 +127,9 @@ export class UserRegFormComponent implements OnInit {
             this.userObj.gender = this.gender;
 
             this.userRegService.submitUser(this.userObj)
+                .finally(() => {
+                    this.loading = false;
+                })
                 .subscribe(returnObj => {
                         if (returnObj.message === 'OK') {
                             this.successMessage = 'An Email with an activation link has been sent!';
@@ -135,9 +139,6 @@ export class UserRegFormComponent implements OnInit {
                     },
                     error => {
                         this.errorMessage = 'Sorry! Something went wrong.';
-                    },
-                    () => {
-                        this.loading = false;
                     });
         }
     }

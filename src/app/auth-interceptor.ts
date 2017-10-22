@@ -21,13 +21,15 @@ function getCookie(cname) {
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        const changedReq = req.clone({headers: req.headers.set('Authorization', 'Bearer ' + getCookie('token'))});
+        const changedReq = req.clone({
+            headers: req.headers.set('Authorization', 'Bearer ' + getCookie('token'))
+        });
         return next.handle(changedReq);
-          /*  .do(event => {
-                if (event instanceof HttpResponse) {
-                    console.log(getCookie('token'));
-                }
-            });
-            */
+        /*  .do(event => {
+              if (event instanceof HttpResponse) {
+                  console.log(getCookie('token'));
+              }
+          });
+          */
     }
 }

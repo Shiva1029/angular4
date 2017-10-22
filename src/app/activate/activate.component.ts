@@ -1,5 +1,6 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
+import 'rxjs/add/operator/finally';
 
 import {ActivateService} from './activate.service';
 import {ActObj} from './act-obj';
@@ -41,6 +42,9 @@ export class ActivateComponent implements OnInit, OnDestroy {
     activateUser(): void {
         this.loading = false;
         this.activateSer.activateUser(this.act)
+            .finally(() => {
+                this.loading = false;
+            })
             .subscribe(returnObj => {
                     if (returnObj.message === 'OK') {
                         this.router.navigate(['/login']);
@@ -50,8 +54,6 @@ export class ActivateComponent implements OnInit, OnDestroy {
                 },
                 error => {
                     this.errorMessage = 'Sorry! Something went wrong!';
-                }, () => {
-                    this.loading = false;
                 });
     }
 

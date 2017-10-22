@@ -7,5 +7,6 @@ User Registration form/login using Angular 4.4.5
   - Backend implemented using PHP 7.1.8 (https://github.com/Shiva1029/php7User_Registration)
   
   ### Prod
-  For production you should disable the angular dev tools in `app.module.ts`
+  - For production you should disable the angular dev tools in `app.module.ts`
+  - `expose_php = off` in php.ini
   

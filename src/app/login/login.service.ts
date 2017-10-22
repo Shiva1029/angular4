@@ -8,7 +8,9 @@ import {baseUrl} from '../backend';
 
 @Injectable()
 export class LoginService {
-    isAlreadyValid = false;
+    isLoggedIn = false;
+    // store the URL so we can redirect after logging in
+    redirectUrl = '/userHome';
 
     constructor(private http: HttpClient) {
     }
@@ -22,15 +24,11 @@ export class LoginService {
     }
 
     onLogin() {
-        this.isAlreadyValid = true;
+        this.isLoggedIn = true;
     }
 
     onLogout() {
-        this.isAlreadyValid = false;
-    }
-
-    isLoggedIn(): boolean {
-        return this.isAlreadyValid;
+        this.isLoggedIn = false;
     }
 
     forgotPwd(obj: ForgotPwd): Observable<any> {

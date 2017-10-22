@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/finally';
 
 import {LOGIN, LOGOUT} from '../reducers/login';
 import {LoginState} from '../reducers/login-state';
@@ -32,6 +33,9 @@ export class LogoutComponent implements OnInit {
         this.errorMessage = '';
         if (this.errorMessage === '') {
             this.userLogoutSer.logoutUser()
+                .finally(() => {
+                    this.loading = false;
+                })
                 .subscribe(returnObj => {
                         if (returnObj.message === 'OK') {
                             this.deleteCookie('token');
@@ -47,9 +51,6 @@ export class LogoutComponent implements OnInit {
                     },
                     error => {
                         this.errorMessage = 'Sorry! Something went wrong';
-                    },
-                    () => {
-                        this.loading = false;
                     });
         }
     }

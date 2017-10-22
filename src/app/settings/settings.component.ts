@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import 'rxjs/add/operator/finally';
 
 import {ChgPwdObj} from './chg-pwd-obj';
 import {SettingsService} from './settings.service';
@@ -29,6 +30,9 @@ export class SettingsComponent implements OnInit {
         this.pwdObj.pwd = this.pwd;
         if (this.errorMessage === '') {
             this.settingsSer.changePassword(this.pwdObj)
+                .finally(() => {
+                    this.loading = false;
+                })
                 .subscribe(returnObj => {
                         if (returnObj.message === 'OK') {
                             this.successMessage = 'Password has been changed.';
@@ -38,9 +42,6 @@ export class SettingsComponent implements OnInit {
                     },
                     error => {
                         this.errorMessage = 'Sorry! Something went wrong!';
-                    },
-                    () => {
-                        this.loading = false;
                     });
         }
     }

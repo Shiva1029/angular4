@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/finally';
 
 import * as PostActions from '../reducers/job-actions';
 import {JobState} from '../reducers/job-state';
@@ -31,24 +32,22 @@ export class UserHomeComponent implements OnInit {
     getJobs(): void {
         this.loading = true;
         this.errorMessage = '';
-        if (this.errorMessage === '') {
             this.userHomeSer.getJobs()
+                .finally(() => {
+                    this.loading = false;
+                })
                 .subscribe(returnObj => {
                         if (returnObj.message === 'OK') {
                             this.jobs = returnObj.data;
-                            this.loading = false;
                         } else if (returnObj.message === 'login') {
-                            this.router.navigate(['/login']);
+                           this.router.navigate(['/login']);
                         } else {
                             this.errorMessage = 'Sorry! Something went wrong!';
-                            this.loading = false;
                         }
                     },
                     error => {
                         this.errorMessage = <any>error;
-                        this.loading = false;
                     });
-        }
     }
 
     setJob(obj: JobState): void {

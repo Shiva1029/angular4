@@ -2,6 +2,8 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/finally';
+import 'rxjs/add/operator/retry';
 
 import {JobState} from '../reducers/job-state';
 import {JobStateInterface} from '../user-home/job-state';
@@ -64,19 +66,20 @@ export class JobDetailComponent implements OnInit, OnDestroy {
         this.jobObjSelected.job = this.selectedId;
         if (this.errorMessage === '') {
             this.userHomeSer.getJob(this.jobObjSelected)
+                .finally(() => {
+                    this.loading = false;
+                })
                 .subscribe(returnObj => {
                         if (returnObj.message === 'OK') {
                             this.jobSelected = returnObj.data;
                         } else if (returnObj.message === 'login') {
-                            this.router.navigate(['/login']);
+                                this.router.navigate(['/login']);
                         } else {
                             this.errorMessage = 'Sorry! Something went wrong!';
                         }
                     },
                     error => {
                         this.errorMessage = 'Sorry! Something went wrong!';
-                    }, () => {
-                        this.loading = false;
                     });
         }
     }
@@ -86,20 +89,21 @@ export class JobDetailComponent implements OnInit, OnDestroy {
         this.errorMessage = '';
         this.jobObjSelected.job = this.selectedId;
         if (this.errorMessage === '') {
-            this.userHomeSer.getJobDescription(this.jobObjSelected)
+            this.userHomeSer.getJobDescription(this.jobObjSelected).retry(1)
+                .finally(() => {
+                    this.loading = false;
+                })
                 .subscribe(returnObj => {
                         if (returnObj.message === 'OK') {
                             this.jobDescription = returnObj.data;
                         } else if (returnObj.message === 'login') {
-                            this.router.navigate(['/login']);
+                                this.router.navigate(['/login']);
                         } else {
                             this.errorMessage = 'Sorry! Something went wrong!';
                         }
                     },
                     error => {
                         this.errorMessage = 'Sorry! Something went wrong!';
-                    }, () => {
-                        this.loading = false;
                     });
         }
     }

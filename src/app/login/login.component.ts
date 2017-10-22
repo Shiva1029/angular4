@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/finally';
 
 import {LOGIN} from '../reducers/login';
 import {LoginState} from '../reducers/login-state';
@@ -28,14 +29,6 @@ export class LoginComponent implements OnInit {
 
     constructor(private router: Router, private userLoginSer: LoginService, private store: Store<LoginState>) {
         this.login = store.select('login');
-        this.login.subscribe(response => {
-                if (response) {
-                    this.router.navigate(['/userHome']);
-                }
-            }, err => {
-                // console.log(err);
-            }
-        );
     }
 
     ngOnInit(): void {
@@ -48,12 +41,15 @@ export class LoginComponent implements OnInit {
             this.loginObj.email = this.email;
             this.loginObj.pwd = this.pwd;
             this.userLoginSer.submitUser(this.loginObj)
+                .finally(() => {
+                    this.loading = false;
+                })
                 .subscribe(returnObj => {
                         if (returnObj.message === 'OK') {
                             this.setCookie('token', returnObj.jwt, 30);
                             this.loginCall();
                             this.userLoginSer.onLogin();
-                            this.router.navigate(['/userHome']);
+                            this.router.navigate([this.userLoginSer.redirectUrl]);
                             this.successMessage = returnObj.message;
                         } else {
                             this.errorMessage = 'Sorry! Something went wrong!';
@@ -61,9 +57,6 @@ export class LoginComponent implements OnInit {
                     },
                     error => {
                         this.errorMessage = 'Sorry! Something went wrong!';
-                    },
-                    () => {
-                        this.loading = false;
                     });
         }
     }
@@ -104,6 +97,9 @@ export class LoginComponent implements OnInit {
         this.successMessage = '';
         this.fp.email = this.email;
         this.userLoginSer.forgotPwd(this.fp)
+            .finally(() => {
+                this.loading = false;
+            })
             .subscribe(returnObj => {
                     if (returnObj.message === 'OK') {
                         this.successMessage = 'An Email has been sent to change your password.';
@@ -113,10 +109,6 @@ export class LoginComponent implements OnInit {
                 },
                 error => {
                     this.errorMessage = 'Sorry! Something went wrong!';
-                    this.loading = false;
-                },
-                () => {
-                    this.loading = false;
                 });
     }
 }
