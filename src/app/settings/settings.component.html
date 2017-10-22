@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-12">
-            <form (ngSubmit)="onSubmit()" #userRegistrationForm="ngForm" class="formLeftMargin">
+            <form class="formLeftMargin">
                 <fieldset>
                     <legend>Settings</legend>
                     <div class="formLeftMargin">
@@ -10,7 +10,7 @@
                             <input [(ngModel)]="pwd" type="password" class="form-control" name="pwd" id="pwd">
                         </div>
                         <button type="submit" class="btn btn-info"
-                                [disabled]="!userRegistrationForm.form.valid"><i
+                                (click)="onSubmit()" [disabled]="isNotValid()"><i
                                 class="fa fa-paper-plane"
                                 aria-hidden="true"></i>
                             Change Password

@@ -29,6 +29,8 @@ import {ActivateComponent} from './activate/activate.component';
 import {ActivateService} from './activate/activate.service';
 import {SettingsComponent} from './settings/settings.component';
 import {SettingsService} from './settings/settings.service';
+import { ForgotComponent } from './forgot/forgot.component';
+import { ForgotService } from './forgot/forgot.service';
 
 @NgModule({
     declarations: [
@@ -43,7 +45,8 @@ import {SettingsService} from './settings/settings.service';
         JobDetailComponent,
         SearchJobsPipe,
         ActivateComponent,
-        SettingsComponent
+        SettingsComponent,
+        ForgotComponent
     ],
     imports: [
         BrowserModule,
@@ -60,7 +63,7 @@ import {SettingsService} from './settings/settings.service';
         useClass: AuthInterceptor,
         multi: true,
     }, LoginService, UserRegistrationService, AppService, UserHomeService,
-        CheckAuthGuard, CheckNotAuthGuard, ActivateService, SettingsService],
+        CheckAuthGuard, CheckNotAuthGuard, ActivateService, SettingsService, ForgotService],
     bootstrap: [AppComponent]
 })
 export class AppModule {

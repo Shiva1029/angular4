@@ -23,9 +23,8 @@ export class ActivateComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        // check if JOB exists if not send a request.
         this.sub = this.route.params.subscribe(params => {
-            this.token = params['id'];
+            this.token = params['token'];
             if (this.token !== '') {
                 this.act.token = this.token;
                 this.activateUser();

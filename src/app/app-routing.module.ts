@@ -9,6 +9,7 @@ import {ContactComponent} from './contact/contact.component';
 import {SettingsComponent} from './settings/settings.component';
 import {ActivateComponent} from './activate/activate.component';
 import {UserRegPageComponent} from './user-reg-page/user-reg-page.component';
+import {ForgotComponent} from './forgot/forgot.component';
 import {CheckAuthGuard} from './check-auth.guard';
 import {CheckNotAuthGuard} from './check-not-auth.guard';
 
@@ -53,9 +54,14 @@ const routes: Routes = [
         component: UserRegPageComponent
     },
     {
-        path: 'activate/:id',
+        path: 'activate/:token',
         canActivate: [CheckNotAuthGuard],
         component: ActivateComponent
+    },
+    {
+        path: 'forgot/:token',
+        canActivate: [CheckNotAuthGuard],
+        component: ForgotComponent
     },
 ];
 

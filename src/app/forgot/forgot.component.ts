@@ -1,41 +1,54 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 import 'rxjs/add/operator/finally';
 
-import {ChgPwdObj} from './chg-pwd-obj';
-import {SettingsService} from './settings.service';
+import {ForgotService} from './forgot.service';
+import {ForgotObj} from './forgot-obj';
 
 @Component({
-    selector: 'app-settings',
-    templateUrl: './settings.component.html',
-    styleUrls: ['./settings.component.scss']
+    selector: 'app-forgot',
+    templateUrl: './forgot.component.html',
+    styleUrls: ['./forgot.component.scss']
 })
-export class SettingsComponent implements OnInit {
+export class ForgotComponent implements OnInit, OnDestroy {
 
-    errorMessage = '';
-    successMessage = '';
     loading = false;
-    pwdObj = new ChgPwdObj();
+    errorMessage = '';
+    token = '';
     pwd = '';
+    private sub: any;
+    private fp = new ForgotObj();
 
-    constructor(private settingsSer: SettingsService) {
+    constructor(private route: ActivatedRoute, private router: Router,
+                private forgotSer: ForgotService) {
     }
 
     ngOnInit(): void {
+        this.sub = this.route.params.subscribe(params => {
+            this.token = params['token'];
+            if (this.token !== '') {
+                this.fp.token = this.token;
+            }
+        });
     }
 
-    onSubmit(): void {
-        this.loading = true;
-        this.errorMessage = '';
-        this.successMessage = '';
-        this.pwdObj.pwd = this.pwd;
-        if (this.errorMessage === '') {
-            this.settingsSer.changePassword(this.pwdObj)
+    ngOnDestroy(): void {
+        if (this.sub) {
+            this.sub.unsubscribe();
+        }
+    }
+
+    changePwd(): void {
+        this.loading = false;
+        if (this.fp.token) {
+            this.fp.pwd = this.pwd;
+            this.forgotSer.changePwd(this.fp)
                 .finally(() => {
                     this.loading = false;
                 })
                 .subscribe(returnObj => {
                         if (returnObj.message === 'OK') {
-                            this.successMessage = 'Password has been changed.';
+                            this.router.navigate(['/login']);
                         } else {
                             this.errorMessage = 'Sorry! Something went wrong!';
                         }
