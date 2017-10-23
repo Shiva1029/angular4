@@ -5,6 +5,7 @@ export class User {
     pwd: string;
     dob: string;
     gender: string;
+    recaptcha: string;
 
     constructor() {
     }

@@ -20,6 +20,7 @@ export class UserRegFormComponent implements OnInit {
     gender = '';
     errorMessage = '';
     successMessage = '';
+    recaptchaStr = '';
     loading = false;
     arr: string[];
     currYear: number;
@@ -114,7 +115,7 @@ export class UserRegFormComponent implements OnInit {
         return false;
     }
 
-    onSubmit(): void {
+    onUserRegSubmit(): void {
         this.errorMessage = '';
         this.loading = true;
 
@@ -125,6 +126,7 @@ export class UserRegFormComponent implements OnInit {
             this.userObj.pwd = this.pwd;
             this.userObj.dob = this.dob;
             this.userObj.gender = this.gender;
+            this.userObj.recaptcha = this.recaptchaStr;
 
             this.userRegService.submitUser(this.userObj)
                 .finally(() => {
@@ -141,6 +143,20 @@ export class UserRegFormComponent implements OnInit {
                         this.errorMessage = 'Sorry! Something went wrong.';
                     });
         }
+    }
+
+    public resolvedUserReg(captchaResponse: string): void {
+        this.recaptchaStr = captchaResponse;
+        if (this.recaptchaStr) {
+            this.onUserRegSubmit();
+        }
+    }
+
+    onUserRegClick(captchaRef: any): void {
+        if (this.recaptchaStr) {
+            captchaRef.reset();
+        }
+        captchaRef.execute();
     }
 
 }
