@@ -4,6 +4,12 @@ import {StoreModule} from '@ngrx/store';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+import {
+    RECAPTCHA_SETTINGS,
+    RecaptchaSettings,
+    RecaptchaLoaderService,
+    RecaptchaModule,
+} from 'ng-recaptcha';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -29,8 +35,10 @@ import {ActivateComponent} from './activate/activate.component';
 import {ActivateService} from './activate/activate.service';
 import {SettingsComponent} from './settings/settings.component';
 import {SettingsService} from './settings/settings.service';
-import { ForgotComponent } from './forgot/forgot.component';
-import { ForgotService } from './forgot/forgot.service';
+import {ForgotComponent} from './forgot/forgot.component';
+import {ForgotService} from './forgot/forgot.service';
+
+const globalSettings: RecaptchaSettings = {siteKey: '6LcFXzUUAAAAAAybdoCt1u0fy7uyy9nI30AG6JC7'};
 
 @NgModule({
     declarations: [
@@ -54,6 +62,7 @@ import { ForgotService } from './forgot/forgot.service';
         FormsModule,
         HttpClientModule,
         StoreModule.forRoot({login: loginReducer, job: jobReducer}),
+        RecaptchaModule.forRoot(),
         StoreDevtoolsModule.instrument({
             maxAge: 25
         })
@@ -62,6 +71,9 @@ import { ForgotService } from './forgot/forgot.service';
         provide: HTTP_INTERCEPTORS,
         useClass: AuthInterceptor,
         multi: true,
+    }, {
+        provide: RECAPTCHA_SETTINGS,
+        useValue: globalSettings,
     }, LoginService, UserRegistrationService, AppService, UserHomeService,
         CheckAuthGuard, CheckNotAuthGuard, ActivateService, SettingsService, ForgotService],
     bootstrap: [AppComponent]

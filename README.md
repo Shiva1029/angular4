@@ -9,4 +9,4 @@ User Registration form/login using Angular 4.4.5
   ### Prod
   - For production you should disable the angular dev tools in `app.module.ts`
   - `expose_php = off` in php.ini
-  
+  - Enter Google invisible reCaptcha key in `app.module.ts`

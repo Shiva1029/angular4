@@ -14,7 +14,11 @@
                                [(ngModel)]="pwd" name="pwd">
                         <div class="makePointer" (click)="forgotPasswordClick()">Forgot Password</div>
                     </div>
-                    <button (click)="onLoginSubmit()" [disabled]="isNotValid()" class="btn btn-info"
+                    <re-captcha
+                            #captchaRef="reCaptcha"
+                            (resolved)="resolvedLogin($event)"
+                            size="invisible"></re-captcha>
+                    <button (click)="onLoginClick(captchaRef)" [disabled]="isNotValid()" class="btn btn-info"
                             type="submit"><i
                             class="fa fa-paper-plane"
                             aria-hidden="true"></i> Submit
@@ -30,7 +34,11 @@
                         <label for="emailFP">Email address:</label>
                         <input [(ngModel)]="email" type="email" name="email" class="form-control" id="emailFP">
                     </div>
-                    <button (click)="onFPSubmit()" [disabled]="isNotValid()" class="btn btn-info" type="submit"><i
+                    <re-captcha
+                            #captchaRefFP="reCaptcha"
+                            (resolved)="resolvedFP($event)"
+                            size="invisible"></re-captcha>
+                    <button (click)="onLoginClick(captchaRefFP)" [disabled]="isNotValid()" class="btn btn-info" type="submit"><i
                             class="fa fa-paper-plane"
                             aria-hidden="true"></i> Submit
                     </button>

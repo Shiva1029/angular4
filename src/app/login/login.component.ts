@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
     loading = false;
     login: Observable<boolean>;
     showFP = false;
+    recaptchaStr = '';
     fp = new ForgotPwd();
 
     constructor(private router: Router, private userLoginSer: LoginService, private store: Store<LoginState>) {
@@ -40,6 +41,7 @@ export class LoginComponent implements OnInit {
         if (this.errorMessage === '') {
             this.loginObj.email = this.email;
             this.loginObj.pwd = this.pwd;
+            this.loginObj.recaptcha = this.recaptchaStr;
             this.userLoginSer.submitUser(this.loginObj)
                 .finally(() => {
                     this.loading = false;
@@ -59,6 +61,13 @@ export class LoginComponent implements OnInit {
                         this.errorMessage = 'Sorry! Something went wrong!';
                     });
         }
+    }
+
+    onLoginClick(captchaRef: any): void {
+        if (this.recaptchaStr) {
+            captchaRef.reset();
+        }
+        captchaRef.execute();
     }
 
     setCookie(cname, cvalue, mins): void {
@@ -110,6 +119,20 @@ export class LoginComponent implements OnInit {
                 error => {
                     this.errorMessage = 'Sorry! Something went wrong!';
                 });
+    }
+
+    public resolvedLogin(captchaResponse: string): void {
+        this.recaptchaStr = captchaResponse;
+        if (this.recaptchaStr) {
+            this.onLoginSubmit();
+        }
+    }
+
+    public resolvedFP(captchaResponse: string): void {
+        this.recaptchaStr = captchaResponse;
+        if (this.recaptchaStr) {
+            this.onFPSubmit();
+        }
     }
 }
 
