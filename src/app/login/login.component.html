@@ -13,15 +13,16 @@
                         <input type="password" class="form-control" id="pwd"
                                [(ngModel)]="pwd" name="pwd">
                         <div class="makePointer" (click)="forgotPasswordClick()">Forgot Password</div>
+                        <div class="makePointer" (click)="forgotPasswordClick()" routerLink="signup">Not Registered yet? Signup</div>
                     </div>
                     <re-captcha
                             #captchaRef="reCaptcha"
                             (resolved)="resolvedLogin($event)"
                             size="invisible"></re-captcha>
-                    <button (click)="onLoginClick(captchaRef)" [disabled]="isNotValid()" class="btn btn-info"
+                    <button (click)="onLoginClick(captchaRef)" [disabled]="isNotValid()" class="btn btn-lg btn-primary btn-block"
                             type="submit"><i
                             class="fa fa-paper-plane"
-                            aria-hidden="true"></i> Submit
+                            aria-hidden="true"></i> Login
                     </button>
                 </div>
             </fieldset>
@@ -38,9 +39,9 @@
                             #captchaRefFP="reCaptcha"
                             (resolved)="resolvedFP($event)"
                             size="invisible"></re-captcha>
-                    <button (click)="onLoginClick(captchaRefFP)" [disabled]="isNotValid()" class="btn btn-info" type="submit"><i
+                    <button (click)="onLoginClick(captchaRefFP)" [disabled]="isNotValid()" class="btn btn-lg btn-primary btn-block" type="submit"><i
                             class="fa fa-paper-plane"
-                            aria-hidden="true"></i> Submit
+                            aria-hidden="true"></i> Email
                     </button>
                 </div>
             </fieldset>
