@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 
 import {UserRegistrationService} from './user-registration.service';
 import {User} from './user';
+import {Recruiter} from './recruiter';
 import 'rxjs/add/operator/finally';
 
 @Component({
@@ -11,6 +12,7 @@ import 'rxjs/add/operator/finally';
 })
 export class UserRegFormComponent implements OnInit {
 
+    selected = 'student';
     userObj = new User();
     fname = '';
     lname = '';
@@ -27,6 +29,12 @@ export class UserRegFormComponent implements OnInit {
     currMonth: number;
     currDate: number;
     age: number;
+    name = '';
+    company = '';
+    remail = '';
+    rpwd = '';
+    recaptchaStrR = '';
+    recruiterObj = new Recruiter();
 
     constructor(private userRegService: UserRegistrationService) {
     }
@@ -36,6 +44,18 @@ export class UserRegFormComponent implements OnInit {
 
     emailToLower(e): void {
         this.email = this.email.toLowerCase();
+    }
+
+    emailToLowerR(e): void {
+        this.remail = this.remail.toLowerCase();
+    }
+
+    setActive(str: string): void {
+        this.selected = str;
+    }
+
+    isActive(str: string): boolean {
+        return this.selected === str;
     }
 
     isNotValid(): boolean {
@@ -50,7 +70,7 @@ export class UserRegFormComponent implements OnInit {
 
     correctEdu(): boolean {
         if (this.email) {
-            const patt = /^[a-z0-9\._\-]{1,34}@.[a-z0-9\._\-]{1,10}.?[a-z0-9\._\-]{0,9}.edu$/i;
+            const patt = /^[a-z0-9\._\-]{1,34}@[a-z0-9]{1,10}\.?[a-z0-9]{0,9}.edu$/i;
             return patt.test(this.email);
         }
         return false;
@@ -158,5 +178,100 @@ export class UserRegFormComponent implements OnInit {
         }
         captchaRef.execute();
     }
+
+    onRecruiterRegSubmit(): void {
+        this.errorMessage = '';
+        this.loading = true;
+
+        if (this.errorMessage === '') {
+            this.recruiterObj.name = this.name;
+            this.recruiterObj.company = this.company;
+            this.recruiterObj.email = this.remail;
+            this.recruiterObj.pwd = this.rpwd;
+            this.recruiterObj.recaptcha = this.recaptchaStrR;
+
+            this.userRegService.submitRecruiter(this.recruiterObj)
+                .finally(() => {
+                    this.loading = false;
+                })
+                .subscribe(returnObj => {
+                        if (returnObj.message === 'OK') {
+                            this.successMessage = 'An Email with an activation link has been sent!';
+                        } else {
+                            this.errorMessage = returnObj.message;
+                        }
+                    },
+                    error => {
+                        this.errorMessage = 'Sorry! Something went wrong.';
+                    });
+        }
+    }
+
+    public resolvedRecruiterReg(captchaResponse: string): void {
+        this.recaptchaStrR = captchaResponse;
+        if (this.recaptchaStrR) {
+            this.onRecruiterRegSubmit();
+        }
+    }
+
+    onRecruiterRegClick(captchaRef: any): void {
+        if (this.recaptchaStrR) {
+            captchaRef.reset();
+        }
+        captchaRef.execute();
+    }
+
+    correctNameRecruiter(): boolean {
+        if (this.name) {
+            this.name = this.name.trim()
+            if (this.name.replace(/[a-z ]/gi, '') !== '') {
+                return false;
+            }
+            return true;
+        }
+        return false;
+    }
+
+    isNotValidRecruiter(): boolean {
+        if (this.name === '' ||
+            this.company === '' ||
+            this.remail === '' || this.rpwd === '' || !this.correctNameRecruiter() ||
+            !this.correctEmail() || !this.passwordStrongRecruiter()) {
+            return true;
+        }
+        return false;
+    }
+
+    correctEmail(): boolean {
+        if (this.remail) {
+            const patt = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return patt.test(this.remail);
+        }
+        return false;
+    }
+
+    passwordStrongRecruiter(): boolean {
+        if (this.rpwd) {
+            this.rpwd = this.rpwd.trim();
+            if (this.rpwd.length < 6 || this.rpwd.length > 24) {
+                return false;
+            }
+            if (this.rpwd.toLowerCase() === this.rpwd) {
+                return false;
+            }
+            if (this.rpwd.replace(/[a-z0-9]/gi, '') === '') {
+                return false;
+            }
+            if (this.rpwd.replace(/[a-z]/gi, '') === '') {
+                return false;
+            }
+            if (this.rpwd.replace(/[0-9]/gi, '') === '') {
+                return false;
+            }
+            return true;
+        }
+        return false;
+    }
+
 
 }

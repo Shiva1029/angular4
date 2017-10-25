@@ -1,0 +1,12 @@
+.makePointer {
+  &:hover {
+    background-color: #d3d3d3;
+  }
+}
+
+.makeActivePointer {
+  &:hover {
+    color: #f5f5f5 !important;
+    background-color: #007bff !important;
+  }
+}
