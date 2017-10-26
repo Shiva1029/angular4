@@ -37,6 +37,10 @@ import {SettingsComponent} from './settings/settings.component';
 import {SettingsService} from './settings/settings.service';
 import {ForgotComponent} from './forgot/forgot.component';
 import {ForgotService} from './forgot/forgot.service';
+import {UserGuard} from './user.guard';
+import {RecruiterGuard} from './recruiter.guard';
+import { RecruiterHomeComponent } from './recruiter-home/recruiter-home.component';
+import { RecruiterHomeService } from './recruiter-home/recruiter-home.service';
 
 const globalSettings: RecaptchaSettings = {siteKey: '6LcFXzUUAAAAAAybdoCt1u0fy7uyy9nI30AG6JC7'};
 
@@ -54,7 +58,8 @@ const globalSettings: RecaptchaSettings = {siteKey: '6LcFXzUUAAAAAAybdoCt1u0fy7u
         SearchJobsPipe,
         ActivateComponent,
         SettingsComponent,
-        ForgotComponent
+        ForgotComponent,
+        RecruiterHomeComponent
     ],
     imports: [
         BrowserModule,
@@ -75,7 +80,7 @@ const globalSettings: RecaptchaSettings = {siteKey: '6LcFXzUUAAAAAAybdoCt1u0fy7u
         provide: RECAPTCHA_SETTINGS,
         useValue: globalSettings,
     }, LoginService, UserRegistrationService, AppService, UserHomeService,
-        CheckAuthGuard, CheckNotAuthGuard, ActivateService, SettingsService, ForgotService],
+        CheckAuthGuard, CheckNotAuthGuard, ActivateService, SettingsService, ForgotService, UserGuard, RecruiterGuard, RecruiterHomeService],
     bootstrap: [AppComponent]
 })
 export class AppModule {

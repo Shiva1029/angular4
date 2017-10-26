@@ -55,7 +55,7 @@
                     (resolved)="resolvedUserReg($event)"
                     size="invisible"></re-captcha>
             <button type="submit" (click)="onUserRegClick(captchaRef)" type="submit" class="btn btn-lg btn-success"
-                    [disabled]="isNotValid()"><i
+                    [disabled]="isNotValid() || loading"><i
                     class="fa fa-paper-plane"
                     aria-hidden="true"></i>
                 Sign up
@@ -90,7 +90,7 @@
                     size="invisible"></re-captcha>
             <button type="submit" (click)="onRecruiterRegClick(captchaRefRec)" type="submit"
                     class="btn btn-lg btn-success"
-                    [disabled]="isNotValidRecruiter()"><i
+                    [disabled]="isNotValidRecruiter() || loading"><i
                     class="fa fa-paper-plane"
                     aria-hidden="true"></i>
                 Sign up

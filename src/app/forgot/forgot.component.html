@@ -10,7 +10,7 @@
               <input [(ngModel)]="pwd" type="password" class="form-control" name="pwd" id="pwd">
             </div>
             <button type="submit" class="btn btn-info"
-                    (click)="changePwd()" [disabled]="isNotValid()"><i
+                    (click)="changePwd()" [disabled]="isNotValid() || loading"><i
                     class="fa fa-paper-plane"
                     aria-hidden="true"></i>
               Change Password

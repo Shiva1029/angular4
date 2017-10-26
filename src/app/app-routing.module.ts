@@ -12,6 +12,9 @@ import {UserRegPageComponent} from './user-reg-page/user-reg-page.component';
 import {ForgotComponent} from './forgot/forgot.component';
 import {CheckAuthGuard} from './check-auth.guard';
 import {CheckNotAuthGuard} from './check-not-auth.guard';
+import {UserGuard} from './user.guard';
+import {RecruiterGuard} from './recruiter.guard';
+import {RecruiterHomeComponent} from './recruiter-home/recruiter-home.component';
 
 const routes: Routes = [
     {
@@ -21,12 +24,17 @@ const routes: Routes = [
     },
     {
         path: 'userHome',
-        canActivate: [CheckAuthGuard],
+        canActivate: [CheckAuthGuard, UserGuard],
         component: UserHomeComponent,
     },
     {
+        path: 'recruiterHome',
+        canActivate: [CheckAuthGuard, RecruiterGuard],
+        component: RecruiterHomeComponent,
+    },
+    {
         path: 'job/:id',
-        canActivate: [CheckAuthGuard],
+        canActivate: [CheckAuthGuard, UserGuard],
         component: JobDetailComponent
     },
     {

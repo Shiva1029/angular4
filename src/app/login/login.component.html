@@ -19,7 +19,7 @@
                             #captchaRef="reCaptcha"
                             (resolved)="resolvedLogin($event)"
                             size="invisible"></re-captcha>
-                    <button (click)="onLoginClick(captchaRef)" [disabled]="isNotValid()" class="btn btn-lg btn-primary btn-block"
+                    <button (click)="onLoginClick(captchaRef)" [disabled]="isNotValid() || loading" class="btn btn-lg btn-primary btn-block"
                             type="submit"><i
                             class="fa fa-paper-plane"
                             aria-hidden="true"></i> Login
@@ -39,7 +39,7 @@
                             #captchaRefFP="reCaptcha"
                             (resolved)="resolvedFP($event)"
                             size="invisible"></re-captcha>
-                    <button (click)="onLoginClick(captchaRefFP)" [disabled]="isNotValid()" class="btn btn-lg btn-primary btn-block" type="submit"><i
+                    <button (click)="onLoginClick(captchaRefFP)" [disabled]="isNotValid() || loading" class="btn btn-lg btn-primary btn-block" type="submit"><i
                             class="fa fa-paper-plane"
                             aria-hidden="true"></i> Email
                     </button>
