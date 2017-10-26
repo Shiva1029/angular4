@@ -1,4 +1,4 @@
-export class ReturnObj {
+export class LogoutObj {
     message: string
     constructor() {
     }
