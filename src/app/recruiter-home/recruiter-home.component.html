@@ -1,17 +1,16 @@
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-lg btn-primary" [disabled]="loading" data-toggle="modal"
-        data-target="#exampleModal">
+<button type="button" class="btn btn-lg btn-primary makePointer" [disabled]="loading" data-toggle="modal"
+        data-target="#postJobModal">
     <i class="fa fa-podcast" aria-hidden="true"></i> Add Job
 </button>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
+<div class="modal fade" id="postJobModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add New Job!</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <h5 class="modal-title">Add New Job!</h5>
+                <button id="postJobModalClose" type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -19,25 +18,30 @@
                 <form>
                     <div class="form-group">
                         <label>Title</label>
-                        <input type="email" class="form-control" [(ngModel)]="title" name="title" placeholder="ex: Front End Engineer">
+                        <input type="email" class="form-control" [(ngModel)]="jobObj.title" name="title" placeholder="ex: Front End Engineer">
                     </div>
                     <div class="form-group">
                         <label>Location (zip)</label>
-                        <select [(ngModel)]="zip" name="zip">
-                            <option>10000</option>
-                            <option>45220</option>
-                        </select>
+                        <input type="number" min="705" max="99950" class="form-control" [(ngModel)]="jobObj.zip" name="zip">
                     </div>
                     <div class="form-group">
                         <label >Description</label>
-                        <textarea class="form-control" [(ngModel)]="description" name="description" rows="3"></textarea>
+                        <textarea class="form-control" [(ngModel)]="jobObj.description" name="description" rows="3"></textarea>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" (click)="postJob()" class="btn btn-primary">Post Job</button>
+                <button type="button" class="btn btn-secondary makePointer" data-dismiss="modal">Close</button>
+                <button type="submit" [disabled]="isNotValid()" (click)="postJob()" class="btn btn-primary makePointer">Post Job</button>
             </div>
         </div>
+    </div>
+</div>
+
+<div *ngIf="loading" class="loader addLeftMargin"></div>
+<div class="row marginTop marginSides">
+    <div class="alert alert-danger" *ngIf="errorMessage!==''">
+        <strong><i class="fa fa-remove" aria-hidden="true"></i> Error!</strong>
+        {{errorMessage}}
     </div>
 </div>
