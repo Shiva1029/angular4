@@ -54,6 +54,7 @@ export class LoginComponent implements OnInit {
                                 this.userLoginSer.user = false;
                             }
                             this.setCookie('token', returnObj.jwt, 30);
+                            this.setCookie('type', returnObj.type, 30);
                             this.loginCall();
                             this.userLoginSer.onLogin();
                             this.router.navigate([this.userLoginSer.redirectUrl]);

@@ -22,13 +22,17 @@ export class AppComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        if (this.getCookie('token') !== '') {
+        const type = this.getCookie('type');
+        if (this.getCookie('token') !== '' && type !== '') {
             this.loginCall();
             this.userLoginSer.onLogin();
+            if (type === 'recruiter') {
+                this.userLoginSer.user = false;
+            }
         }
     }
 
-    getCookie(cname): string {
+    getCookie(cname: string): string {
         const name = cname + '=';
         const decodedCookie = decodeURIComponent(document.cookie);
         const ca = decodedCookie.split(';');

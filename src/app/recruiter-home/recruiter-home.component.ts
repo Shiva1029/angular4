@@ -10,6 +10,8 @@ import {RecruiterHomeService} from './recruiter-home.service';
 })
 export class RecruiterHomeComponent implements OnInit {
 
+    loading = false;
+
     constructor(private router: Router, private recruiterHomeSer: RecruiterHomeService) {
     }
 

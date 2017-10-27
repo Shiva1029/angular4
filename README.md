@@ -1,6 +1,6 @@
 # angular4
-Angular 4.4.5
-User Registration form/login using Angular 4.4.5
+Angular 4.4.6
+User Registration form/login using Angular 4.4.6
   - Angular-cli
   - Saas (SCSS)
   - Uses Observables (POST)
