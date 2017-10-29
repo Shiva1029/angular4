@@ -2,13 +2,12 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/operator/finally';
-import 'rxjs/add/operator/retry';
 
 import {JobState} from '../reducers/job-state';
 import {JobStateInterface} from '../user-home/job-state';
 import {UserHomeService} from '../user-home/user-home.service';
 import {JobObj} from '../user-home/job-obj';
+import {timeAgo} from '../custom-lib/time-ago';
 
 @Component({
     selector: 'app-job-detail',
@@ -72,8 +71,9 @@ export class JobDetailComponent implements OnInit, OnDestroy {
                 .subscribe(returnObj => {
                         if (returnObj.message === 'OK') {
                             this.jobSelected = returnObj.data;
+                            this.convertToLocal();
                         } else if (returnObj.message === 'login') {
-                                this.router.navigate(['/login']);
+                            this.router.navigate(['/login']);
                         } else {
                             this.errorMessage = 'Sorry! Something went wrong!';
                         }
@@ -89,7 +89,7 @@ export class JobDetailComponent implements OnInit, OnDestroy {
         this.errorMessage = '';
         this.jobObjSelected.job = this.selectedId;
         if (this.errorMessage === '') {
-            this.userHomeSer.getJobDescription(this.jobObjSelected).retry(1)
+            this.userHomeSer.getJobDescription(this.jobObjSelected)
                 .finally(() => {
                     this.loading = false;
                 })
@@ -97,7 +97,7 @@ export class JobDetailComponent implements OnInit, OnDestroy {
                         if (returnObj.message === 'OK') {
                             this.jobDescription = returnObj.data;
                         } else if (returnObj.message === 'login') {
-                                this.router.navigate(['/login']);
+                            this.router.navigate(['/login']);
                         } else {
                             this.errorMessage = 'Sorry! Something went wrong!';
                         }
@@ -106,6 +106,10 @@ export class JobDetailComponent implements OnInit, OnDestroy {
                         this.errorMessage = 'Sorry! Something went wrong!';
                     });
         }
+    }
+
+    convertToLocal(): void {
+        this.jobSelected.time = timeAgo(new Date(parseInt(this.jobSelected.time, 10) * 1000));
     }
 
 }

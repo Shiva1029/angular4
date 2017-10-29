@@ -5,4 +5,5 @@ export interface JobState {
     city: string;
     state: string;
     zip: number;
+    time: string;
 }

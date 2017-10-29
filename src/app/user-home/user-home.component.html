@@ -23,17 +23,19 @@
                         <th>City</th>
                         <th>State</th>
                         <th>Zip</th>
+                        <th>Time</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr class="job" *ngFor="let job of jobs | searchJobs: jobSearch;" routerLink="/job/{{job.id}}"
                         (click)="setJob(job)">
-                        <td></td>
+                        <td>{{job.id}}</td>
                         <td>{{job.title}}</td>
                         <td>{{job.company}}</td>
                         <td>{{job.city}}</td>
                         <td>{{job.state}}</td>
                         <td>{{job.zip}}</td>
+                        <td>{{job.time}}</td>
                     </tr>
                     </tbody>
                 </table>
