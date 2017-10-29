@@ -24,16 +24,16 @@ export class RecruiterHomeComponent implements OnInit {
 
     isNotValid(): boolean {
         if (this.jobObj.title && this.jobObj.zip && this.jobObj.description) {
-            if (this.jobObj.title.replace(/[a-z0-9\-\.\/\\\"\'\@ ]/gi, '') !== '') {
+            if (this.jobObj.title.replace(/[a-z0-9\-\.\/\\\"\'\@ ]/gi, '') !== '' ||
+                this.jobObj.title.length < 6 || this.jobObj.title.length > 36) {
                 return true;
             }
-            if (this.jobObj.zip.toString().replace(/[0-9]/gi, '') !== '') {
+            if (this.jobObj.zip.toString().replace(/[0-9]/gi, '') !== '' ||
+                this.jobObj.zip < 705 || this.jobObj.zip > 99950) {
                 return true;
             }
-            if (this.jobObj.zip < 705 || this.jobObj.zip > 99950) {
-                return true;
-            }
-            if (this.jobObj.description.replace(/[a-z0-9\-\.\@\/\?\\\"\' ]/gi, '') !== '') {
+            if (this.jobObj.description.replace(/[a-z0-9\-\.\@\/\?\\\"\' ]/gi, '') !== '' ||
+                this.jobObj.description.length < 10 || this.jobObj.description.length > 500) {
                 return true;
             }
             return false;
