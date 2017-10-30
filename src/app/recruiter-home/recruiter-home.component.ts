@@ -11,6 +11,7 @@ import {JobObj} from './job-obj';
 import {JobStateObj} from './job-state-obj';
 import {RecruiterHomeService} from './recruiter-home.service';
 import {timeAgo} from '../custom-lib/time-ago';
+import {ToggleObj} from './toggle-obj';
 
 @Component({
     selector: 'app-recruiter-home',
@@ -24,7 +25,7 @@ export class RecruiterHomeComponent implements OnInit {
     jobSearch = '';
     job: Observable<JobState>;
     jobObj = new JobObj();
-    jobs: JobStateObj[]
+    jobs: JobStateObj[];
 
     constructor(private router: Router, private recruiterHomeSer: RecruiterHomeService, private store: Store<JobStateInterface>) {
         this.job = store.select('job');
@@ -103,8 +104,22 @@ export class RecruiterHomeComponent implements OnInit {
                 });
     }
 
-    toggleJob(id: number, visible: string): void {
+    toggleJob(job: JobStateObj): void {
+        this.recruiterHomeSer.toggleJob({'id': job.id, 'visible': (job.visible === 'y') ? 'n' : 'y'})
+            .finally(() => {
+                this.loading = false;
 
+            })
+            .subscribe(returnObj => {
+                    if (returnObj.message === 'OK') {
+                        job.visible = (job.visible === 'y') ? 'n' : 'y';
+                    } else {
+                        this.errorMessage = 'Sorry! Something went wrong!';
+                    }
+                },
+                error => {
+                    this.errorMessage = 'Sorry! Something went wrong!';
+                });
     }
 
 }

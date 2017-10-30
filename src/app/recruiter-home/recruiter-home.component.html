@@ -88,7 +88,7 @@
                         <td>{{job.zip}}</td>
                         <td>{{job.time}}</td>
                         <td>
-                            <button type="button" class="btn" (click)="toggleJob(job.id, job.visible)
+                            <button type="button" class="btn makePointer" (click)="toggleJob(job)
 "
                                     [ngClass]="{'btn-danger': job.visible === 'y', 'btn-success': job.visible === 'n'}">
                                 {{job.visible === 'y' ? 'Hide' : 'Show'}}
