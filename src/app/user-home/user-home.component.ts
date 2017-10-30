@@ -47,7 +47,7 @@ export class UserHomeComponent implements OnInit {
                     }
                 },
                 error => {
-                    this.errorMessage = <any>error;
+                    this.errorMessage = 'Sorry! Something went wrong!';
                 });
     }
 

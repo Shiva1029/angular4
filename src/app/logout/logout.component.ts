@@ -4,9 +4,13 @@ import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/finally';
 
-import {LOGIN, LOGOUT} from '../reducers/login';
+import {LOGOUT} from '../reducers/login';
 import {LoginState} from '../reducers/login-state';
 import {LoginService} from '../login/login.service';
+import * as PostActions from '../reducers/job-actions';
+import {JobState} from '../reducers/job-state';
+import {JobStateInterface} from '../user-home/job-state';
+import {JobStateObj} from './job-state-obj';
 
 @Component({
     selector: 'app-logout',
@@ -19,9 +23,11 @@ export class LogoutComponent implements OnInit {
     successMessage = false;
     loading = false;
     login: Observable<boolean>;
+    job: Observable<JobState>;
 
-    constructor(private router: Router, private userLogoutSer: LoginService, private store: Store<LoginState>) {
+    constructor(private router: Router, private userLogoutSer: LoginService, private store: Store<LoginState>, private jobStore: Store<JobStateInterface>) {
         this.login = store.select('login');
+        this.job = jobStore.select('job');
     }
 
     ngOnInit() {
@@ -41,6 +47,7 @@ export class LogoutComponent implements OnInit {
                             this.deleteCookie('token');
                             this.logout();
                             this.userLogoutSer.onLogout();
+                            this.setJobToNull(new JobStateObj());
                             this.router.navigate(['/login']);
                             this.successMessage = true;
                         } else if (returnObj.message === 'login') {
@@ -61,5 +68,9 @@ export class LogoutComponent implements OnInit {
 
     logout() {
         this.store.dispatch({type: LOGOUT});
+    }
+
+    setJobToNull(obj: JobState): void {
+        this.jobStore.dispatch(new PostActions.AddJobPost(obj));
     }
 }

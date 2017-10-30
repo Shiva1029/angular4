@@ -1,4 +1,4 @@
-export interface JobState {
+export class JobStateObj {
     id: number;
     title: string;
     company: string;
@@ -6,4 +6,8 @@ export interface JobState {
     state: string;
     zip: number;
     time: string;
+    visible: string;
+
+    constructor() {
+    }
 }

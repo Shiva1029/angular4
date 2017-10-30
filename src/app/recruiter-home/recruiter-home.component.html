@@ -47,3 +47,57 @@
         </div>
     </div>
 </div>
+
+<h2>Your Jobs</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+            <div class="input-group margin-bottom-sm search-class-container borderGrey">
+                <span class="input-group-addon search-class search-icon"><i class="fa fa-search fa-fw"></i></span>
+                <input [(ngModel)]="jobSearch" class="form-control search-class removeFocus" type="text"
+                       placeholder="Search">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div *ngIf="loading" class="loader addLeftMargin"></div>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead class="thead-cs">
+                    <tr>
+                        <th>#</th>
+                        <th>Title</th>
+                        <th>Company</th>
+                        <th>City</th>
+                        <th>State</th>
+                        <th>Zip</th>
+                        <th>Time</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="job" *ngFor="let job of jobs | searchJobs: jobSearch; let i = index" routerLink="/job/{{job.id}}"
+                        (click)="setJob(job)">
+                        <td>{{job.id}}</td>
+                        <td>{{job.title}}</td>
+                        <td>{{job.company}}</td>
+                        <td>{{job.city}}</td>
+                        <td>{{job.state}}</td>
+                        <td>{{job.zip}}</td>
+                        <td>{{job.time}}</td>
+                        <td>
+                            <button type="button" class="btn" (click)="toggleJob(job.id, job.visible)
+"
+                                    [ngClass]="{'btn-danger': job.visible === 'y', 'btn-success': job.visible === 'n'}">
+                                {{job.visible === 'y' ? 'Hide' : 'Show'}}
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -14,7 +14,8 @@ const emptyJobState = {
 };
 
 const newState = (state, newData) => {
-    return Object.assign({}, state, newData);
+   // return Object.assign({}, state, newData);
+    return Object.assign({}, newData);
 };
 
 export function jobReducer(state: JobState = emptyJobState, action: Action) {

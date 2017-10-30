@@ -1,0 +1,33 @@
+.job {
+  cursor: pointer;
+}
+
+.search-class {
+  border: none;
+  background: #ffffff;
+}
+
+.search-icon {
+  padding-right: 0;
+}
+
+.search-class-container {
+  border: 1px solid #336699;
+  border-radius: 4px;
+  max-width: 400px;
+  margin: 6px 6px 6px 0;
+}
+
+.removeFocus:focus {
+  border: none;
+  box-shadow: none;
+}
+
+.borderGrey {
+  border-color: #808080;
+}
+
+.thead-cs {
+  color: #ffffff;
+  background-color: #343a40;
+}

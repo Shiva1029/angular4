@@ -1,9 +1,16 @@
 import {Component, OnInit} from '@angular/core';
+import {Store} from '@ngrx/store';
 import {Router} from '@angular/router';
+import {Observable} from 'rxjs/Observable';
 import * as $ from 'jquery';
 
+import * as PostActions from '../reducers/job-actions';
+import {JobState} from '../reducers/job-state';
+import {JobStateInterface} from '../user-home/job-state';
 import {JobObj} from './job-obj';
+import {JobStateObj} from './job-state-obj';
 import {RecruiterHomeService} from './recruiter-home.service';
+import {timeAgo} from '../custom-lib/time-ago';
 
 @Component({
     selector: 'app-recruiter-home',
@@ -14,12 +21,49 @@ export class RecruiterHomeComponent implements OnInit {
 
     loading = false;
     errorMessage = '';
+    jobSearch = '';
+    job: Observable<JobState>;
     jobObj = new JobObj();
+    jobs: JobStateObj[]
 
-    constructor(private router: Router, private recruiterHomeSer: RecruiterHomeService) {
+    constructor(private router: Router, private recruiterHomeSer: RecruiterHomeService, private store: Store<JobStateInterface>) {
+        this.job = store.select('job');
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
+        this.getJobs();
+    }
+
+    getJobs(): void {
+        this.loading = true;
+        this.errorMessage = '';
+        this.recruiterHomeSer.getJobs()
+            .finally(() => {
+                this.loading = false;
+            })
+            .subscribe(returnObj => {
+                    if (returnObj.message === 'OK') {
+                        this.jobs = returnObj.data;
+                        this.convertToLocal();
+                    } else if (returnObj.message === 'login') {
+                        this.router.navigate(['/login']);
+                    } else {
+                        this.errorMessage = 'Sorry! Something went wrong!';
+                    }
+                },
+                error => {
+                    this.errorMessage = 'Sorry! Something went wrong!';
+                });
+    }
+
+    convertToLocal(): void {
+        for (let i = 0; i < this.jobs.length; i++) {
+            this.jobs[i].time = timeAgo(new Date(parseInt(this.jobs[i].time, 10) * 1000));
+        }
+    }
+
+    setJob(obj: JobState): void {
+        this.store.dispatch(new PostActions.AddJobPost(obj));
     }
 
     isNotValid(): boolean {
@@ -57,6 +101,10 @@ export class RecruiterHomeComponent implements OnInit {
                 error => {
                     this.errorMessage = 'Sorry! Something went wrong!';
                 });
+    }
+
+    toggleJob(id: number, visible: string): void {
+
     }
 
 }
