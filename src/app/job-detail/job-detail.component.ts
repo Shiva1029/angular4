@@ -8,6 +8,7 @@ import {JobStateInterface} from '../user-home/job-state';
 import {UserHomeService} from '../user-home/user-home.service';
 import {JobObj} from '../user-home/job-obj';
 import {timeAgo} from '../custom-lib/time-ago';
+import {ApplyJobObj} from './apply-job-obj';
 
 @Component({
     selector: 'app-job-detail',
@@ -17,6 +18,7 @@ import {timeAgo} from '../custom-lib/time-ago';
 export class JobDetailComponent implements OnInit, OnDestroy {
 
     errorMessage = '';
+    successMessage = '';
     loading = false;
     job: Observable<JobState>;
     jobSelected: JobState;
@@ -25,6 +27,7 @@ export class JobDetailComponent implements OnInit, OnDestroy {
     private selectedId: number;
     private sub: any;
     private jobObjSelected = new JobObj();
+    applyJobObj = new ApplyJobObj();
 
     constructor(private route: ActivatedRoute, private router: Router,
                 private userHomeSer: UserHomeService, private store: Store<JobStateInterface>) {
@@ -32,6 +35,7 @@ export class JobDetailComponent implements OnInit, OnDestroy {
         this.job.subscribe(response => {
                 if (response) {
                     this.jobSelected = <JobState>response;
+                    this.jobSelected.apply = false;
                 }
             }, err => {
                 // console.log(err);
@@ -71,6 +75,7 @@ export class JobDetailComponent implements OnInit, OnDestroy {
                 .subscribe(returnObj => {
                         if (returnObj.message === 'OK') {
                             this.jobSelected = returnObj.data;
+                            this.jobSelected.apply = false;
                             this.convertToLocal();
                         } else if (returnObj.message === 'login') {
                             this.router.navigate(['/login']);
@@ -110,6 +115,28 @@ export class JobDetailComponent implements OnInit, OnDestroy {
 
     convertToLocal(): void {
         this.jobSelected.time = timeAgo(new Date(parseInt(this.jobSelected.time, 10) * 1000));
+    }
+
+    applyJob(): void {
+        this.loading = true;
+        this.applyJobObj.id = this.jobSelected.id;
+        this.userHomeSer.applyJob(this.applyJobObj)
+            .finally(() => {
+                this.loading = false;
+            })
+            .subscribe(returnObj => {
+                    if (returnObj.message === 'OK') {
+                        this.jobSelected.apply = true;
+                        this.successMessage = 'Application received!';
+                    } else if (returnObj.message === 'login') {
+                        this.router.navigate(['/login']);
+                    } else {
+                        this.errorMessage = 'Sorry! Something went wrong!';
+                    }
+                },
+                error => {
+                    this.errorMessage = 'Sorry! Something went wrong!';
+                });
     }
 
 }

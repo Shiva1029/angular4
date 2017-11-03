@@ -11,6 +11,7 @@ const emptyJobState = {
     state: null,
     zip: null,
     time: null,
+    apply: null,
 };
 
 const newState = (state, newData) => {

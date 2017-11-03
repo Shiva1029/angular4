@@ -1,9 +1,11 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 
 import {JobObj} from './job-obj';
 import {baseUrl} from '../backend';
+import {ApplyJobObj} from '../job-detail/apply-job-obj';
+import {ApplyJobReturn} from '../job-detail/apply-job-return';
 
 @Injectable()
 export class UserHomeService {
@@ -20,6 +22,10 @@ export class UserHomeService {
 
     getJobDescription(obj: JobObj): Observable<any> {
         return this.http.post(`${baseUrl}job_detail.php`, obj);
+    }
+
+    applyJob(appylJobObj: ApplyJobObj): Observable<ApplyJobReturn> {
+        return this.http.post(`${baseUrl}apply_job.php`, appylJobObj);
     }
 
 }

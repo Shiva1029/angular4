@@ -42,4 +42,11 @@
             </div>
         </div>
     </div>
+    <div *ngIf="loading" class="loader addLeftMargin"></div>
+    <div class="row marginTop marginSides">
+        <div class="alert alert-danger" *ngIf="errorMessage!==''">
+            <strong><i class="fa fa-remove" aria-hidden="true"></i> Error!</strong>
+            {{errorMessage}}
+        </div>
+    </div>
 </div>

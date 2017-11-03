@@ -6,6 +6,7 @@ export class JobStateObj {
     state: string;
     zip: number;
     time: string;
+    apply: boolean;
 
     constructor() {
     }

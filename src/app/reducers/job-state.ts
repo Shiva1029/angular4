@@ -6,4 +6,5 @@ export interface JobState {
     state: string;
     zip: number;
     time: string;
+    apply: boolean;
 }

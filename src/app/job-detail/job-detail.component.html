@@ -2,8 +2,15 @@
     <div class="row" *ngIf="jobSelected">
         <div class="col-1 back-button" routerLink="/userHome"><i class="fa fa-arrow-circle-left fa-2x"
                                                                  aria-hidden="true"></i></div>
-        <div class="col-11">
+        <div class="col-9">
             <h2>Job {{jobSelected.title}}</h2>
+        </div>
+        <div class="col-1">
+            <button *ngIf="!jobSelected.apply" type="button" class="btn btn-lg btn-primary makePointer"
+                    [disabled]="loading"
+                    (click)="applyJob()">
+                <i class="fa fa-paper-plane-o" aria-hidden="true"></i> Apply
+            </button>
         </div>
         <div class="col-10">
             <div *ngIf="loading" class="loader addLeftMargin"></div>
@@ -12,6 +19,16 @@
             </div>
             <div>{{jobSelected.time}} - {{jobSelected.city}}, {{jobSelected.state}} - {{jobSelected.zip}}</div>
             <div>{{jobDescription}}</div>
+        </div>
+    </div>
+    <div *ngIf="loading" class="loader addLeftMargin"></div>
+    <div class="row marginTop marginSides">
+        <div class="alert alert-success" *ngIf="successMessage==='OK'">
+            <strong><i class="fa fa-check" aria-hidden="true"></i> Success!</strong> {{successMessage}}
+        </div>
+        <div class="alert alert-danger" *ngIf="errorMessage!==''">
+            <strong><i class="fa fa-remove" aria-hidden="true"></i> Error!</strong>
+            {{errorMessage}}
         </div>
     </div>
 </div>
