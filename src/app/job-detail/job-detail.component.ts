@@ -35,7 +35,6 @@ export class JobDetailComponent implements OnInit, OnDestroy {
         this.job.subscribe(response => {
                 if (response) {
                     this.jobSelected = <JobState>response;
-                    this.jobSelected.apply = false;
                 }
             }, err => {
                 // console.log(err);
@@ -75,7 +74,6 @@ export class JobDetailComponent implements OnInit, OnDestroy {
                 .subscribe(returnObj => {
                         if (returnObj.message === 'OK') {
                             this.jobSelected = returnObj.data;
-                            this.jobSelected.apply = false;
                             this.convertToLocal();
                         } else if (returnObj.message === 'login') {
                             this.router.navigate(['/login']);

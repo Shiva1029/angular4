@@ -52,7 +52,6 @@ export class UserHomeComponent implements OnInit {
     }
 
     setJob(obj: JobState): void {
-        obj.apply = false;
         this.store.dispatch(new PostActions.AddJobPost(obj));
     }
 
