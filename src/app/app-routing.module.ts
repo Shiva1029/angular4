@@ -15,6 +15,7 @@ import {CheckNotAuthGuard} from './check-not-auth.guard';
 import {UserGuard} from './user.guard';
 import {RecruiterGuard} from './recruiter.guard';
 import {RecruiterHomeComponent} from './recruiter-home/recruiter-home.component';
+import {ProfileComponent} from './profile/profile.component';
 
 const routes: Routes = [
     {
@@ -41,6 +42,11 @@ const routes: Routes = [
         path: 'settings',
         canActivate: [CheckAuthGuard],
         component: SettingsComponent,
+    },
+    {
+        path: 'profile',
+        canActivate: [CheckAuthGuard, UserGuard],
+        component: ProfileComponent,
     },
     {
         path: 'login',

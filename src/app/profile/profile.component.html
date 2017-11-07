@@ -1,0 +1,45 @@
+<div class="container">
+    <div class="row addMargin">
+        <div class="col-6">
+            <div class="input-group">
+                <span class="input-group-addon">https://github.com/</span>
+                <input [(ngModel)]="profileObj.github" name="github" type="text" class="form-control">
+            </div>
+        </div>
+    </div>
+    <div class="row addMargin">
+        <div class="col-6">
+            <div class="input-group">
+                <span class="input-group-addon">https://www.linkedin.com/in/</span>
+                <input [(ngModel)]="profileObj.linkedin" name="linkedin" type="text" class="form-control">
+            </div>
+        </div>
+    </div>
+    <div class="row addMargin">
+        <div class="col-6">
+            <div class="input-group">
+                <span class="input-group-addon">Portfolio http://</span>
+                <input [(ngModel)]="profileObj.portfolio" name="portfolio" type="url" placeholder="...URL" class="form-control">
+            </div>
+        </div>
+    </div>
+    <div class="row addMargin">
+        <button type="submit" (click)="submitUser()" type="submit"
+                class="btn btn-lg btn-success makePointer"
+                [disabled]="isNotValid() || loading"><i
+                class="fa fa-paper-plane"
+                aria-hidden="true"></i>
+            Save
+        </button>
+    </div>
+    <div *ngIf="loading" class="loader addLeftMargin"></div>
+    <div class="row addMargin marginTop marginSides">
+        <div class="alert alert-success" *ngIf="successMessage!==''">
+            <strong><i class="fa fa-check" aria-hidden="true"></i> Success!</strong> {{successMessage}}
+        </div>
+        <div class="alert alert-danger" *ngIf="errorMessage!==''">
+            <strong><i class="fa fa-remove" aria-hidden="true"></i> Error!</strong>
+            {{errorMessage}}
+        </div>
+    </div>
+</div>
