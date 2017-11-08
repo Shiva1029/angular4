@@ -9,6 +9,7 @@ import {JobObj} from './job-obj';
 import {ApplicantListObj} from './applicant-list-obj';
 import {RecruiterJobDetailService} from './recruiter-job-detail.service';
 import {timeAgo} from '../custom-lib/time-ago';
+import {ApplicantObj} from './applicant-obj';
 
 @Component({
     selector: 'app-recruiter-job-detail',
@@ -17,14 +18,17 @@ import {timeAgo} from '../custom-lib/time-ago';
 })
 export class RecruiterJobDetailComponent implements OnInit, OnDestroy {
     errorMessage = '';
+    merrorMessage = '';
     successMessage = '';
     loading = false;
+    mloading = false;
     job: Observable<RecruiterJobState>;
     jobSelected: RecruiterJobState;
     jobDescription = '';
     login: Observable<boolean>;
     applicants: ApplicantListObj[];
     applicantSearch = '';
+    applicant = new ApplicantObj();
     private selectedId: number;
     private sub: any;
     private jobObjSelected = new JobObj();
@@ -138,8 +142,29 @@ export class RecruiterJobDetailComponent implements OnInit, OnDestroy {
         this.jobSelected.time = timeAgo(new Date(parseInt(this.jobSelected.time, 10) * 1000));
     }
 
+    convertToLocals(): void {
+        this.applicant.time = timeAgo(new Date(parseInt(this.applicant.time, 10) * 1000));
+    }
+
     showApplicant(obj: ApplicantListObj): void {
-      // show Applicant by opening a modal. Include jQuery.
+        this.mloading = true;
+        this.recruiterJobDetailSer.getApplicant({'job': this.selectedId, 'user': obj.user_id})
+            .finally(() => {
+            this.mloading = false;
+        })
+            .subscribe(returnObj => {
+                    if (returnObj.message === 'OK') {
+                        this.applicant = returnObj.data;
+                        this.convertToLocals();
+                    } else if (returnObj.message === 'login') {
+                        this.router.navigate(['/login']);
+                    } else {
+                        this.merrorMessage = 'Sorry! Something went wrong!';
+                    }
+                },
+                error => {
+                    this.merrorMessage = 'Sorry! Something went wrong!';
+                });
     }
 
 }

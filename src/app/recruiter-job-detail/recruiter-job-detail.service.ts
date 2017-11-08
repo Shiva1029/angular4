@@ -4,6 +4,7 @@ import {Observable} from 'rxjs/Observable';
 
 import {baseUrl} from '../backend';
 import {JobObj} from './job-obj';
+import {ApplicantReqObj} from './applicant-req-obj';
 
 @Injectable()
 export class RecruiterJobDetailService {
@@ -20,5 +21,9 @@ export class RecruiterJobDetailService {
 
     getApplicants(obj: JobObj): Observable<any> {
         return this.http.post(`${baseUrl}applicant_list.php`, obj);
+    }
+
+    getApplicant(obj: ApplicantReqObj): Observable<any> {
+        return this.http.post(`${baseUrl}applicant_details.php`, obj);
     }
 }
