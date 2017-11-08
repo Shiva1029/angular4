@@ -16,6 +16,7 @@ import {UserGuard} from './user.guard';
 import {RecruiterGuard} from './recruiter.guard';
 import {RecruiterHomeComponent} from './recruiter-home/recruiter-home.component';
 import {ProfileComponent} from './profile/profile.component';
+import {RecruiterJobDetailComponent} from './recruiter-job-detail/recruiter-job-detail.component';
 
 const routes: Routes = [
     {
@@ -32,6 +33,11 @@ const routes: Routes = [
         path: 'recruiterHome',
         canActivate: [CheckAuthGuard, RecruiterGuard],
         component: RecruiterHomeComponent,
+    },
+    {
+        path: 'recruiterJob/:id',
+        canActivate: [CheckAuthGuard, RecruiterGuard],
+        component: RecruiterJobDetailComponent,
     },
     {
         path: 'job/:id',

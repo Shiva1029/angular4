@@ -3,40 +3,40 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
 
-import {JobState} from '../reducers/job-state';
-import {JobStateInterface} from '../user-home/job-state';
-import {UserHomeService} from '../user-home/user-home.service';
-import {JobObj} from '../user-home/job-obj';
+import {RecruiterJobState} from '../reducers/recruiter-job-state';
+import {JobStateInterface} from '../recruiter-home/job-state';
+import {JobObj} from './job-obj';
+import {ApplicantListObj} from './applicant-list-obj';
+import {RecruiterJobDetailService} from './recruiter-job-detail.service';
 import {timeAgo} from '../custom-lib/time-ago';
-import {ApplyJobObj} from './apply-job-obj';
 
 @Component({
-    selector: 'app-job-detail',
-    templateUrl: './job-detail.component.html',
-    styleUrls: ['./job-detail.component.scss']
+    selector: 'app-recruiter-job-detail',
+    templateUrl: './recruiter-job-detail.component.html',
+    styleUrls: ['./recruiter-job-detail.component.scss']
 })
-export class JobDetailComponent implements OnInit, OnDestroy {
-
+export class RecruiterJobDetailComponent implements OnInit, OnDestroy {
     errorMessage = '';
     successMessage = '';
     loading = false;
-    job: Observable<JobState>;
-    jobSelected: JobState;
+    job: Observable<RecruiterJobState>;
+    jobSelected: RecruiterJobState;
     jobDescription = '';
     login: Observable<boolean>;
+    applicants: ApplicantListObj[];
+    applicantSearch = '';
     private selectedId: number;
     private sub: any;
     private jobObjSelected = new JobObj();
-    applyJobObj = new ApplyJobObj();
 
     constructor(private route: ActivatedRoute, private router: Router,
-                private userHomeSer: UserHomeService, private store: Store<JobStateInterface>) {
-        this.job = store.select('job');
+                private recruiterJobDetailSer: RecruiterJobDetailService, private store: Store<JobStateInterface>) {
+        this.job = store.select('recruiterJob');
         this.job.subscribe(response => {
-                if (response) {
-                    this.jobSelected = <JobState>response;
-                }
-            });
+            if (response) {
+                this.jobSelected = <RecruiterJobState>response;
+            }
+        });
     }
 
     ngOnInit(): void {
@@ -49,6 +49,7 @@ export class JobDetailComponent implements OnInit, OnDestroy {
                     this.getJob();
                 }
                 this.getJobDescription();
+                this.getApplicantList();
             }
         });
     }
@@ -59,12 +60,13 @@ export class JobDetailComponent implements OnInit, OnDestroy {
         }
     }
 
+
     getJob(): void {
         this.loading = true;
         this.errorMessage = '';
         this.jobObjSelected.job = this.selectedId;
         if (this.errorMessage === '') {
-            this.userHomeSer.getJob(this.jobObjSelected)
+            this.recruiterJobDetailSer.getJob(this.jobObjSelected)
                 .finally(() => {
                     this.loading = false;
                 })
@@ -89,7 +91,7 @@ export class JobDetailComponent implements OnInit, OnDestroy {
         this.errorMessage = '';
         this.jobObjSelected.job = this.selectedId;
         if (this.errorMessage === '') {
-            this.userHomeSer.getJobDescription(this.jobObjSelected)
+            this.recruiterJobDetailSer.getJobDescription(this.jobObjSelected)
                 .finally(() => {
                     this.loading = false;
                 })
@@ -108,30 +110,36 @@ export class JobDetailComponent implements OnInit, OnDestroy {
         }
     }
 
+    getApplicantList(): void {
+        this.loading = true;
+        this.errorMessage = '';
+        this.jobObjSelected.job = this.selectedId;
+        if (this.errorMessage === '') {
+            this.recruiterJobDetailSer.getApplicants(this.jobObjSelected)
+                .finally(() => {
+                    this.loading = false;
+                })
+                .subscribe(returnObj => {
+                        if (returnObj.message === 'OK') {
+                            this.applicants = returnObj.data;
+                        } else if (returnObj.message === 'login') {
+                            this.router.navigate(['/login']);
+                        } else {
+                            this.errorMessage = 'Sorry! Something went wrong!';
+                        }
+                    },
+                    error => {
+                        this.errorMessage = 'Sorry! Something went wrong!';
+                    });
+        }
+    }
+
     convertToLocal(): void {
         this.jobSelected.time = timeAgo(new Date(parseInt(this.jobSelected.time, 10) * 1000));
     }
 
-    applyJob(): void {
-        this.loading = true;
-        this.applyJobObj.id = this.jobSelected.id;
-        this.userHomeSer.applyJob(this.applyJobObj)
-            .finally(() => {
-                this.loading = false;
-            })
-            .subscribe(returnObj => {
-                    if (returnObj.message === 'OK') {
-                        this.jobSelected.apply = true;
-                        this.successMessage = 'Application received!';
-                    } else if (returnObj.message === 'login') {
-                        this.router.navigate(['/login']);
-                    } else {
-                        this.errorMessage = 'Sorry! Something went wrong!';
-                    }
-                },
-                error => {
-                    this.errorMessage = 'Sorry! Something went wrong!';
-                });
+    showApplicant(obj: ApplicantListObj): void {
+      // show Applicant by opening a modal. Include jQuery.
     }
 
 }

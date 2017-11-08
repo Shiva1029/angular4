@@ -1,0 +1,56 @@
+<div class="container">
+  <div class="row" *ngIf="jobSelected">
+    <div class="col-1 back-button makePointer" routerLink="/recruiterHome"><i class="fa fa-arrow-circle-left fa-2x"
+                                                             aria-hidden="true"></i></div>
+    <div class="col-9">
+      <h2>Job {{jobSelected.title}}</h2>
+    </div>
+    <div class="col-10">
+      <div *ngIf="loading" class="loader addLeftMargin"></div>
+      <div>
+        {{jobSelected.company}}
+      </div>
+      <div>{{jobSelected.time}} - {{jobSelected.city}}, {{jobSelected.state}} - {{jobSelected.zip}}</div>
+      <div>{{jobDescription}}</div>
+    </div>
+  </div>
+  <div *ngIf="loading" class="loader addLeftMargin"></div>
+  <div class="row marginTop marginSides">
+    <div class="alert alert-success" *ngIf="successMessage==='OK'">
+      <strong><i class="fa fa-check" aria-hidden="true"></i> Success!</strong> {{successMessage}}
+    </div>
+    <div class="alert alert-danger" *ngIf="errorMessage!==''">
+      <strong><i class="fa fa-remove" aria-hidden="true"></i> Error!</strong>
+      {{errorMessage}}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-4">
+      <div class="input-group margin-bottom-sm search-class-container borderGrey">
+        <span class="input-group-addon search-class search-icon"><i class="fa fa-search fa-fw"></i></span>
+        <input [(ngModel)]="applicantSearch" class="form-control search-class removeFocus" type="text"
+               placeholder="Search">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+          <thead class="thead-cs">
+          <tr>
+            <th>#</th>
+            <th>Applicant</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr class="job" *ngFor="let applicant of applicants | searchApplicants: applicantSearch; let i = index" (click)="showApplicant(applicant)">
+            <td>{{i+1}}</td>
+            <td>{{applicant.fname}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

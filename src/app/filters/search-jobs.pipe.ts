@@ -13,7 +13,7 @@ export class SearchJobsPipe implements PipeTransform {
         if (!searchText) {
             return jobs;
         }
-        searchText = searchText.toLowerCase();
+        searchText = searchText.toString().toLowerCase();
         return jobs.filter(it => {
             return it.title.toLowerCase().includes(searchText) ||
                 it.company.toLowerCase().includes(searchText) || it.city.toLowerCase().includes(searchText) ||

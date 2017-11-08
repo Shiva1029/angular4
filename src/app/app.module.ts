@@ -43,6 +43,10 @@ import { RecruiterHomeComponent } from './recruiter-home/recruiter-home.componen
 import { RecruiterHomeService } from './recruiter-home/recruiter-home.service';
 import { ProfileComponent } from './profile/profile.component';
 import { ProfileService } from './profile/profile.service';
+import {RecruiterJobReducer} from './reducers/recruiter-job';
+import { RecruiterJobDetailComponent } from './recruiter-job-detail/recruiter-job-detail.component';
+import { RecruiterJobDetailService } from './recruiter-job-detail/recruiter-job-detail.service';
+import {SearchApplicantsPipe} from './filters/search-applicants.pipe';
 
 const globalSettings: RecaptchaSettings = {siteKey: '6LcFXzUUAAAAAAybdoCt1u0fy7uyy9nI30AG6JC7'};
 
@@ -58,18 +62,20 @@ const globalSettings: RecaptchaSettings = {siteKey: '6LcFXzUUAAAAAAybdoCt1u0fy7u
         LogoutComponent,
         JobDetailComponent,
         SearchJobsPipe,
+        SearchApplicantsPipe,
         ActivateComponent,
         SettingsComponent,
         ForgotComponent,
         RecruiterHomeComponent,
-        ProfileComponent
+        ProfileComponent,
+        RecruiterJobDetailComponent
     ],
     imports: [
         BrowserModule,
         AppRoutingModule,
         FormsModule,
         HttpClientModule,
-        StoreModule.forRoot({login: loginReducer, job: jobReducer}),
+        StoreModule.forRoot({login: loginReducer, job: jobReducer, recruiterJob: RecruiterJobReducer}),
         RecaptchaModule.forRoot(),
         StoreDevtoolsModule.instrument({
             maxAge: 25
@@ -83,7 +89,7 @@ const globalSettings: RecaptchaSettings = {siteKey: '6LcFXzUUAAAAAAybdoCt1u0fy7u
         provide: RECAPTCHA_SETTINGS,
         useValue: globalSettings,
     }, LoginService, UserRegistrationService, AppService, UserHomeService,
-        CheckAuthGuard, CheckNotAuthGuard, ActivateService, SettingsService, ForgotService, UserGuard, RecruiterGuard, RecruiterHomeService, ProfileService],
+        CheckAuthGuard, CheckNotAuthGuard, ActivateService, SettingsService, ForgotService, UserGuard, RecruiterGuard, RecruiterHomeService, ProfileService, RecruiterJobDetailService],
     bootstrap: [AppComponent]
 })
 export class AppModule {

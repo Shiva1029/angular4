@@ -78,7 +78,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="job" *ngFor="let job of jobs | searchJobs: jobSearch; let i = index" routerLink="/job/{{job.id}}"
+                    <tr class="job" *ngFor="let job of jobs | searchJobs: jobSearch; let i = index" routerLink="/recruiterJob/{{job.id}}"
                         (click)="setJob(job)">
                         <td>{{job.id}}</td>
                         <td>{{job.title}}</td>

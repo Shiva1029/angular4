@@ -4,14 +4,13 @@ import {Router} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 import * as $ from 'jquery';
 
-import * as PostActions from '../reducers/job-actions';
-import {JobState} from '../reducers/job-state';
-import {JobStateInterface} from '../user-home/job-state';
+import * as PostActions from '../reducers/recruiter-job-actions';
+import {RecruiterJobState} from '../reducers/recruiter-job-state';
+import {JobStateInterface} from './job-state';
 import {JobObj} from './job-obj';
 import {JobStateObj} from './job-state-obj';
 import {RecruiterHomeService} from './recruiter-home.service';
 import {timeAgo} from '../custom-lib/time-ago';
-import {ToggleObj} from './toggle-obj';
 
 @Component({
     selector: 'app-recruiter-home',
@@ -23,12 +22,12 @@ export class RecruiterHomeComponent implements OnInit {
     loading = false;
     errorMessage = '';
     jobSearch = '';
-    job: Observable<JobState>;
+    job: Observable<RecruiterJobState>;
     jobObj = new JobObj();
     jobs: JobStateObj[];
 
     constructor(private router: Router, private recruiterHomeSer: RecruiterHomeService, private store: Store<JobStateInterface>) {
-        this.job = store.select('job');
+        this.job = store.select('recruiterJob');
     }
 
     ngOnInit(): void {
@@ -63,7 +62,7 @@ export class RecruiterHomeComponent implements OnInit {
         }
     }
 
-    setJob(obj: JobState): void {
+    setJob(obj: RecruiterJobState): void {
         this.store.dispatch(new PostActions.AddJobPost(obj));
     }
 
