@@ -148,10 +148,11 @@ export class RecruiterJobDetailComponent implements OnInit, OnDestroy {
 
     showApplicant(obj: ApplicantListObj): void {
         this.mloading = true;
+        this.applicant = new ApplicantObj();
         this.recruiterJobDetailSer.getApplicant({'job': this.selectedId, 'user': obj.user_id})
             .finally(() => {
-            this.mloading = false;
-        })
+                this.mloading = false;
+            })
             .subscribe(returnObj => {
                     if (returnObj.message === 'OK') {
                         this.applicant = returnObj.data;
@@ -165,6 +166,10 @@ export class RecruiterJobDetailComponent implements OnInit, OnDestroy {
                 error => {
                     this.merrorMessage = 'Sorry! Something went wrong!';
                 });
+    }
+
+    modalOnClose(): void {
+        this.applicant = new ApplicantObj();
     }
 
 }
