@@ -4,6 +4,9 @@ export class ApplicantObj {
     gender: string;
     email: string;
     time: string;
+    linkedin: string;
+    github: string;
+    portfolio: string;
     constructor() {
     }
 }

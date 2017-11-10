@@ -63,7 +63,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">{{applicant.fname}} {{applicant.lname}}</h5>
-                <button type="button" (click)="modalOnClose()" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" (click)="modalOnClose()" class="close makePointer" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -81,6 +81,20 @@
                         <div>
                             Applied {{applicant.time}}
                         </div>
+                        <div class="makeInline">
+                            <div class="makeInline addAllMargin">
+                                <a *ngIf="applicant.github" title="github" href="https://www.github.com/{{applicant.github}}"
+                                   target="_blank"><i class="fa fa-github fa-2x" aria-hidden="true"></i></a>
+                            </div>
+                            <div class="makeInline addAllMargin">
+                                <a *ngIf="applicant.linkedin" title="linkedin" href="https://www.linkedin.com/in/{{applicant.linkedin}}"
+                                   target="_blank"><i class="fa fa-linkedin fa-2x" aria-hidden="true"></i></a>
+                            </div>
+                            <div class="makeInline addAllMargin">
+                                <a *ngIf="applicant.portfolio" title="portfolio" href="https://{{applicant.portfolio}}" target="_blank"><i
+                                        class="fa fa-address-card fa-2x" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
                     </div>
                     <div *ngIf="mloading" class="loader addLeftMargin"></div>
                     <div class="row marginTop marginSides">
@@ -91,7 +105,9 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary makePointer" (click)="modalOnClose()" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary makePointer" (click)="modalOnClose()"
+                            data-dismiss="modal">Close
+                    </button>
                 </div>
             </div>
         </div>
