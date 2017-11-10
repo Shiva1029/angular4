@@ -10,6 +10,7 @@ import {ApplicantListObj} from './applicant-list-obj';
 import {RecruiterJobDetailService} from './recruiter-job-detail.service';
 import {timeAgo} from '../custom-lib/time-ago';
 import {ApplicantObj} from './applicant-obj';
+import {JobStateObj} from '../recruiter-home/job-state-obj';
 
 @Component({
     selector: 'app-recruiter-job-detail',
@@ -170,6 +171,24 @@ export class RecruiterJobDetailComponent implements OnInit, OnDestroy {
 
     modalOnClose(): void {
         this.applicant = new ApplicantObj();
+    }
+
+    toggleJob(job: JobStateObj): void {
+        this.recruiterJobDetailSer.toggleJob({'id': job.id, 'visible': (job.visible === 'y') ? 'n' : 'y'})
+            .finally(() => {
+                this.loading = false;
+
+            })
+            .subscribe(returnObj => {
+                    if (returnObj.message === 'OK') {
+                        job.visible = (job.visible === 'y') ? 'n' : 'y';
+                    } else {
+                        this.errorMessage = 'Sorry! Something went wrong!';
+                    }
+                },
+                error => {
+                    this.errorMessage = 'Sorry! Something went wrong!';
+                });
     }
 
 }

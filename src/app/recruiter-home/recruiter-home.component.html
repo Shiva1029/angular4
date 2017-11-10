@@ -74,11 +74,10 @@
                         <th>State</th>
                         <th>Zip</th>
                         <th>Time</th>
-                        <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="job" *ngFor="let job of jobs | searchJobs: jobSearch; let i = index" routerLink="/recruiterJob/{{job.id}}"
+                    <tr class="job" [ngClass]="{'table-primary': job.visible === 'y'}" *ngFor="let job of jobs | searchJobs: jobSearch; let i = index" routerLink="/recruiterJob/{{job.id}}"
                         (click)="setJob(job)">
                         <td>{{job.id}}</td>
                         <td>{{job.title}}</td>
@@ -87,13 +86,6 @@
                         <td>{{job.state}}</td>
                         <td>{{job.zip}}</td>
                         <td>{{job.time}}</td>
-                        <td>
-                            <button type="button" class="btn makePointer" (click)="toggleJob(job)
-"
-                                    [ngClass]="{'btn-danger': job.visible === 'y', 'btn-success': job.visible === 'n'}">
-                                {{job.visible === 'y' ? 'Hide' : 'Show'}}
-                            </button>
-                        </td>
                     </tr>
                     </tbody>
                 </table>

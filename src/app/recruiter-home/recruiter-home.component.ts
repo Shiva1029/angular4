@@ -103,22 +103,4 @@ export class RecruiterHomeComponent implements OnInit {
                 });
     }
 
-    toggleJob(job: JobStateObj): void {
-        this.recruiterHomeSer.toggleJob({'id': job.id, 'visible': (job.visible === 'y') ? 'n' : 'y'})
-            .finally(() => {
-                this.loading = false;
-
-            })
-            .subscribe(returnObj => {
-                    if (returnObj.message === 'OK') {
-                        job.visible = (job.visible === 'y') ? 'n' : 'y';
-                    } else {
-                        this.errorMessage = 'Sorry! Something went wrong!';
-                    }
-                },
-                error => {
-                    this.errorMessage = 'Sorry! Something went wrong!';
-                });
-    }
-
 }

@@ -5,6 +5,13 @@
         <div class="col-9">
             <h2>Job {{jobSelected.title}}</h2>
         </div>
+        <div class="col-1">
+            <button type="button" class="btn makePointer" (click)="toggleJob(jobSelected)
+"
+                    [ngClass]="{'btn-danger': jobSelected.visible === 'y', 'btn-success': jobSelected.visible === 'n'}">
+                {{jobSelected.visible === 'y' ? 'Hide' : 'Show'}}
+            </button>
+        </div>
         <div class="col-10">
             <div *ngIf="loading" class="loader addLeftMargin"></div>
             <div>
@@ -91,7 +98,7 @@
                                    target="_blank"><i class="fa fa-linkedin fa-2x" aria-hidden="true"></i></a>
                             </div>
                             <div class="makeInline addAllMargin">
-                                <a *ngIf="applicant.portfolio" title="portfolio" href="https://{{applicant.portfolio}}" target="_blank"><i
+                                <a *ngIf="applicant.portfolio" title="portfolio" href="http://{{applicant.portfolio}}" target="_blank"><i
                                         class="fa fa-address-card fa-2x" aria-hidden="true"></i></a>
                             </div>
                         </div>

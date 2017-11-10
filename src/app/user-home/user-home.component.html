@@ -27,7 +27,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="job" [ngClass]="{'table-info': job.apply}"
+                    <tr class="job" [ngClass]="{'table-primary': job.apply}"
                         *ngFor="let job of jobs | searchJobs: jobSearch;" routerLink="/job/{{job.id}}"
                         (click)="setJob(job)">
                         <td>{{job.id}}</td>
