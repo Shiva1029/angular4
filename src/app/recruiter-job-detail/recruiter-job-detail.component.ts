@@ -174,7 +174,7 @@ export class RecruiterJobDetailComponent implements OnInit, OnDestroy {
     }
 
     toggleJob(job: JobStateObj): void {
-        this.recruiterJobDetailSer.toggleJob({'id': job.id, 'visible': (job.visible === 'y') ? 'n' : 'y'})
+        this.recruiterJobDetailSer.toggleJob({'id': this.selectedId, 'visible': (job.visible === 'y') ? 'n' : 'y'})
             .finally(() => {
                 this.loading = false;
 

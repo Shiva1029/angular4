@@ -9,15 +9,18 @@
             <button type="button" class="btn makePointer" (click)="toggleJob(jobSelected)
 "
                     [ngClass]="{'btn-danger': jobSelected.visible === 'y', 'btn-success': jobSelected.visible === 'n'}">
+                <i class="fa"
+                   [ngClass]="{'fa-fire-extinguisher': jobSelected.visible === 'y', 'fa-eye': jobSelected.visible === 'n'}"
+                   aria-hidden="true"></i>
                 {{jobSelected.visible === 'y' ? 'Hide' : 'Show'}}
             </button>
         </div>
         <div class="col-10">
             <div *ngIf="loading" class="loader addLeftMargin"></div>
             <div>
-                {{jobSelected.company}}
+                <i class="fa fa-building" aria-hidden="true"></i> {{jobSelected.company}}
             </div>
-            <div>{{jobSelected.time}} - {{jobSelected.city}}, {{jobSelected.state}} - {{jobSelected.zip}}</div>
+            <div><i class="fa fa-clock-o" aria-hidden="true"></i> {{jobSelected.time}} <i class="fa fa-map-marker" aria-hidden="true"></i> {{jobSelected.city}}, {{jobSelected.state}} - {{jobSelected.zip}}</div>
             <div>{{jobDescription}}</div>
         </div>
     </div>
@@ -70,35 +73,41 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">{{applicant.fname}} {{applicant.lname}}</h5>
-                <button type="button" (click)="modalOnClose()" class="close makePointer" data-dismiss="modal" aria-label="Close">
+                <button type="button" (click)="modalOnClose()" class="close makePointer" data-dismiss="modal"
+                        aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <div *ngIf="applicant && !mloading" class="row">
                     <div class="col-1">
-                        <i class="fa"
-                           [ngClass]="{'fa-male fa-2x': applicant.gender === 'm', 'fa-female fa-2x': applicant.gender === 'f'}"
+                        <i class="fa fa-2x"
+                           [ngClass]="{'fa-male': applicant.gender === 'm', 'fa-female': applicant.gender === 'f'}"
                            aria-hidden="true"></i>
                     </div>
                     <div class="col-6">
-                        <div><i class="fa fa-address-card-o" aria-hidden="true"></i>
-                            {{applicant.email}}
+                        <div class="row">
+                            <div class="col-1"><i class="fa fa-address-card-o makeInline" aria-hidden="true"></i></div>
+                            <div class="col-3">{{applicant.email}}</div>
                         </div>
-                        <div>
-                            Applied {{applicant.time}}
+                        <div class="row">
+                            <div class="col-1"><i class="fa fa-clock-o" aria-hidden="true"></i></div>
+                            <div class="col-10">Applied {{applicant.time}}</div>
                         </div>
                         <div class="makeInline">
                             <div class="makeInline addAllMargin">
-                                <a *ngIf="applicant.github" title="github" href="https://www.github.com/{{applicant.github}}"
+                                <a *ngIf="applicant.github" title="github"
+                                   href="https://www.github.com/{{applicant.github}}"
                                    target="_blank"><i class="fa fa-github fa-2x" aria-hidden="true"></i></a>
                             </div>
                             <div class="makeInline addAllMargin">
-                                <a *ngIf="applicant.linkedin" title="linkedin" href="https://www.linkedin.com/in/{{applicant.linkedin}}"
+                                <a *ngIf="applicant.linkedin" title="linkedin"
+                                   href="https://www.linkedin.com/in/{{applicant.linkedin}}"
                                    target="_blank"><i class="fa fa-linkedin fa-2x" aria-hidden="true"></i></a>
                             </div>
                             <div class="makeInline addAllMargin">
-                                <a *ngIf="applicant.portfolio" title="portfolio" href="http://{{applicant.portfolio}}" target="_blank"><i
+                                <a *ngIf="applicant.portfolio" title="portfolio" href="http://{{applicant.portfolio}}"
+                                   target="_blank"><i
                                         class="fa fa-address-card fa-2x" aria-hidden="true"></i></a>
                             </div>
                         </div>

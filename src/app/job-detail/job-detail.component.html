@@ -15,9 +15,9 @@
         <div class="col-10">
             <div *ngIf="loading" class="loader addLeftMargin"></div>
             <div>
-                {{jobSelected.company}}
+                <i class="fa fa-building" aria-hidden="true"></i> {{jobSelected.company}}
             </div>
-            <div>{{jobSelected.time}} - {{jobSelected.city}}, {{jobSelected.state}} - {{jobSelected.zip}}</div>
+            <div><i class="fa fa-clock-o" aria-hidden="true"></i> {{jobSelected.time}} <i class="fa fa-map-marker" aria-hidden="true"></i> {{jobSelected.city}}, {{jobSelected.state}} - {{jobSelected.zip}}</div>
             <div>{{jobDescription}}</div>
         </div>
     </div>
