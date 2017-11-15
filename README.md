@@ -1,10 +1,11 @@
 # angular4
+https://www.collegestash.net/
 Angular 4.4.6
 User Registration form/login using Angular 4.4.6
   - Angular-cli
   - Saas (SCSS)
   - Uses Observables (POST)
-  - Backend implemented using PHP 7.1.8 (https://github.com/Shiva1029/php7User_Registration)
+  - Backend implemented using PHP 7.1.9 (https://github.com/Shiva1029/php7User_Registration)
   
   ### Prod
   - Angular is running in the development mode. Call enableProdMode() to enable the production mode.
