@@ -1,5 +1,5 @@
 # angular4
-https://www.collegestash.net/
+- https://www.collegestash.net/
 Angular 4.4.6
 User Registration form/login using Angular 4.4.6
   - Angular-cli
