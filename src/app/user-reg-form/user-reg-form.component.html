@@ -27,18 +27,18 @@
             </div>
 
             <div class="form-group">
-                <label for="email">Email:</label>
+                <label for="email">Email (<em>.edu</em>):</label>
                 <input (keyup)="emailToLower($event)" [(ngModel)]="email" type="email" class="form-control" id="email"
                        name="email">
             </div>
 
             <div class="form-group">
-                <label for="dob">DOB:</label>
+                <label for="dob">DOB (<em>18+ only</em>):</label>
                 <input [(ngModel)]="dob" type="date" class="form-control" id="dob" name="dob">
             </div>
 
             <div class="form-group">
-                <label for="pwd">Password:</label>
+                <label for="pwd">Password (<em>Alphanumeric, 6-24 long, atleast 1 uppercase, 1 lowercase & 1 special character</em>):</label>
                 <input [(ngModel)]="pwd" type="password" class="form-control" name="pwd" id="pwd">
             </div>
 
@@ -54,7 +54,7 @@
                     #captchaRef="reCaptcha"
                     (resolved)="resolvedUserReg($event)"
                     size="invisible"></re-captcha>
-            <button type="submit" (click)="onUserRegClick(captchaRef)" type="submit" class="btn btn-lg btn-success"
+            <button type="submit" (click)="onUserRegClick(captchaRef)" type="submit" class="btn btn-lg btn-success" [ngClass]="{'makePointer': !(isNotValid() || loading)}"
                     [disabled]="isNotValid() || loading"><i
                     class="fa fa-paper-plane"
                     aria-hidden="true"></i>
@@ -81,7 +81,7 @@
                        name="rmail">
             </div>
             <div class="form-group">
-                <label>Password:</label>
+                <label>Password (<em>Alphanumeric, 6-24 long, atleast 1 uppercase, 1 lowercase & 1 special character</em>):</label>
                 <input [(ngModel)]="rpwd" type="password" class="form-control" name="rpwd">
             </div>
             <re-captcha
@@ -89,7 +89,7 @@
                     (resolved)="resolvedRecruiterReg($event)"
                     size="invisible"></re-captcha>
             <button type="submit" (click)="onRecruiterRegClick(captchaRefRec)" type="submit"
-                    class="btn btn-lg btn-success"
+                    class="btn btn-lg btn-success" [ngClass]="{'makePointer': !(isNotValidRecruiter() || loading)}"
                     [disabled]="isNotValidRecruiter() || loading"><i
                     class="fa fa-paper-plane"
                     aria-hidden="true"></i>

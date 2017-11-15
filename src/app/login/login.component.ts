@@ -110,6 +110,7 @@ export class LoginComponent implements OnInit {
         this.errorMessage = '';
         this.successMessage = '';
         this.fp.email = this.email;
+        this.fp.recaptcha = this.recaptchaStr;
         this.userLoginSer.forgotPwd(this.fp)
             .finally(() => {
                 this.loading = false;
