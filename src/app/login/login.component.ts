@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/finally';
 
 import {LOGIN} from '../reducers/login';
 import {LoginState} from '../reducers/login-state';
@@ -25,6 +26,7 @@ export class LoginComponent implements OnInit {
     login: Observable<boolean>;
     showFP = false;
     recaptchaStr = '';
+    recaptchaStrF = '';
     fp = new ForgotPwd();
 
     constructor(private router: Router, private userLoginSer: LoginService, private store: Store<LoginState>) {
@@ -88,6 +90,16 @@ export class LoginComponent implements OnInit {
 
     forgotPasswordClick(): void {
         this.showFP = true;
+        this.successMessage = '';
+        this.errorMessage = '';
+        this.loading = false;
+    }
+
+    loginClick(): void {
+        this.showFP = false;
+        this.successMessage = '';
+        this.errorMessage = '';
+        this.loading = false;
     }
 
     isNotValid(): boolean {
@@ -110,7 +122,7 @@ export class LoginComponent implements OnInit {
         this.errorMessage = '';
         this.successMessage = '';
         this.fp.email = this.email;
-        this.fp.recaptcha = this.recaptchaStr;
+        this.fp.recaptcha = this.recaptchaStrF;
         this.userLoginSer.forgotPwd(this.fp)
             .finally(() => {
                 this.loading = false;
@@ -135,8 +147,8 @@ export class LoginComponent implements OnInit {
     }
 
     public resolvedFP(captchaResponse: string): void {
-        this.recaptchaStr = captchaResponse;
-        if (this.recaptchaStr) {
+        this.recaptchaStrF = captchaResponse;
+        if (this.recaptchaStrF) {
             this.onFPSubmit();
         }
     }

@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/operator/finally';
 
 import {LOGIN} from './reducers/login';
 import {LoginState} from './reducers/login-state';

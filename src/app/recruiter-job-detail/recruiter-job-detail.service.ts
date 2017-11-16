@@ -5,7 +5,6 @@ import {Observable} from 'rxjs/Observable';
 import {baseUrl} from '../backend';
 import {JobObj} from './job-obj';
 import {ApplicantReqObj} from './applicant-req-obj';
-import {PostJobReturnObj} from '../recruiter-home/post-job-return-obj';
 import {ToggleObj} from '../recruiter-home/toggle-obj';
 
 @Injectable()
@@ -29,7 +28,7 @@ export class RecruiterJobDetailService {
         return this.http.post(`${baseUrl}applicant_details.php`, obj);
     }
 
-    toggleJob(obj: ToggleObj): Observable<PostJobReturnObj> {
+    toggleJob(obj: ToggleObj): Observable<any> {
         return this.http.post(`${baseUrl}toggle_job.php`, obj);
     }
 }

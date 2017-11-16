@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
-// import 'rxjs/add/operator/do';
+// import { do } from 'rxjs/operators';
+
 import {HttpEvent, HttpResponse, HttpInterceptor, HttpHandler, HttpRequest} from '@angular/common/http';
 
 function getCookie(cname) {

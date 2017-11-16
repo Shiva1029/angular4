@@ -3,8 +3,6 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 
 import {LoginObj} from './login-obj';
-import {ReturnObj} from './return-obj';
-import {LogoutObj} from '../logout/logout-obj';
 import {ForgotPwd} from './forgot-pwd';
 import {baseUrl} from '../backend';
 
@@ -18,11 +16,11 @@ export class LoginService {
     constructor(private http: HttpClient) {
     }
 
-    submitUser(obj: LoginObj): Observable<ReturnObj> {
+    submitUser(obj: LoginObj): Observable<any> {
         return this.http.post(`${baseUrl}login.php`, obj);
     }
 
-    logoutUser(): Observable<LogoutObj> {
+    logoutUser(): Observable<any> {
         return this.http.post(`${baseUrl}logout.php`, {});
     }
 

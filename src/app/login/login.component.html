@@ -13,7 +13,7 @@
                         <input type="password" class="form-control" id="pwd"
                                [(ngModel)]="pwd" name="pwd">
                         <div class="makePointer" (click)="forgotPasswordClick()">Forgot Password</div>
-                        <div class="makePointer" (click)="forgotPasswordClick()" routerLink="signup">Not Registered yet? Signup</div>
+                        <div class="makePointer" routerLink="/signup">Not Registered yet? Signup</div>
                     </div>
                     <re-captcha
                             #captchaRef="reCaptcha"
@@ -27,6 +27,11 @@
                 </div>
             </fieldset>
         </form>
+        <div class="container">
+            <div class="row" *ngIf="showFP">
+                <div class="col-1 back-button makePointer" (click)="loginClick()"><i class="fa fa-arrow-circle-left fa-2x"
+                                                                                          aria-hidden="true"></i></div>
+            </div></div>
         <form *ngIf="showFP">
             <fieldset>
                 <legend>Forgot Password</legend>

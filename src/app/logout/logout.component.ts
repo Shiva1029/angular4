@@ -25,7 +25,8 @@ export class LogoutComponent implements OnInit {
     login: Observable<boolean>;
     job: Observable<JobState>;
 
-    constructor(private router: Router, private userLogoutSer: LoginService, private store: Store<LoginState>, private jobStore: Store<JobStateInterface>) {
+    constructor(private router: Router, private userLogoutSer: LoginService,
+                private store: Store<LoginState>, private jobStore: Store<JobStateInterface>) {
         this.login = store.select('login');
         this.job = jobStore.select('job');
     }

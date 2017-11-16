@@ -2,6 +2,7 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/finally';
 
 import {JobState} from '../reducers/job-state';
 import {JobStateInterface} from '../user-home/job-state';

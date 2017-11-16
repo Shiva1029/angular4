@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
+import 'rxjs/add/operator/finally';
 
 import {UserRegistrationService} from './user-registration.service';
 import {User} from './user';
 import {Recruiter} from './recruiter';
-import 'rxjs/add/operator/finally';
 
 @Component({
     selector: 'app-user-reg-form',
@@ -52,6 +52,9 @@ export class UserRegFormComponent implements OnInit {
 
     setActive(str: string): void {
         this.selected = str;
+        this.errorMessage = '';
+        this.successMessage = '';
+        this.loading = false;
     }
 
     isActive(str: string): boolean {

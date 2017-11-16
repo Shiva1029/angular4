@@ -4,8 +4,6 @@ import {Observable} from 'rxjs/Observable';
 
 import {baseUrl} from '../backend';
 import {ProfileObj} from './profile-obj';
-import {ReturnObj} from './return-obj';
-import {ProfileReturnObj} from './profile-return-obj';
 
 @Injectable()
 export class ProfileService {
@@ -13,11 +11,11 @@ export class ProfileService {
     constructor(private http: HttpClient) {
     }
 
-    retrieveUser(): Observable<ProfileReturnObj> {
+    retrieveUser(): Observable<any> {
         return this.http.post(`${baseUrl}get_profile.php`, {});
     }
 
-    submitUser(obj: ProfileObj): Observable<ReturnObj> {
+    submitUser(obj: ProfileObj): Observable<any> {
         return this.http.post(`${baseUrl}save_profile.php`, obj);
     }
 }

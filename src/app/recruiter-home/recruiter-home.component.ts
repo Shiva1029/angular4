@@ -3,6 +3,7 @@ import {Store} from '@ngrx/store';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 import * as $ from 'jquery';
+import 'rxjs/add/operator/finally';
 
 import * as PostActions from '../reducers/recruiter-job-actions';
 import {RecruiterJobState} from '../reducers/recruiter-job-state';
