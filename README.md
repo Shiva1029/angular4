@@ -1,6 +1,6 @@
 # angular4
   - https://www.collegestash.net/
-  - (Angular 4.4.6) Job portal using Angular 4.4.6
+  - (Angular 5.0.1) Job portal using Angular 5.0.1
   - Angular-cli
   - Saas (SCSS)
   - Uses Observables (POST)
