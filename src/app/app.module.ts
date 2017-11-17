@@ -90,7 +90,8 @@ const globalSettings: RecaptchaSettings = {siteKey: '6LcFXzUUAAAAAAybdoCt1u0fy7u
             provide: RECAPTCHA_SETTINGS,
             useValue: globalSettings,
         }, LoginService, UserRegistrationService, AppService, UserHomeService,
-        CheckAuthGuard, CheckNotAuthGuard, ActivateService, SettingsService, ForgotService, UserGuard, RecruiterGuard, RecruiterHomeService, ProfileService, RecruiterJobDetailService],
+        CheckAuthGuard, CheckNotAuthGuard, ActivateService, SettingsService,
+        ForgotService, UserGuard, RecruiterGuard, RecruiterHomeService, ProfileService, RecruiterJobDetailService],
     bootstrap: [AppComponent]
 })
 export class AppModule {

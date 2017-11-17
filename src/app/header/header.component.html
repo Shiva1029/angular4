@@ -12,7 +12,7 @@
             <li *ngIf="showLogout" class="nav-item makePointer" routerLink="settings" routerLinkActive="active">
                 <a class="nav-link">Settings</a>
             </li>
-            <li *ngIf="showLogout && !isUser" class="nav-item makePointer" routerLink="profile" routerLinkActive="active">
+            <li *ngIf="showLogout && isUser" class="nav-item makePointer" routerLink="profile" routerLinkActive="active">
                 <a class="nav-link">Profile</a>
             </li>
             <li *ngIf="showLogout" class="nav-item makePointer" routerLink="logout" routerLinkActive="active">
