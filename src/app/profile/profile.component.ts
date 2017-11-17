@@ -15,12 +15,17 @@ export class ProfileComponent implements OnInit {
     errorMessage = '';
     successMessage = '';
     profileObj = new ProfileObj();
+    changeMade = false;
 
     constructor(private profileSer: ProfileService) {
     }
 
     ngOnInit() {
         this.retrieveUser();
+    }
+
+    changed(e): void {
+      this.changeMade = true;
     }
 
     retrieveUser(): void {

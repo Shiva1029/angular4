@@ -47,6 +47,7 @@ import {RecruiterJobReducer} from './reducers/recruiter-job';
 import {RecruiterJobDetailComponent} from './recruiter-job-detail/recruiter-job-detail.component';
 import {RecruiterJobDetailService} from './recruiter-job-detail/recruiter-job-detail.service';
 import {SearchApplicantsPipe} from './filters/search-applicants.pipe';
+import { ContactService } from './contact/contact.service';
 
 const globalSettings: RecaptchaSettings = {siteKey: '6LcFXzUUAAAAAAybdoCt1u0fy7uyy9nI30AG6JC7'};
 
@@ -91,7 +92,7 @@ const globalSettings: RecaptchaSettings = {siteKey: '6LcFXzUUAAAAAAybdoCt1u0fy7u
             useValue: globalSettings,
         }, LoginService, UserRegistrationService, AppService, UserHomeService,
         CheckAuthGuard, CheckNotAuthGuard, ActivateService, SettingsService,
-        ForgotService, UserGuard, RecruiterGuard, RecruiterHomeService, ProfileService, RecruiterJobDetailService],
+        ForgotService, UserGuard, RecruiterGuard, RecruiterHomeService, ProfileService, RecruiterJobDetailService, ContactService],
     bootstrap: [AppComponent]
 })
 export class AppModule {

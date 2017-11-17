@@ -39,6 +39,7 @@ export class LoginComponent implements OnInit {
     onLoginSubmit(): void {
         this.loading = true;
         this.errorMessage = '';
+        this.successMessage = '';
         if (this.errorMessage === '') {
             this.loginObj.email = this.email;
             this.loginObj.pwd = this.pwd;
@@ -59,7 +60,6 @@ export class LoginComponent implements OnInit {
                             this.loginCall();
                             this.userLoginSer.onLogin();
                             this.router.navigate([this.userLoginSer.redirectUrl]);
-                            this.successMessage = returnObj.message;
                         } else {
                             this.errorMessage = 'Sorry! Something went wrong!';
                         }
@@ -129,7 +129,7 @@ export class LoginComponent implements OnInit {
             })
             .subscribe(returnObj => {
                     if (returnObj.message === 'OK') {
-                        this.successMessage = 'An Email has been sent to change your password.';
+                        this.successMessage = 'An <i class="fa fa-envelope" aria-hidden="true"></i> Email with the link valid for 5 minutes to change your password has been sent.';
                     } else {
                         this.errorMessage = 'Sorry! Something went wrong!';
                     }

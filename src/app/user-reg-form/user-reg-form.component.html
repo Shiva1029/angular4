@@ -38,7 +38,8 @@
             </div>
 
             <div class="form-group">
-                <label for="pwd">Password (<em>Alphanumeric, 6-24 long, atleast 1 uppercase, 1 lowercase & 1 special character</em>):</label>
+                <label for="pwd">Password (<em>Alphanumeric, 6-24 long, atleast 1 uppercase, 1 lowercase & 1 special
+                    character</em>):</label>
                 <input [(ngModel)]="pwd" type="password" class="form-control" name="pwd" id="pwd">
             </div>
 
@@ -54,7 +55,8 @@
                     #captchaRef="reCaptcha"
                     (resolved)="resolvedUserReg($event)"
                     size="invisible"></re-captcha>
-            <button type="submit" (click)="onUserRegClick(captchaRef)" type="submit" class="btn btn-lg btn-success" [ngClass]="{'makePointer': !(isNotValid() || loading)}"
+            <button type="submit" (click)="onUserRegClick(captchaRef)" type="submit" class="btn btn-lg btn-success"
+                    [ngClass]="{'makePointer': !(isNotValid() || loading)}"
                     [disabled]="isNotValid() || loading"><i
                     class="fa fa-paper-plane"
                     aria-hidden="true"></i>
@@ -81,7 +83,8 @@
                        name="rmail">
             </div>
             <div class="form-group">
-                <label>Password (<em>Alphanumeric, 6-24 long, atleast 1 uppercase, 1 lowercase & 1 special character</em>):</label>
+                <label>Password (<em>Alphanumeric, 6-24 long, atleast 1 uppercase, 1 lowercase & 1 special
+                    character</em>):</label>
                 <input [(ngModel)]="rpwd" type="password" class="form-control" name="rpwd">
             </div>
             <re-captcha
@@ -100,10 +103,9 @@
 </form>
 <div *ngIf="loading" class="loader addLeftMargin"></div>
 <div class="row marginTop marginSides">
-    <div class="alert alert-success" *ngIf="successMessage==='OK'">
-        <strong><i class="fa fa-check" aria-hidden="true"></i> Success!</strong> User registered
-        successfully.
-    </div>
+    <div class="alert alert-success" *ngIf="successMessage!==''">
+        <strong><i class="fa fa-check" aria-hidden="true"></i> Success!</strong> <span [innerHTML]="successMessage">
+    </span></div>
     <div class="alert alert-danger" *ngIf="errorMessage!==''">
         <strong><i class="fa fa-remove" aria-hidden="true"></i> Error!</strong>
         {{errorMessage}}

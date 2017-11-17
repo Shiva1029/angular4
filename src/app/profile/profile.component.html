@@ -3,7 +3,7 @@
         <div class="col-6">
             <div class="input-group">
                 <span class="input-group-addon">https://github.com/</span>
-                <input [(ngModel)]="profileObj.github" name="github" type="text" class="form-control">
+                <input [(ngModel)]="profileObj.github" (ngModelChange)="changed($event)" name="github" type="text" class="form-control">
             </div>
         </div>
     </div>
@@ -11,7 +11,7 @@
         <div class="col-6">
             <div class="input-group">
                 <span class="input-group-addon">https://www.linkedin.com/in/</span>
-                <input [(ngModel)]="profileObj.linkedin" name="linkedin" type="text" class="form-control">
+                <input [(ngModel)]="profileObj.linkedin" (ngModelChange)="changed($event)" name="linkedin" type="text" class="form-control">
             </div>
         </div>
     </div>
@@ -19,14 +19,14 @@
         <div class="col-6">
             <div class="input-group">
                 <span class="input-group-addon">Portfolio http://</span>
-                <input [(ngModel)]="profileObj.portfolio" name="portfolio" type="url" placeholder="...URL" class="form-control">
+                <input [(ngModel)]="profileObj.portfolio" (ngModelChange)="changed($event) "name="portfolio" type="url" placeholder="...URL" class="form-control">
             </div>
         </div>
     </div>
     <div class="row addMargin">
         <button type="submit" (click)="submitUser()" type="submit"
                 class="btn btn-lg btn-success makePointer"
-                [disabled]="isNotValid() || loading"><i
+                [disabled]="isNotValid() || loading || !changeMade"><i
                 class="fa fa-paper-plane"
                 aria-hidden="true"></i>
             Save

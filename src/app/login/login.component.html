@@ -19,7 +19,8 @@
                             #captchaRef="reCaptcha"
                             (resolved)="resolvedLogin($event)"
                             size="invisible"></re-captcha>
-                    <button (click)="onLoginClick(captchaRef)" [disabled]="isNotValid() || loading" class="btn btn-lg btn-primary btn-block"
+                    <button (click)="onLoginClick(captchaRef)" [disabled]="isNotValid() || loading"
+                            class="btn btn-lg btn-primary btn-block"
                             type="submit"><i
                             class="fa fa-paper-plane"
                             aria-hidden="true"></i> Login
@@ -29,9 +30,11 @@
         </form>
         <div class="container">
             <div class="row" *ngIf="showFP">
-                <div class="col-1 back-button makePointer" (click)="loginClick()"><i class="fa fa-arrow-circle-left fa-2x"
-                                                                                          aria-hidden="true"></i></div>
-            </div></div>
+                <div class="col-1 back-button makePointer" (click)="loginClick()"><i
+                        class="fa fa-arrow-circle-left fa-2x"
+                        aria-hidden="true"></i></div>
+            </div>
+        </div>
         <form *ngIf="showFP">
             <fieldset>
                 <legend>Forgot Password</legend>
@@ -44,7 +47,9 @@
                             #captchaRefFP="reCaptcha"
                             (resolved)="resolvedFP($event)"
                             size="invisible"></re-captcha>
-                    <button (click)="onLoginClick(captchaRefFP)" [disabled]="isNotValid() || loading" class="btn btn-lg btn-primary btn-block" [ngClass]="{'makePointer': !(isNotValid() || loading)}" type="submit"><i
+                    <button (click)="onLoginClick(captchaRefFP)" [disabled]="isNotValid() || loading"
+                            class="btn btn-lg btn-primary btn-block"
+                            [ngClass]="{'makePointer': !(isNotValid() || loading)}" type="submit"><i
                             class="fa fa-paper-plane"
                             aria-hidden="true"></i> Email
                     </button>
@@ -55,8 +60,8 @@
 </div>
 <div *ngIf="loading" class="loader addLeftMargin"></div>
 <div class="row marginTop marginSides">
-    <div class="alert alert-success" *ngIf="successMessage==='OK'">
-        <strong><i class="fa fa-check" aria-hidden="true"></i> Success!</strong> {{successMessage}}
+    <div class="alert alert-success" *ngIf="successMessage!==''">
+        <strong><i class="fa fa-check" aria-hidden="true"></i> Success!</strong> <span [innerHTML]="successMessage"></span>
     </div>
     <div class="alert alert-danger" *ngIf="errorMessage!==''">
         <strong><i class="fa fa-remove" aria-hidden="true"></i> Error!</strong>

@@ -1,1 +1,37 @@
 <h2>Contact</h2>
+<div class="container addMargins">
+    <div class="row">
+        <div class="col-6">
+            <div class="form-group">
+                <label>Message</label>
+                <textarea class="form-control" [(ngModel)]="contactObj.message" name="message"
+                          rows="3" maxlength="1024"></textarea>
+            </div>
+        </div>
+        <re-captcha
+                #captchaRef="reCaptcha"
+                (resolved)="resolved($event)"
+                size="invisible"></re-captcha>
+        <div class="col-3">
+            <div class="addMargins"><em>{{contactObj.message.length}}/1024 (Minimum 25).</em></div>
+            <button type="submit" [disabled]="contactObj.message.length<25 || contactObj.message.length>1024 || loading"
+                    (click)="onSubmitClick(captchaRef)" class="btn btn-primary" [ngClass]="{'makePointer': !loading && contactObj.message.length>=25 && contactObj.message.length<=1024}">
+                <i class="fa fa-paper-plane" aria-hidden="true"></i> Send
+            </button>
+        </div>
+    </div>
+</div>
+<div class="row marginTop marginSides">
+    <div *ngIf="loading" class="loader addLeftMargin"></div>
+    <div class="alert alert-success" *ngIf="successMessage!==''">
+        <strong><i class="fa fa-check" aria-hidden="true"></i> Success!</strong> <span [innerHTML]="successMessage"></span>
+    </div>
+    <div class="alert alert-danger" *ngIf="errorMessage!==''">
+        <strong><i class="fa fa-remove" aria-hidden="true"></i> Error!</strong>
+        {{errorMessage}}
+    </div>
+</div>
+<address class="addMargins">
+    <h4><a href="mailto:admin@collegestash.com">Email - admin@collegestash.com</a></h4>
+</address>
+

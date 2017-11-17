@@ -140,6 +140,7 @@ export class UserRegFormComponent implements OnInit {
 
     onUserRegSubmit(): void {
         this.errorMessage = '';
+        this.successMessage = '';
         this.loading = true;
 
         if (this.errorMessage === '') {
@@ -157,7 +158,7 @@ export class UserRegFormComponent implements OnInit {
                 })
                 .subscribe(returnObj => {
                         if (returnObj.message === 'OK') {
-                            this.successMessage = 'An Email with an activation link has been sent!';
+                            this.successMessage = 'An <i class="fa fa-envelope" aria-hidden="true"></i> Email with an activation link valid for 24 hours has been sent!';
                         } else {
                             this.errorMessage = returnObj.message;
                         }
@@ -184,6 +185,7 @@ export class UserRegFormComponent implements OnInit {
 
     onRecruiterRegSubmit(): void {
         this.errorMessage = '';
+        this.successMessage = '';
         this.loading = true;
 
         if (this.errorMessage === '') {
@@ -199,7 +201,7 @@ export class UserRegFormComponent implements OnInit {
                 })
                 .subscribe(returnObj => {
                         if (returnObj.message === 'OK') {
-                            this.successMessage = 'An Email with an activation link has been sent!';
+                            this.successMessage = 'An <i class="fa fa-envelope" aria-hidden="true"></i> Email with an activation link valid for 24 hours has been sent!';
                         } else {
                             this.errorMessage = returnObj.message;
                         }
