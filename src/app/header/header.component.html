@@ -15,14 +15,14 @@
             <li *ngIf="showLogout && isUser" class="nav-item makePointer" routerLink="profile" routerLinkActive="active">
                 <a class="nav-link">Profile</a>
             </li>
-            <li *ngIf="showLogout" class="nav-item makePointer" routerLink="logout" routerLinkActive="active">
-                <a class="nav-link">Logout</a>
-            </li>
             <li *ngIf="!showLogout" class="nav-item makePointer" routerLink="signup" routerLinkActive="signup">
                 <a class="nav-link">Signup</a>
             </li>
             <li *ngIf="showLogout" class="nav-item makePointer" routerLink="contact" routerLinkActive="contact">
                 <a class="nav-link">Contact</a>
+            </li>
+            <li *ngIf="showLogout" class="nav-item makePointer" routerLink="logout" routerLinkActive="active">
+                <a class="nav-link">Logout</a>
             </li>
         </ul>
         <div class="input-group margin-bottom-sm search-class-width">
