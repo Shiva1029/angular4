@@ -21,7 +21,6 @@ import {JobStateObj} from '../recruiter-home/job-state-obj';
 export class RecruiterJobDetailComponent implements OnInit, OnDestroy {
     errorMessage = '';
     merrorMessage = '';
-    successMessage = '';
     loading = false;
     mloading = false;
     job: Observable<RecruiterJobState>;
@@ -175,6 +174,7 @@ export class RecruiterJobDetailComponent implements OnInit, OnDestroy {
     }
 
     toggleJob(job: JobStateObj): void {
+        this.loading = true;
         this.recruiterJobDetailSer.toggleJob({'id': this.selectedId, 'visible': (job.visible === 'y') ? 'n' : 'y'})
             .finally(() => {
                 this.loading = false;

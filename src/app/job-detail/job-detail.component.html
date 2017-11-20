@@ -23,7 +23,7 @@
     </div>
     <div *ngIf="loading" class="loader addLeftMargin"></div>
     <div class="row marginTop marginSides">
-        <div class="alert alert-success" *ngIf="successMessage==='OK'">
+        <div class="alert alert-success" *ngIf="successMessage!==''">
             <strong><i class="fa fa-check" aria-hidden="true"></i> Success!</strong> {{successMessage}}
         </div>
         <div class="alert alert-danger" *ngIf="errorMessage!==''">

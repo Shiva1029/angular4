@@ -115,7 +115,8 @@ export class JobDetailComponent implements OnInit, OnDestroy {
 
     applyJob(): void {
         this.loading = true;
-        this.applyJobObj.id = this.jobSelected.id;
+        this.applyJobObj.id = this.selectedId;
+        this.successMessage = '';
         this.userHomeSer.applyJob(this.applyJobObj)
             .finally(() => {
                 this.loading = false;
@@ -123,7 +124,7 @@ export class JobDetailComponent implements OnInit, OnDestroy {
             .subscribe(returnObj => {
                     if (returnObj.message === 'OK') {
                         this.jobSelected.apply = true;
-                        this.successMessage = 'Application received!';
+                        this.successMessage = 'Application Sent!';
                     } else if (returnObj.message === 'login') {
                         this.router.navigate(['/login']);
                     } else {

@@ -6,8 +6,7 @@
             <h2>Job {{jobSelected.title}}</h2>
         </div>
         <div class="col-1">
-            <button type="button" class="btn makePointer" (click)="toggleJob(jobSelected)
-"
+            <button type="button" class="btn makePointer" (click)="toggleJob(jobSelected)"
                     [ngClass]="{'btn-danger': jobSelected.visible === 'y', 'btn-success': jobSelected.visible === 'n'}">
                 <i class="fa"
                    [ngClass]="{'fa-fire-extinguisher': jobSelected.visible === 'y', 'fa-eye': jobSelected.visible === 'n'}"
@@ -20,22 +19,22 @@
             <div>
                 <i class="fa fa-building" aria-hidden="true"></i> {{jobSelected.company}}
             </div>
-            <div><i class="fa fa-clock-o" aria-hidden="true"></i> {{jobSelected.time}} <i class="fa fa-map-marker" aria-hidden="true"></i> {{jobSelected.city}}, {{jobSelected.state}} - {{jobSelected.zip}}</div>
+            <div><i class="fa fa-clock-o" aria-hidden="true"></i> {{jobSelected.time}} <i class="fa fa-map-marker"
+                                                                                          aria-hidden="true"></i>
+                {{jobSelected.city}}, {{jobSelected.state}} - {{jobSelected.zip}}
+            </div>
             <div>{{jobDescription}}</div>
         </div>
     </div>
     <div *ngIf="loading" class="loader addLeftMargin"></div>
     <div class="row marginTop marginSides">
-        <div class="alert alert-success" *ngIf="successMessage==='OK'">
-            <strong><i class="fa fa-check" aria-hidden="true"></i> Success!</strong> {{successMessage}}
-        </div>
         <div class="alert alert-danger" *ngIf="errorMessage!==''">
             <strong><i class="fa fa-remove" aria-hidden="true"></i> Error!</strong>
             {{errorMessage}}
         </div>
     </div>
     <div class="row">
-        <div class="col-4">
+        <div class="col-12">
             <div class="input-group margin-bottom-sm search-class-container borderGrey">
                 <span class="input-group-addon search-class search-icon"><i class="fa fa-search fa-fw"></i></span>
                 <input [(ngModel)]="applicantSearch" class="form-control search-class removeFocus" type="text"
