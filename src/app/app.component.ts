@@ -24,7 +24,7 @@ export class AppComponent implements OnInit {
         const type = this.getCookie('type');
         if (this.getCookie('token') !== '' && type !== '') {
             this.loginCall();
-            this.userLoginSer.onLogin();
+            this.userLoginSer.onLogin(true);
             if (type === 'recruiter') {
                 this.userLoginSer.user = false;
             }

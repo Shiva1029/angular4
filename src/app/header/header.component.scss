@@ -19,3 +19,24 @@
   border: none;
   box-shadow: none;
 }
+
+.makeActive:hover {
+  z-index: 2;
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.search-results {
+  margin-top: 67px;
+  margin-right: 16px;
+  width: 100%;
+  z-index: 1000;
+  position: absolute;
+  right: 0;
+}
+
+.makeSearchDrop {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}

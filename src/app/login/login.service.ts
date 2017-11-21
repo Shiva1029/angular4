@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
+import {of} from 'rxjs/observable/of';
 
 import {LoginObj} from './login-obj';
 import {ForgotPwd} from './forgot-pwd';
@@ -24,16 +25,16 @@ export class LoginService {
         return this.http.post(`${baseUrl}logout.php`, {});
     }
 
-    onLogin() {
-        this.isLoggedIn = true;
-    }
-
-    onLogout() {
-        this.isLoggedIn = false;
+    onLogin(flag: boolean): void {
+        this.isLoggedIn = flag;
     }
 
     forgotPwd(obj: ForgotPwd): Observable<any> {
         return this.http.post(`${baseUrl}forgot_password_gen.php`, obj);
+    }
+
+    isUser(): Observable<boolean> {
+        return Observable.of(this.user);
     }
 
 }

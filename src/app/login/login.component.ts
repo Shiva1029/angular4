@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
                             this.setCookie('token', returnObj.jwt, 30);
                             this.setCookie('type', returnObj.type, 30);
                             this.loginCall();
-                            this.userLoginSer.onLogin();
+                            this.userLoginSer.onLogin(true);
                             this.router.navigate([this.userLoginSer.redirectUrl]);
                         } else {
                             this.errorMessage = 'Sorry! Something went wrong!';

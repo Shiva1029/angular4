@@ -47,7 +47,7 @@ export class LogoutComponent implements OnInit {
                         if (returnObj.message === 'OK') {
                             this.deleteCookie('token');
                             this.logout();
-                            this.userLogoutSer.onLogout();
+                            this.userLogoutSer.onLogin(false);
                             this.setJobToNull(new JobStateObj());
                             this.router.navigate(['/login']);
                             this.successMessage = true;
