@@ -11,7 +11,7 @@ export class SearchLinksPipe implements PipeTransform {
             return [];
         }
         if (!searchText) {
-            return links;
+            return [];
         }
         searchText = searchText.toString().toLowerCase();
         return links.filter(it => {

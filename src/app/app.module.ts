@@ -2,12 +2,12 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {StoreModule} from '@ngrx/store';
 import {FormsModule} from '@angular/forms';
-import {HttpClientModule/*, HTTP_INTERCEPTORS*/} from '@angular/common/http';
-//import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {
     RECAPTCHA_SETTINGS,
     RecaptchaSettings,
-    //RecaptchaLoaderService,
+    RecaptchaLoaderService,
     RecaptchaModule,
 } from 'ng-recaptcha';
 
@@ -19,7 +19,7 @@ import {LoginComponent} from './login/login.component';
 import {UserRegFormComponent} from './user-reg-form/user-reg-form.component';
 import {UserHomeComponent} from './user-home/user-home.component';
 import {UserRegPageComponent} from './user-reg-page/user-reg-page.component';
-//import {AuthInterceptor} from './auth-interceptor';
+import {AuthInterceptor} from './auth-interceptor';
 import {LoginService} from './login/login.service';
 import {UserRegistrationService} from './user-reg-form/user-registration.service';
 import {LogoutComponent} from './logout/logout.component';
@@ -80,15 +80,15 @@ const globalSettings: RecaptchaSettings = {siteKey: '6LcFXzUUAAAAAAybdoCt1u0fy7u
         HttpClientModule,
         StoreModule.forRoot({login: loginReducer, job: jobReducer, recruiterJob: RecruiterJobReducer}),
         RecaptchaModule.forRoot(),
-        /*StoreDevtoolsModule.instrument({
+        StoreDevtoolsModule.instrument({
             maxAge: 25
-        })*/
+        })
     ],
-    providers: [/*{
+    providers: [{
         provide: HTTP_INTERCEPTORS,
         useClass: AuthInterceptor,
         multi: true,
-    },*/
+    },
         {
             provide: RECAPTCHA_SETTINGS,
             useValue: globalSettings,
