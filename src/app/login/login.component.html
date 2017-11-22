@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-sm-3 formLeftMargin">
+    <div class="col-lg-3 formLeftMargin">
         <form *ngIf="!showFP">
             <fieldset>
                 <legend>Login</legend>
@@ -29,8 +29,8 @@
             </fieldset>
         </form>
         <div class="container">
-            <div class="row" *ngIf="showFP">
-                <div class="col-1 back-button makePointer" (click)="loginClick()"><i
+            <div class="row removePad" *ngIf="showFP">
+                <div class="col-lg-1 back-button removePad makePointer" (click)="loginClick()"><i
                         class="fa fa-arrow-circle-left fa-2x"
                         aria-hidden="true"></i></div>
             </div>

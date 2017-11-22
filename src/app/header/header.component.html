@@ -1,4 +1,4 @@
-<nav (window:resize)="onResize()" class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
     <a class="navbar-brand" href="#">CollegeStash</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#csNavbar" aria-controls="csNavbar"
             aria-expanded="false" aria-label="Toggle navigation">
@@ -25,11 +25,11 @@
                 <a class="nav-link">Logout</a>
             </li>
         </ul>
-        <div *ngIf="!isMobile" class="input-group margin-bottom-sm search-class-width">
+        <div class="input-group margin-bottom-sm search-class-width">
             <span class="input-group-addon search-class search-icon"><i class="fa fa-search fa-fw"></i></span>
             <input class="form-control search-class removeFocus" [(ngModel)]="stext" name="stext" type="text" placeholder="Search">
         </div>
-        <div *ngIf="!isMobile" class="search-class-width search-results">
+        <div class="search-class-width search-results">
             <ul class="list-group">
                 <li *ngFor="let link of links | searchLinks: stext;" class="list-group-item makePointer makeActive makeSearchDrop" routerLink="{{link.link}}" routerLinkActive="active">{{link.title}}</li>
             </ul>

@@ -10,7 +10,7 @@ export class RecruiterGuard implements CanActivate {
     }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-        if (this.userLoginSer.user) {
+        if (this.userLoginSer.userNormal) {
             this.router.navigate(['/userHome']);
             return false;
         } else {

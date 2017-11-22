@@ -26,7 +26,7 @@ export class AppComponent implements OnInit {
             this.loginCall();
             this.userLoginSer.onLogin(true);
             if (type === 'recruiter') {
-                this.userLoginSer.user = false;
+                this.userLoginSer.setUser(false);
             }
         }
     }

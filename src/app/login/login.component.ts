@@ -51,9 +51,9 @@ export class LoginComponent implements OnInit {
                 .subscribe(returnObj => {
                         if (returnObj.message === 'OK') {
                             if (returnObj.type === 'user') {
-                                this.userLoginSer.user = true;
+                                this.userLoginSer.setUser(true);
                             } else {
-                                this.userLoginSer.user = false;
+                                this.userLoginSer.setUser(false);
                             }
                             this.setCookie('token', returnObj.jwt, 30);
                             this.setCookie('type', returnObj.type, 30);

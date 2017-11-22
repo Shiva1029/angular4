@@ -28,7 +28,7 @@
 }
 
 .search-results {
-  margin-top: 67px;
+  margin-top: 42px;
   margin-right: 16px;
   width: 100%;
   z-index: 1000;
@@ -39,4 +39,19 @@
 .makeSearchDrop {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+}
+
+@media screen and (max-width: 504px) and (orientation: portrait) {
+  .search-results {
+    margin-top: 0;
+    left: 16px;
+    width: 92.5%;
+  }
+}
+
+@media screen and (max-width: 812px) and (orientation: landscape) {
+  .search-results {
+    margin-top: 0;
+    left: 16px;
+  }
 }

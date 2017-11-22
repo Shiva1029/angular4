@@ -1,6 +1,7 @@
 import {Component, OnInit, ElementRef} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
+import {Subscription} from 'rxjs/Subscription';
 
 import {LoginState} from '../reducers/login-state';
 import {LoginService} from '../login/login.service';
@@ -19,16 +20,8 @@ export class HeaderComponent implements OnInit {
     isUser: boolean;
     stext = '';
     isMobile = false;
-    links = [{
-        title: 'Login',
-        link: 'login',
-        meanings: ['account', 'enter']
-    },
-        {
-            title: 'Signup',
-            link: 'signup',
-            meanings: ['register', 'create']
-        }];
+    links: LinksState[];
+    private subscription: Subscription;
 
     constructor(elm: ElementRef, private store: Store<LoginState>, private loginSer: LoginService) {
         this.headerType = elm.nativeElement.getAttribute('headerType');
@@ -47,16 +40,50 @@ export class HeaderComponent implements OnInit {
                             meanings: ['register', 'create']
                         }];
 
+                } else if (this.isUser) {
+                    this.links = [{
+                        title: 'Home',
+                        link: 'userHome',
+                        meanings: ['back', 'main', 'house']
+                    },
+                        {
+                            title: 'Profile',
+                            link: 'profile',
+                            meanings: ['github', 'linkedin', 'portfolio', 'links', 'all in one', 'website', 'personal', 'info']
+                        },
+                        {
+                            title: 'Settings',
+                            link: 'settings',
+                            meanings: ['change password']
+                        },
+                        {
+                            title: 'Contact',
+                            link: 'contact',
+                            meanings: ['contact', 'email', 'support', 'feedback', 'voice']
+                        }];
+                } else {
+                    this.links = [{
+                        title: 'Home',
+                        link: 'recruiterHome',
+                        meanings: ['back', 'main', 'house']
+                    },
+                        {
+                            title: 'Settings',
+                            link: 'settings',
+                            meanings: ['change password']
+                        },
+                        {
+                            title: 'Contact',
+                            link: 'contact',
+                            meanings: ['contact', 'email', 'support', 'feedback', 'voice']
+                        }];
                 }
             }, err => {
                 // console.log(err);
             }
         );
-    }
 
-    ngOnInit() {
-        this.isMobile = screen.width > 1135 ? false : true;
-        this.loginSer.isUser()
+        this.subscription = loginSer.user$
             .subscribe(returnObj => {
                 this.isUser = returnObj;
                 if (returnObj && this.showLogout) {
@@ -100,8 +127,7 @@ export class HeaderComponent implements OnInit {
             });
     }
 
-    onResize(): void {
-        this.isMobile = screen.width > 1135 ? false : true;
+    ngOnInit() {
     }
 
 }

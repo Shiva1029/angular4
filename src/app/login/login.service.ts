@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
-import {of} from 'rxjs/observable/of';
+import {Subject} from 'rxjs/Subject';
 
 import {LoginObj} from './login-obj';
 import {ForgotPwd} from './forgot-pwd';
@@ -9,12 +9,15 @@ import {baseUrl} from '../backend';
 
 @Injectable()
 export class LoginService {
-    user = true;
+    private user = new Subject<boolean>();
+    user$ = this.user.asObservable();
+    userNormal = true;
     isLoggedIn = false;
     // store the URL so we can redirect after logging in
     redirectUrl = '/userHome';
 
     constructor(private http: HttpClient) {
+        this.user.next(true);
     }
 
     submitUser(obj: LoginObj): Observable<any> {
@@ -33,8 +36,9 @@ export class LoginService {
         return this.http.post(`${baseUrl}forgot_password_gen.php`, obj);
     }
 
-    isUser(): Observable<boolean> {
-        return Observable.of(this.user);
+    setUser(flag: boolean): void {
+        this.user.next(flag);
+        this.userNormal = flag;
     }
 
 }
