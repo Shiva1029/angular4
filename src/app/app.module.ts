@@ -49,6 +49,7 @@ import {RecruiterJobDetailService} from './recruiter-job-detail/recruiter-job-de
 import {SearchApplicantsPipe} from './filters/search-applicants.pipe';
 import {ContactService} from './contact/contact.service';
 import {SearchLinksPipe} from './filters/search-links.pipe';
+import {FileNotFoundComponent} from './file-not-found/file-not-found.component';
 
 const globalSettings: RecaptchaSettings = {siteKey: '6LcFXzUUAAAAAAybdoCt1u0fy7uyy9nI30AG6JC7'};
 
@@ -71,7 +72,8 @@ const globalSettings: RecaptchaSettings = {siteKey: '6LcFXzUUAAAAAAybdoCt1u0fy7u
         RecruiterHomeComponent,
         ProfileComponent,
         RecruiterJobDetailComponent,
-        SearchLinksPipe
+        SearchLinksPipe,
+        FileNotFoundComponent
     ],
     imports: [
         BrowserModule,

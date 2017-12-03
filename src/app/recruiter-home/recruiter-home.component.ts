@@ -94,6 +94,7 @@ export class RecruiterHomeComponent implements OnInit {
             })
             .subscribe(returnObj => {
                     if (returnObj.message === 'OK') {
+                        this.getJobs();
                         $('#postJobModalClose').click();
                     } else {
                         this.errorMessage = 'Sorry! Something went wrong!';

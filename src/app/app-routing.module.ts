@@ -17,6 +17,7 @@ import {RecruiterGuard} from './recruiter.guard';
 import {RecruiterHomeComponent} from './recruiter-home/recruiter-home.component';
 import {ProfileComponent} from './profile/profile.component';
 import {RecruiterJobDetailComponent} from './recruiter-job-detail/recruiter-job-detail.component';
+import {FileNotFoundComponent} from './file-not-found/file-not-found.component';
 
 const routes: Routes = [
     {
@@ -84,6 +85,10 @@ const routes: Routes = [
         canActivate: [CheckNotAuthGuard],
         component: ForgotComponent
     },
+    {
+        path: '**',
+        component: FileNotFoundComponent
+    }
 ];
 
 @NgModule({
