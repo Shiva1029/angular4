@@ -44,3 +44,27 @@
 .removePad {
   padding: 0;
 }
+
+.students-ad {
+  z-index: -10000;
+  background-color: #0078d7;
+  color: #ffffff;
+  font-size: large;
+  font-family: Verdana, sans-serif;
+  padding: 12px;
+  margin: 10px 50px 10px 50px;
+}
+
+.make-big {
+  font-size: 150% !important;
+}
+
+.recruiters-ad {
+  z-index: -10000;
+  background-color: #4ba449;
+  color: #ffffff;
+  font-size: large;
+  font-family: Verdana, sans-serif;
+  padding: 12px;
+  margin: 10px 50px 10px 50px;
+}

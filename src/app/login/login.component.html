@@ -6,12 +6,12 @@
                 <div class="formLeftMargin">
                     <div class="form-group">
                         <label for="email">Email address:</label>
-                        <input [(ngModel)]="email" type="email" name="email" class="form-control" id="email">
+                        <input [(ngModel)]="email" type="email" name="email" class="form-control" id="email" autocomplete="on">
                     </div>
                     <div class="form-group">
                         <label for="pwd">Password:</label>
                         <input type="password" class="form-control" id="pwd"
-                               [(ngModel)]="pwd" name="pwd">
+                               [(ngModel)]="pwd" name="pwd" autocomplete="on">
                         <div class="makePointer" (click)="forgotPasswordClick()">Forgot Password</div>
                         <div class="makePointer" routerLink="/signup">Not Registered yet? Signup</div>
                     </div>
@@ -41,7 +41,7 @@
                 <div class="formLeftMargin">
                     <div class="form-group">
                         <label for="emailFP">Email address:</label>
-                        <input [(ngModel)]="email" type="email" name="email" class="form-control" id="emailFP">
+                        <input [(ngModel)]="email" type="email" name="email" class="form-control" id="emailFP" autocomplete="on">
                     </div>
                     <re-captcha
                             #captchaRefFP="reCaptcha"
@@ -56,6 +56,24 @@
                 </div>
             </fieldset>
         </form>
+    </div>
+    <div class="col-lg-8">
+        <div class="row">
+            <div class="col-lg-12 students-ad"><span class="make-big">> Students</span>
+                <ul>
+                    <li>Your details are private and never shared with recruiters automatically.</li>
+                    <li>All of your portfolios in one place (<em>github</em>, (<em>linkedin</em>, <em>website</em>).</li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 recruiters-ad"><span class="make-big">> Recruiters</span>
+                <ul>
+                    <li>Verified Students apply to jobs you post.</li>
+                    <li>Students grant access to their information when they apply for the job</li>
+                </ul>
+            </div>
+        </div>
     </div>
 </div>
 <div *ngIf="loading" class="loader addLeftMargin"></div>
