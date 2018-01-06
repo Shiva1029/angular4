@@ -29,7 +29,7 @@
             <div class="form-group">
                 <label for="email">Email (<em>.edu</em>):</label>
                 <input (keyup)="emailToLower($event)" [(ngModel)]="email" type="email" class="form-control" id="email"
-                       name="email">
+                       name="email" autocomplete="on">
             </div>
 
             <div class="form-group">
@@ -40,7 +40,7 @@
             <div class="form-group">
                 <label for="pwd">Password (<em>Alphanumeric, 6-24 long, atleast 1 uppercase, 1 lowercase & 1 special
                     character</em>):</label>
-                <input [(ngModel)]="pwd" type="password" class="form-control" name="pwd" id="pwd">
+                <input [(ngModel)]="pwd" type="password" class="form-control" name="pwd" id="pwd" autocomplete="on">
             </div>
 
             <div class="form-group">
@@ -80,12 +80,12 @@
             <div class="form-group">
                 <label>Email:</label>
                 <input (keyup)="emailToLowerR($event)" [(ngModel)]="remail" type="email" class="form-control"
-                       name="rmail">
+                       name="rmail" autocomplete="on">
             </div>
             <div class="form-group">
                 <label>Password (<em>Alphanumeric, 6-24 long, atleast 1 uppercase, 1 lowercase & 1 special
                     character</em>):</label>
-                <input [(ngModel)]="rpwd" type="password" class="form-control" name="rpwd">
+                <input [(ngModel)]="rpwd" type="password" class="form-control" name="rpwd" autocomplete="on">
             </div>
             <re-captcha
                     #captchaRefRec="reCaptcha"
