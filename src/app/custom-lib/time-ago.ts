@@ -8,7 +8,7 @@ export const timeAgo = function (date) {
         tense = 'later';
         diff = Math.abs(diff);
     }
-    if (diff === 0) {
+    if (diff < 1000) {
         return 'Just Now';
     }
     // 365.25 * 24 * 60 * 60 * 1000

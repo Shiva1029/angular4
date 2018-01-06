@@ -26,6 +26,7 @@ export class RecruiterHomeComponent implements OnInit {
     job: Observable<RecruiterJobState>;
     jobObj = new JobObj();
     jobs: JobStateObj[];
+    recaptchaStr = '';
 
     constructor(private router: Router, private recruiterHomeSer: RecruiterHomeService, private store: Store<JobStateInterface>) {
         this.job = store.select('recruiterJob');
@@ -69,7 +70,7 @@ export class RecruiterHomeComponent implements OnInit {
 
     isNotValid(): boolean {
         if (this.jobObj.title && this.jobObj.zip && this.jobObj.description) {
-            if (this.jobObj.title.replace(/[a-z0-9\-\.\/\\\"\'\@ ]/gi, '') !== '' ||
+            if (this.jobObj.title.replace(/[a-z0-9\-\.\/\(\)\\\"\'\@ ]/gi, '') !== '' ||
                 this.jobObj.title.length < 6 || this.jobObj.title.length > 36) {
                 return true;
             }
@@ -77,7 +78,7 @@ export class RecruiterHomeComponent implements OnInit {
                 this.jobObj.zip < 705 || this.jobObj.zip > 99950) {
                 return true;
             }
-            if (this.jobObj.description.replace(/[a-z0-9\-\.\@\/\?\\\"\' ]/gi, '') !== '' ||
+            if (this.jobObj.description.replace(/[a-z0-9\-\(\)\.\@\+\,\/\?\\\"\' ]/gi, '') !== '' ||
                 this.jobObj.description.length < 10 || this.jobObj.description.length > 500) {
                 return true;
             }
@@ -87,6 +88,7 @@ export class RecruiterHomeComponent implements OnInit {
     }
 
     postJob(): void {
+        this.jobObj.recaptcha = this.recaptchaStr;
         this.recruiterHomeSer.postJob(this.jobObj)
             .finally(() => {
                 this.loading = false;
@@ -103,6 +105,20 @@ export class RecruiterHomeComponent implements OnInit {
                 error => {
                     this.errorMessage = 'Sorry! Something went wrong!';
                 });
+    }
+
+    onLoginClick(captchaRef: any): void {
+        if (this.recaptchaStr) {
+            captchaRef.reset();
+        }
+        captchaRef.execute();
+    }
+
+    public resolvedPJ(captchaResponse: string): void {
+        this.recaptchaStr = captchaResponse;
+        if (this.recaptchaStr) {
+            this.postJob();
+        }
     }
 
 }

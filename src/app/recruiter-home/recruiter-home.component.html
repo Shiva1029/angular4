@@ -28,6 +28,10 @@
                         <textarea class="form-control" [(ngModel)]="jobObj.description" name="description"
                                   rows="3"></textarea>
                     </div>
+                    <re-captcha
+                            #captchaRefPJ="reCaptcha"
+                            (resolved)="resolvedPJ($event)"
+                            size="invisible"></re-captcha>
                 </form>
                 <div *ngIf="loading" class="loader addLeftMargin"></div>
                 <div class="row marginTop marginSides">
@@ -39,7 +43,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary makePointer" data-dismiss="modal">Close</button>
-                <button type="submit" [disabled]="isNotValid()" (click)="postJob()" class="btn btn-primary" [ngClass]="{'makePointer': !isNotValid()}">
+                <button type="submit" [disabled]="isNotValid()" (click)="onLoginClick(captchaRefPJ)" class="btn btn-primary" [ngClass]="{'makePointer': !isNotValid()}">
                     <i class="fa fa-paper-plane" aria-hidden="true"></i> Post Job
                 </button>
             </div>
