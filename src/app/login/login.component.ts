@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
@@ -9,13 +9,14 @@ import {LoginState} from '../reducers/login-state';
 import {LoginService} from './login.service';
 import {LoginObj} from './login-obj';
 import {ForgotPwd} from './forgot-pwd';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
 
     loginObj = new LoginObj();
     errorMessage = '';
@@ -28,6 +29,8 @@ export class LoginComponent implements OnInit {
     recaptchaStr = '';
     recaptchaStrF = '';
     fp = new ForgotPwd();
+    private loginSubs: Subscription;
+    private fpSubs: Subscription;
 
     constructor(private router: Router, private userLoginSer: LoginService, private store: Store<LoginState>) {
         this.login = store.select('login');
@@ -44,7 +47,7 @@ export class LoginComponent implements OnInit {
             this.loginObj.email = this.email;
             this.loginObj.pwd = this.pwd;
             this.loginObj.recaptcha = this.recaptchaStr;
-            this.userLoginSer.submitUser(this.loginObj)
+            this.fpSubs = this.userLoginSer.submitUser(this.loginObj)
                 .finally(() => {
                     this.loading = false;
                 })
@@ -123,7 +126,7 @@ export class LoginComponent implements OnInit {
         this.successMessage = '';
         this.fp.email = this.email;
         this.fp.recaptcha = this.recaptchaStrF;
-        this.userLoginSer.forgotPwd(this.fp)
+        this.fpSubs = this.userLoginSer.forgotPwd(this.fp)
             .finally(() => {
                 this.loading = false;
             })
@@ -150,6 +153,15 @@ export class LoginComponent implements OnInit {
         this.recaptchaStrF = captchaResponse;
         if (this.recaptchaStrF) {
             this.onFPSubmit();
+        }
+    }
+
+    ngOnDestroy () {
+        if (this.fpSubs) {
+            this.fpSubs.unsubscribe();
+        }
+        if (this.loginSubs) {
+            this.loginSubs.unsubscribe();
         }
     }
 }

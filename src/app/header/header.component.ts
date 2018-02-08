@@ -1,4 +1,4 @@
-import {Component, OnInit, ElementRef} from '@angular/core';
+import {Component, OnInit, ElementRef, OnDestroy} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
 import {Subscription} from 'rxjs/Subscription';
@@ -12,7 +12,7 @@ import {LinksState} from '../filters/links-state';
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
 
     headerType: String;
     login: Observable<boolean>;
@@ -22,11 +22,12 @@ export class HeaderComponent implements OnInit {
     isMobile = false;
     links: LinksState[];
     private subscription: Subscription;
+    private lsubs: Subscription;
 
     constructor(elm: ElementRef, private store: Store<LoginState>, private loginSer: LoginService) {
         this.headerType = elm.nativeElement.getAttribute('headerType');
         this.login = store.select('login');
-        this.login.subscribe(response => {
+        this.lsubs = this.login.subscribe(response => {
                 this.showLogout = response;
                 if (!response) {
                     this.links = [{
@@ -128,6 +129,15 @@ export class HeaderComponent implements OnInit {
     }
 
     ngOnInit() {
+    }
+
+    ngOnDestroy() {
+        if (this.lsubs) {
+            this.lsubs.unsubscribe();
+        }
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
     }
 
 }
