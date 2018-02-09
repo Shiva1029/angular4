@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 
 import {ActObj} from './act-obj';
-import {baseUrl} from '../backend';
+import {environment} from '../../environments/environment';
 
 @Injectable()
 export class ActivateService {
@@ -11,7 +11,7 @@ export class ActivateService {
     }
 
     activateUser(obj: ActObj): Observable<any> {
-        return this.http.post(`${baseUrl}activate.php`, obj);
+        return this.http.post(`${environment.baseUrl}activate.php`, obj);
     }
 
 }

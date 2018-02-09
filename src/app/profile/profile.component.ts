@@ -1,21 +1,24 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ProfileService} from './profile.service';
 import 'rxjs/add/operator/finally';
 
 import {ProfileObj} from './profile-obj';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
     selector: 'app-profile',
     templateUrl: './profile.component.html',
     styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
 
     loading = false;
     errorMessage = '';
     successMessage = '';
     profileObj = new ProfileObj();
     changeMade = false;
+    subsSer: Subscription;
+    subsUser: Subscription;
 
     constructor(private profileSer: ProfileService) {
     }
@@ -25,13 +28,13 @@ export class ProfileComponent implements OnInit {
     }
 
     changed(e): void {
-      this.changeMade = true;
+        this.changeMade = true;
     }
 
     retrieveUser(): void {
         this.loading = true;
         this.errorMessage = '';
-        this.profileSer.retrieveUser()
+        this.subsSer = this.profileSer.retrieveUser()
             .finally(() => {
                 this.loading = false;
             })
@@ -50,7 +53,7 @@ export class ProfileComponent implements OnInit {
     submitUser(): void {
         this.loading = true;
         this.errorMessage = '';
-        this.profileSer.submitUser(this.profileObj)
+        this.subsUser = this.profileSer.submitUser(this.profileObj)
             .finally(() => {
                 this.loading = false;
             })
@@ -96,6 +99,15 @@ export class ProfileComponent implements OnInit {
             return true;
         }
         return false;
+    }
+
+    ngOnDestroy() {
+        if (this.subsSer) {
+            this.subsSer.unsubscribe();
+        }
+        if (this.subsUser) {
+            this.subsUser.unsubscribe();
+        }
     }
 
 }

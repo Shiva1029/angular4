@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 
-import {baseUrl} from '../backend';
+import {environment} from '../../environments/environment';
 import {ProfileObj} from './profile-obj';
 
 @Injectable()
@@ -12,10 +12,10 @@ export class ProfileService {
     }
 
     retrieveUser(): Observable<any> {
-        return this.http.post(`${baseUrl}get_profile.php`, {});
+        return this.http.post(`${environment.baseUrl}get_profile.php`, {});
     }
 
     submitUser(obj: ProfileObj): Observable<any> {
-        return this.http.post(`${baseUrl}save_profile.php`, obj);
+        return this.http.post(`${environment.baseUrl}save_profile.php`, obj);
     }
 }

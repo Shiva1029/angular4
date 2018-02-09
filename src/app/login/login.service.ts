@@ -5,7 +5,7 @@ import {Subject} from 'rxjs/Subject';
 
 import {LoginObj} from './login-obj';
 import {ForgotPwd} from './forgot-pwd';
-import {baseUrl} from '../backend';
+import {environment} from '../../environments/environment';
 
 @Injectable()
 export class LoginService {
@@ -21,11 +21,11 @@ export class LoginService {
     }
 
     submitUser(obj: LoginObj): Observable<any> {
-        return this.http.post(`${baseUrl}login.php`, obj);
+        return this.http.post(`${environment.baseUrl}login.php`, obj);
     }
 
     logoutUser(): Observable<any> {
-        return this.http.post(`${baseUrl}logout.php`, {});
+        return this.http.post(`${environment.baseUrl}logout.php`, {});
     }
 
     onLogin(flag: boolean): void {
@@ -33,7 +33,7 @@ export class LoginService {
     }
 
     forgotPwd(obj: ForgotPwd): Observable<any> {
-        return this.http.post(`${baseUrl}forgot_password_gen.php`, obj);
+        return this.http.post(`${environment.baseUrl}forgot_password_gen.php`, obj);
     }
 
     setUser(flag: boolean): void {

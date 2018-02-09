@@ -3,6 +3,7 @@ import {NgModule} from '@angular/core';
 import {StoreModule} from '@ngrx/store';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import {environment} from '../environments/environment';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {
     RECAPTCHA_SETTINGS,
@@ -53,6 +54,33 @@ import {FileNotFoundComponent} from './file-not-found/file-not-found.component';
 
 const globalSettings: RecaptchaSettings = {siteKey: '6LcFXzUUAAAAAAybdoCt1u0fy7uyy9nI30AG6JC7'};
 
+const imports: any[] = [BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule,
+    StoreModule.forRoot({login: loginReducer, job: jobReducer, recruiterJob: RecruiterJobReducer}),
+    RecaptchaModule.forRoot()
+];
+
+const providers: any[] = [
+    {
+        provide: RECAPTCHA_SETTINGS,
+        useValue: globalSettings,
+    }, LoginService, UserRegistrationService, AppService, UserHomeService,
+    CheckAuthGuard, CheckNotAuthGuard, ActivateService, SettingsService,
+    ForgotService, UserGuard, RecruiterGuard, RecruiterHomeService, ProfileService, RecruiterJobDetailService, ContactService];
+
+if (!environment.production) {
+    imports.push(StoreDevtoolsModule.instrument({
+        maxAge: 25
+    }));
+    providers.push({
+        provide: HTTP_INTERCEPTORS,
+        useClass: AuthInterceptor,
+        multi: true,
+    });
+}
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -75,28 +103,8 @@ const globalSettings: RecaptchaSettings = {siteKey: '6LcFXzUUAAAAAAybdoCt1u0fy7u
         SearchLinksPipe,
         FileNotFoundComponent
     ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        FormsModule,
-        HttpClientModule,
-        StoreModule.forRoot({login: loginReducer, job: jobReducer, recruiterJob: RecruiterJobReducer}),
-        RecaptchaModule.forRoot(),
-        StoreDevtoolsModule.instrument({
-            maxAge: 25
-        })
-    ],
-    providers: [{
-        provide: HTTP_INTERCEPTORS,
-        useClass: AuthInterceptor,
-        multi: true,
-    },
-        {
-            provide: RECAPTCHA_SETTINGS,
-            useValue: globalSettings,
-        }, LoginService, UserRegistrationService, AppService, UserHomeService,
-        CheckAuthGuard, CheckNotAuthGuard, ActivateService, SettingsService,
-        ForgotService, UserGuard, RecruiterGuard, RecruiterHomeService, ProfileService, RecruiterJobDetailService, ContactService],
+    imports: imports,
+    providers: providers,
     bootstrap: [AppComponent]
 })
 export class AppModule {

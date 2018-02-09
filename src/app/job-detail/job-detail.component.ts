@@ -10,6 +10,7 @@ import {UserHomeService} from '../user-home/user-home.service';
 import {JobObj} from '../user-home/job-obj';
 import {timeAgo} from '../custom-lib/time-ago';
 import {ApplyJobObj} from './apply-job-obj';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
     selector: 'app-job-detail',
@@ -26,7 +27,9 @@ export class JobDetailComponent implements OnInit, OnDestroy {
     jobDescription = '';
     login: Observable<boolean>;
     private selectedId: number;
-    private sub: any;
+    private sub: Subscription;
+    private subs: Subscription;
+    private subss: Subscription;
     private jobObjSelected = new JobObj();
     applyJobObj = new ApplyJobObj();
 
@@ -34,15 +37,15 @@ export class JobDetailComponent implements OnInit, OnDestroy {
                 private userHomeSer: UserHomeService, private store: Store<JobStateInterface>) {
         this.job = store.select('job');
         this.job.subscribe(response => {
-                if (response) {
-                    this.jobSelected = <JobState>response;
-                }
-            });
+            if (response) {
+                this.jobSelected = <JobState>response;
+            }
+        });
     }
 
     ngOnInit(): void {
         // check if JOB exists if not send a request.
-        this.sub = this.route.params.subscribe(params => {
+        this.route.params.subscribe(params => {
             // (+) before `params.get()` turns the string into a number
             this.selectedId = +params['id'];
             if (Math.floor(this.selectedId) === this.selectedId && this.selectedId >= 1) {
@@ -54,18 +57,12 @@ export class JobDetailComponent implements OnInit, OnDestroy {
         });
     }
 
-    ngOnDestroy(): void {
-        if (this.sub) {
-            this.sub.unsubscribe();
-        }
-    }
-
     getJob(): void {
         this.loading = true;
         this.errorMessage = '';
         this.jobObjSelected.job = this.selectedId;
         if (this.errorMessage === '') {
-            this.userHomeSer.getJob(this.jobObjSelected)
+            this.subs = this.userHomeSer.getJob(this.jobObjSelected)
                 .finally(() => {
                     this.loading = false;
                 })
@@ -90,7 +87,7 @@ export class JobDetailComponent implements OnInit, OnDestroy {
         this.errorMessage = '';
         this.jobObjSelected.job = this.selectedId;
         if (this.errorMessage === '') {
-            this.userHomeSer.getJobDescription(this.jobObjSelected)
+            this.sub = this.userHomeSer.getJobDescription(this.jobObjSelected)
                 .finally(() => {
                     this.loading = false;
                 })
@@ -117,7 +114,7 @@ export class JobDetailComponent implements OnInit, OnDestroy {
         this.loading = true;
         this.applyJobObj.id = this.selectedId;
         this.successMessage = '';
-        this.userHomeSer.applyJob(this.applyJobObj)
+        this.subss = this.userHomeSer.applyJob(this.applyJobObj)
             .finally(() => {
                 this.loading = false;
             })
@@ -134,6 +131,18 @@ export class JobDetailComponent implements OnInit, OnDestroy {
                 error => {
                     this.errorMessage = 'Sorry! Something went wrong!';
                 });
+    }
+
+    ngOnDestroy(): void {
+        if (this.sub) {
+            this.sub.unsubscribe();
+        }
+        if (this.subs) {
+            this.subs.unsubscribe();
+        }
+        if (this.subss) {
+            this.subss.unsubscribe();
+        }
     }
 
 }

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
@@ -9,18 +9,20 @@ import {JobState} from '../reducers/job-state';
 import {JobStateInterface} from './job-state';
 import {UserHomeService} from './user-home.service';
 import {timeAgo} from '../custom-lib/time-ago';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
     selector: 'app-user-home',
     templateUrl: './user-home.component.html',
     styleUrls: ['./user-home.component.scss']
 })
-export class UserHomeComponent implements OnInit {
+export class UserHomeComponent implements OnInit, OnDestroy {
     errorMessage = '';
     jobSearch = '';
     loading = false;
     job: Observable<JobState>;
     jobs: JobState[];
+    subs: Subscription;
 
     constructor(private router: Router, private userHomeSer: UserHomeService, private store: Store<JobStateInterface>) {
         this.job = store.select('job');
@@ -33,7 +35,7 @@ export class UserHomeComponent implements OnInit {
     getJobs(): void {
         this.loading = true;
         this.errorMessage = '';
-        this.userHomeSer.getJobs()
+        this.subs = this.userHomeSer.getJobs()
             .finally(() => {
                 this.loading = false;
             })
@@ -59,6 +61,12 @@ export class UserHomeComponent implements OnInit {
     convertToLocal(): void {
         for (let i = 0; i < this.jobs.length; i++) {
             this.jobs[i].time = timeAgo(new Date(parseInt(this.jobs[i].time, 10) * 1000));
+        }
+    }
+
+    ngOnDestroy() {
+        if (this.subs) {
+            this.subs.unsubscribe();
         }
     }
 

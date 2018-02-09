@@ -1,21 +1,23 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import 'rxjs/add/operator/finally';
 
 import {ChgPwdObj} from './chg-pwd-obj';
 import {SettingsService} from './settings.service';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
     selector: 'app-settings',
     templateUrl: './settings.component.html',
     styleUrls: ['./settings.component.scss']
 })
-export class SettingsComponent implements OnInit {
+export class SettingsComponent implements OnInit, OnDestroy {
 
     errorMessage = '';
     successMessage = '';
     loading = false;
     pwdObj = new ChgPwdObj();
     pwd = '';
+    subs: Subscription;
 
     constructor(private settingsSer: SettingsService) {
     }
@@ -29,7 +31,7 @@ export class SettingsComponent implements OnInit {
         this.successMessage = '';
         this.pwdObj.pwd = this.pwd;
         if (this.errorMessage === '') {
-            this.settingsSer.changePassword(this.pwdObj)
+            this.subs = this.settingsSer.changePassword(this.pwdObj)
                 .finally(() => {
                     this.loading = false;
                 })
@@ -74,6 +76,12 @@ export class SettingsComponent implements OnInit {
             return true;
         }
         return false;
+    }
+
+    ngOnDestroy() {
+        if (this.subs) {
+            this.subs.unsubscribe();
+        }
     }
 
 }

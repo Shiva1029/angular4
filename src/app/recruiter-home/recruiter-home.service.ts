@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 
-import {baseUrl} from '../backend';
+import {environment} from '../../environments/environment';
 import {JobObj} from './job-obj';
 
 @Injectable()
@@ -11,10 +11,10 @@ export class RecruiterHomeService {
     }
 
     postJob(obj: JobObj): Observable<any> {
-        return this.http.post(`${baseUrl}postJob.php`, obj);
+        return this.http.post(`${environment.baseUrl}postJob.php`, obj);
     }
 
     getJobs(): Observable<any> {
-        return this.http.post(`${baseUrl}recruiter_home.php`, {});
+        return this.http.post(`${environment.baseUrl}recruiter_home.php`, {});
     }
 }

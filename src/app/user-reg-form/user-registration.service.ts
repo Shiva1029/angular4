@@ -4,7 +4,7 @@ import {Observable} from 'rxjs/Observable';
 
 import {User} from './user';
 import {Recruiter} from './recruiter';
-import {baseUrl} from '../backend';
+import {environment} from '../../environments/environment';
 
 @Injectable()
 export class UserRegistrationService {
@@ -13,11 +13,11 @@ export class UserRegistrationService {
     }
 
     submitUser(obj: User): Observable<any> {
-        return this.http.post(`${baseUrl}userRegistration.php`, obj);
+        return this.http.post(`${environment.baseUrl}userRegistration.php`, obj);
     }
 
     submitRecruiter(obj: Recruiter): Observable<any> {
-        return this.http.post(`${baseUrl}recruiterRegistration.php`, obj);
+        return this.http.post(`${environment.baseUrl}recruiterRegistration.php`, obj);
     }
 
 }

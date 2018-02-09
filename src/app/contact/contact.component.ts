@@ -1,20 +1,22 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import 'rxjs/add/operator/finally';
 
 import {ContactService} from './contact.service';
 import {ContactObj} from './contact-obj';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
     selector: 'app-contact',
     templateUrl: './contact.component.html',
     styleUrls: ['./contact.component.scss']
 })
-export class ContactComponent implements OnInit {
+export class ContactComponent implements OnInit, OnDestroy {
     loading = false;
     successMessage = '';
     errorMessage = '';
     contactObj = new ContactObj();
     recaptcha = '';
+    subs: Subscription;
 
     constructor(private contactSer: ContactService) {
     }
@@ -28,7 +30,7 @@ export class ContactComponent implements OnInit {
         this.errorMessage = '';
         this.successMessage = '';
         this.contactObj.recaptcha = this.recaptcha;
-        this.contactSer.submitUser(this.contactObj)
+        this.subs = this.contactSer.submitUser(this.contactObj)
             .finally(() => {
                 this.loading = false;
             })
@@ -58,6 +60,12 @@ export class ContactComponent implements OnInit {
             captchaRef.reset();
         }
         captchaRef.execute();
+    }
+
+    ngOnDestroy() {
+        if (this.subs) {
+            this.subs.unsubscribe();
+        }
     }
 
 }

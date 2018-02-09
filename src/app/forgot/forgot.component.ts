@@ -4,6 +4,7 @@ import 'rxjs/add/operator/finally';
 
 import {ForgotService} from './forgot.service';
 import {ForgotObj} from './forgot-obj';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
     selector: 'app-forgot',
@@ -17,7 +18,7 @@ export class ForgotComponent implements OnInit, OnDestroy {
     successMessage = '';
     token = '';
     pwd = '';
-    private sub: any;
+    private sub: Subscription;
     private fp = new ForgotObj();
 
     constructor(private route: ActivatedRoute, private router: Router,
@@ -25,7 +26,7 @@ export class ForgotComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this.sub = this.route.params.subscribe(params => {
+         this.route.params.subscribe(params => {
             this.token = params['token'];
             if (this.token !== '') {
                 this.fp.token = this.token;
@@ -33,17 +34,11 @@ export class ForgotComponent implements OnInit, OnDestroy {
         });
     }
 
-    ngOnDestroy(): void {
-        if (this.sub) {
-            this.sub.unsubscribe();
-        }
-    }
-
     changePwd(): void {
         this.loading = false;
         if (this.fp.token) {
             this.fp.pwd = this.pwd;
-            this.forgotSer.changePwd(this.fp)
+           this.sub = this.forgotSer.changePwd(this.fp)
                 .finally(() => {
                     this.loading = false;
                 })
@@ -88,6 +83,12 @@ export class ForgotComponent implements OnInit, OnDestroy {
             return true;
         }
         return false;
+    }
+
+    ngOnDestroy(): void {
+        if (this.sub) {
+            this.sub.unsubscribe();
+        }
     }
 
 }

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
@@ -11,19 +11,21 @@ import * as PostActions from '../reducers/job-actions';
 import {JobState} from '../reducers/job-state';
 import {JobStateInterface} from '../user-home/job-state';
 import {JobStateObj} from './job-state-obj';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
     selector: 'app-logout',
     templateUrl: './logout.component.html',
     styleUrls: ['./logout.component.scss']
 })
-export class LogoutComponent implements OnInit {
+export class LogoutComponent implements OnInit, OnDestroy {
 
     errorMessage = '';
     successMessage = false;
     loading = false;
     login: Observable<boolean>;
     job: Observable<JobState>;
+    subs: Subscription;
 
     constructor(private router: Router, private userLogoutSer: LoginService,
                 private store: Store<LoginState>, private jobStore: Store<JobStateInterface>) {
@@ -39,7 +41,7 @@ export class LogoutComponent implements OnInit {
         this.loading = true;
         this.errorMessage = '';
         if (this.errorMessage === '') {
-            this.userLogoutSer.logoutUser()
+            this.subs = this.userLogoutSer.logoutUser()
                 .finally(() => {
                     this.loading = false;
                 })
@@ -73,5 +75,11 @@ export class LogoutComponent implements OnInit {
 
     setJobToNull(obj: JobState): void {
         this.jobStore.dispatch(new PostActions.AddJobPost(obj));
+    }
+
+    ngOnDestroy() {
+        if (this.subs) {
+            this.subs.unsubscribe();
+        }
     }
 }

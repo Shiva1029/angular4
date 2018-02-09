@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
@@ -12,13 +12,14 @@ import {JobObj} from './job-obj';
 import {JobStateObj} from './job-state-obj';
 import {RecruiterHomeService} from './recruiter-home.service';
 import {timeAgo} from '../custom-lib/time-ago';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
     selector: 'app-recruiter-home',
     templateUrl: './recruiter-home.component.html',
     styleUrls: ['./recruiter-home.component.scss']
 })
-export class RecruiterHomeComponent implements OnInit {
+export class RecruiterHomeComponent implements OnInit, OnDestroy {
 
     loading = false;
     errorMessage = '';
@@ -27,6 +28,8 @@ export class RecruiterHomeComponent implements OnInit {
     jobObj = new JobObj();
     jobs: JobStateObj[];
     recaptchaStr = '';
+    sub: Subscription;
+    subs: Subscription;
 
     constructor(private router: Router, private recruiterHomeSer: RecruiterHomeService, private store: Store<JobStateInterface>) {
         this.job = store.select('recruiterJob');
@@ -39,7 +42,7 @@ export class RecruiterHomeComponent implements OnInit {
     getJobs(): void {
         this.loading = true;
         this.errorMessage = '';
-        this.recruiterHomeSer.getJobs()
+        this.sub = this.recruiterHomeSer.getJobs()
             .finally(() => {
                 this.loading = false;
             })
@@ -89,7 +92,7 @@ export class RecruiterHomeComponent implements OnInit {
 
     postJob(): void {
         this.jobObj.recaptcha = this.recaptchaStr;
-        this.recruiterHomeSer.postJob(this.jobObj)
+        this.subs = this.recruiterHomeSer.postJob(this.jobObj)
             .finally(() => {
                 this.loading = false;
 
@@ -118,6 +121,15 @@ export class RecruiterHomeComponent implements OnInit {
         this.recaptchaStr = captchaResponse;
         if (this.recaptchaStr) {
             this.postJob();
+        }
+    }
+
+    ngOnDestroy() {
+        if (this.sub) {
+            this.sub.unsubscribe();
+        }
+        if (this.subs) {
+            this.subs.unsubscribe();
         }
     }
 

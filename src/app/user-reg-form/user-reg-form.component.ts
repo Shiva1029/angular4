@@ -1,16 +1,17 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import 'rxjs/add/operator/finally';
 
 import {UserRegistrationService} from './user-registration.service';
 import {User} from './user';
 import {Recruiter} from './recruiter';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
     selector: 'app-user-reg-form',
     templateUrl: './user-reg-form.component.html',
     styleUrls: ['./user-reg-form.component.scss']
 })
-export class UserRegFormComponent implements OnInit {
+export class UserRegFormComponent implements OnInit, OnDestroy {
 
     selected = 'student';
     userObj = new User();
@@ -35,6 +36,8 @@ export class UserRegFormComponent implements OnInit {
     rpwd = '';
     recaptchaStrR = '';
     recruiterObj = new Recruiter();
+    subs: Subscription;
+    sub: Subscription;
 
     constructor(private userRegService: UserRegistrationService) {
     }
@@ -152,7 +155,7 @@ export class UserRegFormComponent implements OnInit {
             this.userObj.gender = this.gender;
             this.userObj.recaptcha = this.recaptchaStr;
 
-            this.userRegService.submitUser(this.userObj)
+            this.subs = this.userRegService.submitUser(this.userObj)
                 .finally(() => {
                     this.loading = false;
                 })
@@ -195,7 +198,7 @@ export class UserRegFormComponent implements OnInit {
             this.recruiterObj.pwd = this.rpwd;
             this.recruiterObj.recaptcha = this.recaptchaStrR;
 
-            this.userRegService.submitRecruiter(this.recruiterObj)
+            this.sub = this.userRegService.submitRecruiter(this.recruiterObj)
                 .finally(() => {
                     this.loading = false;
                 })
@@ -278,5 +281,12 @@ export class UserRegFormComponent implements OnInit {
         return false;
     }
 
-
+    ngOnDestroy() {
+        if (this.subs) {
+            this.subs.unsubscribe();
+        }
+        if (this.sub) {
+            this.sub.unsubscribe();
+        }
+    }
 }

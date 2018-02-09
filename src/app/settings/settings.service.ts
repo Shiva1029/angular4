@@ -2,8 +2,8 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 
+import {environment} from '../../environments/environment';
 import {ChgPwdObj} from './chg-pwd-obj';
-import {baseUrl} from '../backend';
 
 @Injectable()
 export class SettingsService {
@@ -12,7 +12,7 @@ export class SettingsService {
     }
 
     changePassword(obj: ChgPwdObj): Observable<any> {
-        return this.http.post(`${baseUrl}change_password.php`, obj);
+        return this.http.post(`${environment.baseUrl}change_password.php`, obj);
     }
 
 }
