@@ -2,9 +2,8 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {StoreModule} from '@ngrx/store';
 import {FormsModule} from '@angular/forms';
-import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
-import {environment} from '../environments/environment';
-import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+import {HttpClientModule} from '@angular/common/http';
+import {StoreTools, Intercepts, environment} from '../environments/environment';
 import {
     RECAPTCHA_SETTINGS,
     RecaptchaSettings,
@@ -20,7 +19,6 @@ import {LoginComponent} from './login/login.component';
 import {UserRegFormComponent} from './user-reg-form/user-reg-form.component';
 import {UserHomeComponent} from './user-home/user-home.component';
 import {UserRegPageComponent} from './user-reg-page/user-reg-page.component';
-import {AuthInterceptor} from './auth-interceptor';
 import {LoginService} from './login/login.service';
 import {UserRegistrationService} from './user-reg-form/user-registration.service';
 import {LogoutComponent} from './logout/logout.component';
@@ -54,33 +52,6 @@ import {FileNotFoundComponent} from './file-not-found/file-not-found.component';
 
 const globalSettings: RecaptchaSettings = {siteKey: '6LcFXzUUAAAAAAybdoCt1u0fy7uyy9nI30AG6JC7'};
 
-const imports: any[] = [BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    HttpClientModule,
-    StoreModule.forRoot({login: loginReducer, job: jobReducer, recruiterJob: RecruiterJobReducer}),
-    RecaptchaModule.forRoot()
-];
-
-const providers: any[] = [
-    {
-        provide: RECAPTCHA_SETTINGS,
-        useValue: globalSettings,
-    }, LoginService, UserRegistrationService, AppService, UserHomeService,
-    CheckAuthGuard, CheckNotAuthGuard, ActivateService, SettingsService,
-    ForgotService, UserGuard, RecruiterGuard, RecruiterHomeService, ProfileService, RecruiterJobDetailService, ContactService];
-
-if (!environment.production) {
-    imports.push(StoreDevtoolsModule.instrument({
-        maxAge: 25
-    }));
-    providers.push({
-        provide: HTTP_INTERCEPTORS,
-        useClass: AuthInterceptor,
-        multi: true,
-    });
-}
-
 @NgModule({
     declarations: [
         AppComponent,
@@ -103,8 +74,21 @@ if (!environment.production) {
         SearchLinksPipe,
         FileNotFoundComponent
     ],
-    imports: imports,
-    providers: providers,
+    imports: [BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        HttpClientModule,
+        StoreModule.forRoot({login: loginReducer, job: jobReducer, recruiterJob: RecruiterJobReducer}),
+        RecaptchaModule.forRoot(),
+        StoreTools
+    ],
+    providers: [
+        {
+            provide: RECAPTCHA_SETTINGS,
+            useValue: globalSettings,
+        }, Intercepts, LoginService, UserRegistrationService, AppService, UserHomeService,
+        CheckAuthGuard, CheckNotAuthGuard, ActivateService, SettingsService,
+        ForgotService, UserGuard, RecruiterGuard, RecruiterHomeService, ProfileService, RecruiterJobDetailService, ContactService],
     bootstrap: [AppComponent]
 })
 export class AppModule {
